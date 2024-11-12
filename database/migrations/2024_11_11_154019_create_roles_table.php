@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('homepages', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('role_name', 20); // Role name (string with max length of 20 characters)
+            $table->integer('access_level');
+            $table->timestamps(); 
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('homepages');
+        Schema::dropIfExists('roles');
     }
 };
