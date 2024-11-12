@@ -16,20 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/homepage', function () {
-    return view('homepage');
-});
-
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
-
-// Route::get('/get-patient-name/{id}', function($id) {
-//     $patient = Patient::find($id);
-//     return 
-// })
-
-Route::get('/roles', function (){
-    return view('roles');
-});
