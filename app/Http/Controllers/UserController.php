@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         // Retrieve all users with their role relationship
@@ -17,33 +16,37 @@ class UserController extends Controller
 
         return response()->json(['data' => $users], 200);
     }
+
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'role_id' => 'required|exists:roles,id',
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email',
-        'password' => 'required|string|min:6',
-        'phone' => 'required|string|max:15',
-        'date_of_birth' => 'required|date',
-        'is_approved' => 'nullable|boolean',
-    ]);
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'phone' => 'required|string|max:15',
+            'date_of_birth' => 'required|date',
+            'role_id' => 'required|exists:roles,id', // Foreign key validation
+        ]);
 
-    // Hash the password before creating the user
-    $validated['password'] = Hash::make($validated['password']);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-    try {
-        \Log::info('Attempting to create user', $validated);
-        $user = User::create($validated);
-        \Log::info('User created successfully', ['user_id' => $user->id]);
+        // Create a new user
+        $user = new User();
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password')); // Hash the password
+        $user->phone = $request->input('phone');
+        $user->date_of_birth = $request->input('date_of_birth');
+        $user->role_id = $request->input('role_id');
+        $user->is_approved = false; // Defaults to false
+
+        $user->save();
 
         return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
-    } catch (\Exception $e) {
-        \Log::error('User creation failed', ['error' => $e->getMessage()]);
-
-        return response()->json(['error' => 'User creation failed', 'message' => $e->getMessage()], 500);
     }
-}
-
 }

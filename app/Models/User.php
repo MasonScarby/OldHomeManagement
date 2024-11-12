@@ -3,26 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
-
-    // Specify the attributes that can be mass-assigned
     protected $fillable = [
-        'role_id',
         'first_name',
         'last_name',
         'email',
         'password',
         'phone',
         'date_of_birth',
+        'role_id',
         'is_approved',
     ];
 
-    // Specify relationships, e.g., if User has a role
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
