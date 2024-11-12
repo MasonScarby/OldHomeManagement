@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.input-group {
+    margin: 20px 0;
+}
+
+.input-group label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.input-group input {
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.action-buttons button.cancel {
+    background-color:  blue;
+}
+
+.action-buttons button:hover {
+    opacity: 0.8;
+}
+
+.message {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}

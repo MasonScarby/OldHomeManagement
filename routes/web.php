@@ -24,3 +24,7 @@ Route::get('/homepage', function () {
 Route::get('/createAppointment', function () {
     return view('createAppointment');
 });
+
+Route::get('/roles', function (){
+    return view('roles');
+});
