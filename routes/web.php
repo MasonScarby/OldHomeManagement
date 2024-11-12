@@ -24,3 +24,8 @@ Route::get('/homepage', function () {
 Route::get('/createAppointment', function () {
     return view('createAppointment');
 });
+
+// Route::get('/get-patient-name/{id}', function($id) {
+//     $patient = Patient::find($id);
+//     return 
+// })
