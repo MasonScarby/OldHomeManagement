@@ -19,11 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/createAppointment', function () {
@@ -38,3 +37,5 @@ Route::get('/createAppointment', function () {
 Route::get('/roles', function (){
     return view('roles');
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
