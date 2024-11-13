@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,18 @@ Route::get('/createAppointment', function () {
 //     return 
 // })
 
+// Route::get('/patient', function (){
+//     return view(view: 'patientInformation');
+// });
+
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
+
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
+Route::post('/patient', [PatientController::class, 'store']);
+Route::get('/patient', [PatientController::class, 'patientsPage']);
+

@@ -15,11 +15,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('family_code', 5);
-            $table->string('emergency_contact', 12);
+            $table->string('emergency_contact', 15);
             $table->string('contact_relationship', 20);
-            $table->string('group', 1);
+            $table->string('group', 1)->default('N'); // Set a default value like 'N'
+            $table->date('admission_date')->nullable();
+            $table->boolean('is_approved')->default(false);
+        
             $table->timestamps();
         });
+        
+        
     }
 
     /**
