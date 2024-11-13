@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,9 @@ Route::get('/createAppointment', function () {
 Route::get('/roles', function (){
     return view('roles');
 });
+
+Route::get('/approval', function (){
+    return view('approval');
+});
+
+Route::get('/roles',[RoleController::class, 'showRoles']);

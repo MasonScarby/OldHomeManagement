@@ -13,3 +13,4 @@ Route::get('/users', [UserController::class, 'index']);
 // Route for listing all roles
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
+
