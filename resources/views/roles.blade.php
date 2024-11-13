@@ -12,8 +12,17 @@
         <table class="table">
             <tr>
                 <th>Role</th>
+
                 <th>Access Level</th>
             </tr>
+            <tbody>
+        @foreach($roles as $role)
+            <tr>
+                <td>{{ $role->role_name }}</td>
+                <td>{{ $role->access_level }}</td> 
+            </tr>
+        @endforeach
+    </tbody>
         </table>
         <form class="input-group">
              <label for="newRole">New Role</label> 

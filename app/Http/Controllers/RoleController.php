@@ -72,4 +72,9 @@ class RoleController extends Controller
     {
         //
     }
+    public function showRoles(){
+        $roles = Role::all();
+        return view('roles',['roles' => $roles]);
+    }
+
 }
