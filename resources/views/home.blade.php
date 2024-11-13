@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    @vite(['resources/js/app.js'])
-</head>
-<body>
-    <h1>Login</h1>
+@extends('layouts.app')
 
-    <form action="{{ route('login') }}" method="POST">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" required>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-        <input type="Submit" value="Login">
-    </form>
-</body>
-</html>
+                    {{ __('You are logged in!') }}
+
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
