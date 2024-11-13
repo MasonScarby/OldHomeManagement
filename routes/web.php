@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +20,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/homepage', function () {
-    return view('homepage');
-});
+
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::get('/createAppointment', function () {
     return view('createAppointment');
 });
 
+// Route::get('/get-patient-name/{id}', function($id) {
+//     $patient = Patient::find($id);
+//     return 
+// })
+
 Route::get('/roles', function (){
     return view('roles');
 });
 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+=======
 Route::get('/approval', function (){
     return view('approval');
 });
 
 Route::get('/roles',[RoleController::class, 'showRoles']);
+
