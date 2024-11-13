@@ -41,10 +41,12 @@ Route::get('/roles', function (){
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
+
 Route::get('/approval', function (){
     return view('approval');
 });
 
-Route::get('/roles',[RoleController::class, 'showRoles']);
+Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
+Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
+
 
