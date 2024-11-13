@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -48,4 +48,12 @@ Route::get('/roles', function (){
     return view('roles');
 });
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+=======
+Route::get('/approval', function (){
+    return view('approval');
+});
+
+Route::get('/roles',[RoleController::class, 'showRoles']);
+

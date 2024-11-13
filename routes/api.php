@@ -18,6 +18,8 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
 
+
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
+
