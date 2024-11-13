@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 
 
@@ -25,14 +24,6 @@ Route::get('/', function () {
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
-    Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
-    Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
-    Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
-    Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
-});
 
 
 Route::get('/createAppointment', function () {
