@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,10 @@ Route::get('/createAppointment', function () {
 // })
 
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
+
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
