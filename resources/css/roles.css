@@ -33,26 +33,43 @@ body {
     font-weight: bold;
 }
 
-.input-group input {
+.input-field {
     padding: 10px;
     margin: 5px;
     width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
 }
 
-.action-buttons button {
+.input-field:focus {
+    border-color: blue;
+    outline: none;
+}
+
+.action-buttons {
+    margin: 20px 0;
+}
+
+.btn {
     padding: 10px 20px;
     margin: 5px;
-    background-color: blue;
-    color: white;
     border: none;
+    color: white;
+    border-radius: 4px;
     cursor: pointer;
+    transition: opacity 0.3s;
 }
 
-.action-buttons button.cancel {
-    background-color:  blue;
+.btn.create {
+    background-color: green;
 }
 
-.action-buttons button:hover {
+.btn.cancel {
+    background-color: red;
+}
+
+.btn:hover {
     opacity: 0.8;
 }
 
@@ -64,5 +81,5 @@ body {
 }
 
 .role {
-display: inline-block;
+    display: inline-block;
 }
