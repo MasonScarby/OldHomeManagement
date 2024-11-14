@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -45,7 +46,7 @@ Route::get('/createAppointment', function () {
 // })
 
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
 
 
@@ -55,7 +56,14 @@ Route::get('/approval', function (){
     return view('approval');
 });
 
+
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
+
+
+Route::get('/roles',[RoleController::class, 'showRoles']);
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
 
 
