@@ -60,6 +60,9 @@ Route::get('/approval', function (){
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
 
+Route::get('/employees', function () {
+    return view('employees');
+});
 
 Route::get('/roles',[RoleController::class, 'showRoles']);
 
