@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 
+=======
+use App\Http\Controllers\UserController;
+>>>>>>> cceaf27ee4b7a856272ae277dfc35159af82f492
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +49,11 @@ Route::get('/createAppointment', function () {
 // })
 
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
 
 
+<<<<<<< HEAD
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 =======
 Route::get('/approval', function (){
@@ -56,4 +61,8 @@ Route::get('/approval', function (){
 });
 
 Route::get('/roles',[RoleController::class, 'showRoles']);
+=======
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+>>>>>>> cceaf27ee4b7a856272ae277dfc35159af82f492
 
