@@ -27,13 +27,11 @@ class RoleController extends Controller
         ]);
 
         // Create a new role and store it in the database
-        $role = Role::create([
+        Role::create([
             'role_name' => $request->role_name,
             'access_level' => $request->access_level,
         ]);
-
-        // Return a success message with the created role
-        return response()->json(['message' => 'Role created successfully', 'data' => $role], 201);
+        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
     public function create()
     {
@@ -73,8 +71,8 @@ class RoleController extends Controller
         //
     }
     public function showRoles(){
-        $roles = Role::all();
-        return view('roles',['roles' => $roles]);
+        $roles = Role::all(['role_name', 'access_level']);
+        return view('roles', compact('roles'));
     }
 
 }
