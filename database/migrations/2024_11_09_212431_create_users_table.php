@@ -11,13 +11,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('first_name', 20);
+            $table->string('last_name', 20);
+            $table->string('email', 30)->unique();
             $table->string('password', 255);
-            $table->string('phone');
+            $table->string('phone', 15);
             $table->date('date_of_birth');
-            $table->boolean('is_approved')->default(false); // Set default value to false
             $table->timestamps();
         });
     }

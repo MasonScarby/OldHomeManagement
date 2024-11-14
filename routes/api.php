@@ -22,6 +22,12 @@ Route::post('/roles', [RoleController::class, 'store']);
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
+<<<<<<< HEAD
+=======
+
+Route::post('/users', [UserController::class, 'store']);
+Route::get('/users', [UserController::class, 'index']);
+>>>>>>> cceaf27ee4b7a856272ae277dfc35159af82f492
 
 // Employees
 Route::get('/employees', [EmployeesController::class, 'index']);

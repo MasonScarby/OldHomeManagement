@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -18,9 +19,8 @@ use App\Http\Controllers\RoleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
-
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -28,6 +28,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
+    Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
     Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
@@ -45,7 +46,7 @@ Route::get('/createAppointment', function () {
 // })
 
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
 
 
@@ -55,10 +56,17 @@ Route::get('/approval', function (){
     return view('approval');
 });
 
+
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
 
 Route::get('/employees', function () {
     return view('employees');
 });
+
+Route::get('/roles',[RoleController::class, 'showRoles']);
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
 
