@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Role</h1>
+        <h1>Role History</h1>
         <table class="table">
             <tr>
                 <th>Role</th>
@@ -24,18 +24,20 @@
         @endforeach
     </tbody>
         </table>
-        <form class="input-group">
-             <label for="newRole">New Role</label> 
-             <input type="text" id="newRole" placeholder="Enter role">
-        </form>
-        <form class="input-group"> 
-            <label for="accessLevel">Access Level</label> 
-            <input type="text" id="accessLevel" placeholder="Enter access level"> 
-        </form>
-        <div class="action-buttons">
-            <button>Ok</button>
-            <button class="cancel">Cancel</button>
+       <form action="{{route('roles.store')}}" method="POST">
+        @csrf
+        <div class="input-group">
+            <label for ="role_name">Role Name:</label>
+            <input type="text" id="role_name" name="role_name" required>
         </div>
+
+        <div class="input-group">
+            <label for="access_level">Access Level:</label>
+            <input type="number" id="access_level" name="access_level" required>
+        </div class="action-buttons">
+        <button type="submit">Create</button>
+        <button type="submit">Cancel</button>
+       </form>
     </div>
 </body>
 </html>
