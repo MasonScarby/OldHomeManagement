@@ -27,7 +27,14 @@ class AuthController extends Controller
     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         // Check user role
         $user = Auth::user();
-        $role = $user->role->role_name; // Assuming 'name' is a column in the roles table
+
+        if (!$user->is_approved) {
+            // If the user is not approved, log them out and redirect with an error message
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Your account has not been approved yet.']);
+        }
+
+        $role = $user->role->role_name;
 
         // Redirect based on role
         switch ($role) {

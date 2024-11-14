@@ -18,9 +18,8 @@ use App\Http\Controllers\RoleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
-
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -28,6 +27,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
+    Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
     Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
@@ -50,10 +50,6 @@ Route::get('/roles', function (){
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
-Route::get('/approval', function (){
-    return view('approval');
-});
 
 Route::get('/roles',[RoleController::class, 'showRoles']);
 

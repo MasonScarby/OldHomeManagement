@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('family_code', 5);
-            $table->string('emergency_contact', 12);
+            $table->string('emergency_contact', 15);
             $table->string('contact_relationship', 20);
             $table->string('group', 1);
             $table->timestamps();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('role_name', 20); // Role name (string with max length of 20 characters)
+            $table->string('role_name', 20);
             $table->integer('access_level');
             $table->timestamps(); 
         });
