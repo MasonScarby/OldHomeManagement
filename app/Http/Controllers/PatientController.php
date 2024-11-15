@@ -26,26 +26,34 @@ class PatientController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'user_id' => 'required|exists:users,id',
-        'family_code' => 'required|string|max:5',
-        'emergency_contact' => 'required|string',
-        'contact_relationship' => 'required|string|max:20',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
+    {
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'family_code' => 'required|string|max:5',
+            'emergency_contact' => 'required|string',
+            'contact_relationship' => 'required|string|max:20',
+        ]);
+        
+        // Return validation errors if any
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        
+        // Create a new patient instance
+        $patient = new Patient();
+        $patient->user_id = $request->input('user_id');
+        $patient->family_code = $request->input('family_code');
+        $patient->emergency_contact = $request->input('emergency_contact');
+        $patient->contact_relationship = $request->input('contact_relationship');
+        $patient->group = $request->input('group', '');  // Default null if not provided
+        $patient->admission_date = $request->input('admission_date', now()); // Default null if not provided
+        
+        $patient->save();
+        
+        // Redirect to a different page or return a response
+        return redirect()->route('login');  // Redirect after successful patient creation
     }
-
-    $patient = new Patient(); 
-    $patient->user_id = $request->input('user_id');
-    $patient->family_code = $request->input('family_code');
-    $patient->emergency_contact = $request->input('emergency_contact');
-    $patient->contact_relationship = $request->input('contact_relationship');
-    $patient->save();
-
-    return view('login'); 
-}
+    
 
 }

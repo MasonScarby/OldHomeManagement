@@ -11,10 +11,11 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
-        return response()->json(['data' => $roles], 200);
+        $roles = Role::all(columns: ['role_name', 'access_level']);
+        return view('roles', data: compact('roles'));
     }
-    public function store(Request $request)
+
+    public function store(Request $request) 
     {
         $request->validate([
             'role_name' => 'required|string|max:50',
@@ -28,7 +29,7 @@ class RoleController extends Controller
         ]);
 
         // Return a success message with the created role
-        return response()->json(['message' => 'Role created successfully', 'data' => $role], 201);
+        return redirect()->route('roles.index');    
     }
     public function create()
     {

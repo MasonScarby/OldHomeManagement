@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+// */
 
 Route::get('/', function () {
     return view('login');
@@ -41,26 +41,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
-
-
-
-// Route::get('/get-patient-name/{id}', function($id) {
-//     $patient = Patient::find($id);
-//     return 
-// })
-
-Route::get('/roles', function (){
-    return view('roles');
-});
-
-
 Route::get('/user', [UserController::class, 'showRegisterForm']);
 Route::post('/user', [UserController::class, 'store']);
 
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
