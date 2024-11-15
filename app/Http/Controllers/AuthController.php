@@ -14,7 +14,6 @@ class AuthController extends Controller
         return view('login');
     }
 
-    // Handle login
     public function login(Request $request)
 {
     // Validate login credentials
@@ -34,21 +33,21 @@ class AuthController extends Controller
             return redirect()->route('login')->withErrors(['email' => 'Your account has not been approved yet.']);
         }
 
-        $role = $user->role->role_name;
+        $accessLevel = $user->role->access_level;
 
-        // Redirect based on role
-        switch ($role) {
-            case 'admin':
-                return redirect()->route('approval');
-            case 'supervisor':
-                return redirect()->route('approval');
-            case 'doctor':
+        // Redirect based on access level
+        switch ($accessLevel) {
+            case 1:
+                return redirect()->route('approval'); // Admin access
+            case 2:
+                return redirect()->route('approval'); // Supervisor access
+            case 3:
                 return redirect()->route('doctorHome');
-            case 'caregiver':
+            case 4:
                 return redirect()->route('caregiverHome');
-            case 'patient':
+            case 5:
                 return redirect()->route('patientHome');
-            case 'family member':
+            case 6:
                 return redirect()->route('family_memberHome');
             default:
                 return redirect()->route('home');

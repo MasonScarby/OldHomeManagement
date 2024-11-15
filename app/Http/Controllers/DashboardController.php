@@ -41,6 +41,10 @@ public function approveUsers(Request $request)
         return redirect()->route('approval')->with('status', 'User approvals updated successfully!');
     }
 
+public function approvalPage()
+{
+    return view('approval');
+}
 
 public function doctorHome()
 {

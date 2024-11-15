@@ -35,38 +35,36 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
+
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
+
 
 // Route::get('/get-patient-name/{id}', function($id) {
 //     $patient = Patient::find($id);
 //     return 
 // })
 
+
+
 Route::get('/roles', function (){
     return view(view: 'roles');
 });
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/approval', function (){
-    return view('approval');
-});
-
-
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
+
+
 
 Route::get('/employees', function () {
     return view('employees');
 });
 
-Route::get('/roles',[RoleController::class, 'showRoles']);
-
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
 
 
+Route::get('/createAppointment', function () {
+    return view('createAppointment');
+});
