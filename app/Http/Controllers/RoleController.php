@@ -11,10 +11,11 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
-        return response()->json(['data' => $roles], 200);
+        $roles = Role::all(['role_name', 'access_level']);
+        return view('roles', compact('roles'));
     }
-    public function store(Request $request)
+    
+    public function store(Request $request) 
     {
         $request->validate([
             'role_name' => 'required|string|max:50',
@@ -67,9 +68,6 @@ class RoleController extends Controller
     {
         //
     }
-    public function showRoles(){
-        $roles = Role::all(['role_name', 'access_level']);
-        return view('roles', compact('roles'));
-    }
+    
 
 }

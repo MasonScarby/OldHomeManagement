@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-Use\App\Http\Controllers\AuthController;
-Use\App\Http\Controllers\DashboardController;
-Use\App\Http\Controllers\UserController;
-Use\App\Http\Controllers\RoleController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -50,9 +50,8 @@ Route::post('/user', [UserController::class, 'store']);
 //     return 
 // })
 
-Route::get('/roles', function (){
-    return view('roles');
-});
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
 Route::get('/user', [UserController::class, 'showRegisterForm']);
