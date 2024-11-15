@@ -22,22 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 // */
 
-Route::get('/', function () {
-    return view('login');
-});
-
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
-    Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
-    Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
-    Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
-    Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
-    Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
-});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -49,3 +33,21 @@ Route::get('/patient', [PatientController::class, 'patientsPage']);
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::get('/', function () {
+    return view('login');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
+    Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
+    Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
+    Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
+    Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
+    Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
+});
