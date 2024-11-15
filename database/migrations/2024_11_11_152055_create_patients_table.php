@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('contact_relationship', 20);
             $table->string('group', 1)->default(null);
             $table->date('admission_date')->default(null);
-            $table->boolean('is_approved')->default(value: false);
             $table->timestamps();
         });
     }

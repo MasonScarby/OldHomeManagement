@@ -17,7 +17,7 @@ class User extends Authenticatable
         'phone',
         'date_of_birth',
         'role_id',
-        'is_approved',
+        'is_approved'
     ];
 
     public function role(): BelongsTo
