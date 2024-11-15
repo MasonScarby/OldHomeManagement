@@ -34,10 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
+
 
 // Route::get('/get-patient-name/{id}', function($id) {
 //     $patient = Patient::find($id);
@@ -47,15 +46,13 @@ Route::get('/createAppointment', function () {
 Route::get('/roles', function (){
     return view('roles');
 });
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/approval', function (){
-    return view('approval');
-});
-
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
+
+
+
+Route::get('/createAppointment', function () {
+    return view('createAppointment');
+});
 
 
