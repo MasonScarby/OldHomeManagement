@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255);
             $table->string('phone', 15);
             $table->date('date_of_birth');
+            $table->boolean('is_approved')->default(false); // Set default value to false
             $table->timestamps();
         });
     }

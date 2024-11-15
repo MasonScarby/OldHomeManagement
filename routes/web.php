@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+Use\App\Http\Controllers\AuthController;
+Use\App\Http\Controllers\DashboardController;
+Use\App\Http\Controllers\UserController;
+Use\App\Http\Controllers\RoleController;
 
 
 /*
@@ -35,10 +36,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
+
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
+
 
 // Route::get('/get-patient-name/{id}', function($id) {
 //     $patient = Patient::find($id);
@@ -46,27 +51,13 @@ Route::get('/createAppointment', function () {
 // })
 
 Route::get('/roles', function (){
-    return view(view: 'roles');
+    return view('roles');
 });
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/approval', function (){
-    return view('approval');
-});
-
-
-Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
-Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
-
-Route::get('/employees', function () {
-    return view('employees');
-});
-
-Route::get('/roles',[RoleController::class, 'showRoles']);
 
 Route::get('/user', [UserController::class, 'showRegisterForm']);
 Route::post('/user', [UserController::class, 'store']);
 
+Route::post('/patient', [PatientController::class, 'store']);
+Route::get('/patient', [PatientController::class, 'patientsPage']);
 

@@ -14,29 +14,25 @@ class RoleController extends Controller
         $roles = Role::all();
         return response()->json(['data' => $roles], 200);
     }
-
-    // Create a new role
     public function store(Request $request)
     {
-        // Validate the incoming request data
         $request->validate([
             'role_name' => 'required|string|max:50',
             'access_level' => 'required|integer',
         ]);
 
         // Create a new role and store it in the database
-        Role::create([
+        $role = Role::create([
             'role_name' => $request->role_name,
             'access_level' => $request->access_level,
         ]);
-        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+
+        // Return a success message with the created role
+        return response()->json(['message' => 'Role created successfully', 'data' => $role], 201);
     }
     public function create()
     {
-        // Retrieve all roles to display in the dropdown
-        $roles = Role::all();
-        
-        return view('register', compact('roles'));
+        //
     }
 
 
