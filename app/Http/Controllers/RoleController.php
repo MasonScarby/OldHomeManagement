@@ -20,18 +20,20 @@ class RoleController extends Controller
             'role_name' => 'required|string|max:50',
             'access_level' => 'required|integer',
         ]);
+
+        // Create a new role and store it in the database
         $role = Role::create([
             'role_name' => $request->role_name,
             'access_level' => $request->access_level,
         ]);
+
+        // Return a success message with the created role
         return response()->json(['message' => 'Role created successfully', 'data' => $role], 201);
     }
-    // public function create()
-    // {
-    //     $roles = Role::all();
-        
-    //     return view('user', data: compact('roles'));
-    // }
+    public function create()
+    {
+        //
+    }
 
 
     /**
@@ -65,4 +67,9 @@ class RoleController extends Controller
     {
         //
     }
+    public function showRoles(){
+        $roles = Role::all(['role_name', 'access_level']);
+        return view('roles', compact('roles'));
+    }
+
 }

@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-
+use\HTTP\\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,28 +15,38 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-Route::get('/homepage', function () {
-    return view('homepage');
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
+    Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
+    Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
+    Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
+    Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
+    Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
+
 
 // Route::get('/get-patient-name/{id}', function($id) {
 //     $patient = Patient::find($id);
 //     return 
 // })
 
-// Route::get('/patient', function (){
-//     return view(view: 'patientInformation');
-// });
-
 Route::get('/roles', function (){
-    return view(view: 'roles');
+    return view('roles');
 });
 
 

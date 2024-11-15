@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('role_name', 20); // Role name (string with max length of 20 characters)
-            $table->integer('access_level');
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id('employee_id'); 
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
+            $table->string('role_name'); 
+            $table->decimal('salary', 10, 2); 
             $table->timestamps(); 
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('employees');
     }
 };
