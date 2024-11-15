@@ -6,7 +6,7 @@
     <title>Role Creator</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="roles">
     <div class="container">
         <h1>Role History</h1>
         <table class="table">

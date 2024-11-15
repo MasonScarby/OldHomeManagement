@@ -6,7 +6,7 @@
     <title>Employees</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="employees">
 <div class="container">
     <h2>Employee</h2>
 

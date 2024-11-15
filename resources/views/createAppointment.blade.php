@@ -7,7 +7,7 @@
     <title>Create Appointment</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="createAppointments">
     <h1>Create New Doctor's Appointment</h1>
     <form action="" method="POST">
         <label for="patient_id">Patient ID</label>
