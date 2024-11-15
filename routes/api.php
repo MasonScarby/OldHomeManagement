@@ -23,8 +23,16 @@ Route::post('/roles', [RoleController::class, 'store']);
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
+<<<<<<< Updated upstream
 Route::post('/users', [UserController::class, 'store']);
 // Route::get('/users', [UserController::class, 'index']);
+=======
+
+
+Route::post('/users', [UserController::class, 'store']);
+Route::get('/users', [UserController::class, 'index']);
+
+>>>>>>> Stashed changes
 
 // Route for listing all roles
 Route::get('/roles', [RoleController::class, 'index']);
