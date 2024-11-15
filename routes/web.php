@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
-Use\App\Http\Controllers\AuthController;
-Use\App\Http\Controllers\DashboardController;
-Use\App\Http\Controllers\UserController;
-Use\App\Http\Controllers\RoleController;
+
+// Your route definitions here
+
 
 
 /*
