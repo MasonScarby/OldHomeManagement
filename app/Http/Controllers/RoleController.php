@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 class RoleController extends Controller
 {
-    // Display all roles
     public function index()
     {
-        // Retrieve all roles from the database
         $roles = Role::all();
-
-        // Return the roles as a JSON response
         return response()->json(['data' => $roles], 200);
     }
 
@@ -35,7 +33,10 @@ class RoleController extends Controller
     }
     public function create()
     {
-        //
+        // Retrieve all roles to display in the dropdown
+        $roles = Role::all();
+        
+        return view('register', compact('roles'));
     }
 
 

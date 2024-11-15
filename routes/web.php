@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -38,21 +39,32 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
+
+
+
 // Route::get('/get-patient-name/{id}', function($id) {
 //     $patient = Patient::find($id);
 //     return 
 // })
 
+
+
 Route::get('/roles', function (){
-    return view('roles');
+    return view(view: 'roles');
 });
 Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
 Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
 
 
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
+Route::get('/employees', function () {
+    return view('employees');
 });
 
 
+
+Route::get('/createAppointment', function () {
+    return view('createAppointment');
+});

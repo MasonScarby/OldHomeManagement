@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function showRegisterForm()
+    {
+        $roles = \App\Models\Role::all(); 
+        return view('user', compact('roles'));
+    }
+
     public function index()
     {
-        // Retrieve all users with their role relationship
         $users = User::with('role')->get();
-
-        return response()->json(['data' => $users], 200);
+        return response()->json(['data' => $users], 201);
     }
 
     public function store(Request $request)
@@ -47,6 +51,9 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
+        // return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
+        return view('welcome');
+
     }
 }
+
