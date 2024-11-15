@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-use\HTTP\\AuthController;
+Use\App\Http\Controllers\AuthController;
+Use\App\Http\Controllers\DashboardController;
+Use\App\Http\Controllers\UserController;
+Use\App\Http\Controllers\RoleController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
