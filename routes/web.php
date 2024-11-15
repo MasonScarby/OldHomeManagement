@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+Use\App\Http\Controllers\AuthController;
+Use\App\Http\Controllers\DashboardController;
+Use\App\Http\Controllers\UserController;
+Use\App\Http\Controllers\RoleController;
 
 
 /*
@@ -49,22 +50,14 @@ Route::post('/user', [UserController::class, 'store']);
 //     return 
 // })
 
-
-
 Route::get('/roles', function (){
-    return view(view: 'roles');
-});
-Route::get('/roles',[RoleController::class, 'showRoles']) -> name('roles.index');
-Route::post('/roles',[RoleController::class, 'store']) -> name('roles.store');
-
-
-
-Route::get('/employees', function () {
-    return view('employees');
+    return view('roles');
 });
 
 
+Route::get('/user', [UserController::class, 'showRegisterForm']);
+Route::post('/user', [UserController::class, 'store']);
 
-Route::get('/createAppointment', function () {
-    return view('createAppointment');
-});
+Route::post('/patient', [PatientController::class, 'store']);
+Route::get('/patient', [PatientController::class, 'patientsPage']);
+

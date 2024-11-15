@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('family_code', 5);
             $table->string('emergency_contact', 15);
             $table->string('contact_relationship', 20);
-            $table->string('group', 1)->default(null);
-            $table->date('admission_date')->default(null);
+            $table->string('group', 1);
             $table->timestamps();
         });
+        
+        
     }
 
     /**
