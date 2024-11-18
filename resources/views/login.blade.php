@@ -29,5 +29,7 @@
 
         <input type="Submit" value="Login">
     </form>
+
+    <a href="{{ route('register') }}">Create an account</a>
 </body>
 </html>

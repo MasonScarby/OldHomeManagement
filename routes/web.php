@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,13 +47,13 @@ Route::post('/register', [UserController::class, 'store']);
 
 
 
-// Route::get('/get-patient-name/{id}', function($id) {
-//     $patient = Patient::find($id);
-//     return 
-// })
-
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+
+Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
+Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
 
 
 
