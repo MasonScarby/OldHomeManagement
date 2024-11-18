@@ -13,7 +13,7 @@
     <form action="{{ url('/patient') }}" method="POST">
         @csrf
         <div>
-            <label for="user_id">Patient ID</label>
+            <label for="user_id">User ID</label>
             <input type="text" name="user_id" id="user_id" required>
         </div>
        

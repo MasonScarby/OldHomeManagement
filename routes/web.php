@@ -40,8 +40,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
+Route::get('/register', [UserController::class, 'showRegisterForm']);
+Route::post('/register', [UserController::class, 'store']);
 
 
 
@@ -54,8 +54,6 @@ Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
 
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
