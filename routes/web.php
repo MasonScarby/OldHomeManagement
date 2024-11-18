@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-Use\App\Http\Controllers\AuthController;
-Use\App\Http\Controllers\DashboardController;
-Use\App\Http\Controllers\UserController;
-Use\App\Http\Controllers\RoleController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\EmployeesController;
 
 
 /*
@@ -61,3 +62,8 @@ Route::post('/user', [UserController::class, 'store']);
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+Route::get('/employees', [EmployeesController::class, 'index']);
+Route::post('/employees', [EmployeesController::class, 'store']);

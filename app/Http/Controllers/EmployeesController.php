@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\employees;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -11,7 +11,8 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employees::all();
+        return response()->json($employees);
     }
 
     /**
@@ -46,3 +47,4 @@ class EmployeesController extends Controller
         //
     }
 }
+?>
