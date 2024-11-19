@@ -43,6 +43,8 @@ class PatientController extends Controller
     $patient->family_code = $request->input('family_code');
     $patient->emergency_contact = $request->input('emergency_contact');
     $patient->contact_relationship = $request->input('contact_relationship');
+    $patient->group = $request->input('group', '');
+    $patient->admission_date = $request->input('admission_date', now());
     $patient->save();
 
     return view('login'); 
