@@ -11,8 +11,8 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employees::all();
-        return response()->json($employees);
+        $employees = Employees::with('users','roles')->get();
+        return view('employees', compact('employees')); 
     }
 
     /**
@@ -20,7 +20,18 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+$validateData = $request->validate([
+    'user_id' => 'required|exists:users,id',
+    'role_name' => 'required|exists:roles,id',
+    'salary' => 'required|numeric|min:0'
+]);
+$employee = employees::create([
+    'user_id' => $validatedData['user_id'],
+    'role_name' => $validatedData['role_name'],
+    'salary' => $validatedData['salary']
+]);
+
+return response()->json($employee,201);
     }
 
     /**

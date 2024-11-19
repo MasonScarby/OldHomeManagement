@@ -9,9 +9,18 @@ class employees extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'role',
-        'salary',
+       'employee_id',
         'user_id',
-        'employee_id'
+        'role_name',
+        'salary',
     ];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_name');
+    }
 }
