@@ -3,20 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        @include('navbar')
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Approval Dashboard') }}</div>
 
-                <nav>
-                    <ul>
-                        <li><a href="{{ route('approval') }}">Approval Page</a></li>
-                
-                        @if(auth()->check() && auth()->user()->role->access_level === 1)
-                            <li><a href="{{ route('roles.index') }}">Create Roles</a></li>
-                        @endif
-                    </ul>
-                </nav>
-                
                 
                 <div class="card-body">
                     @if (session('status'))
@@ -72,10 +64,6 @@
                         });
                     </script>
                     
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
                     
                 </div>
             </div>

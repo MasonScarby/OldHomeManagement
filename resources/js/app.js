@@ -12,3 +12,6 @@ else if (document.body.classList.contains("employees")) {
 else if (document.body.classList.contains("patientAssignment")) {
     import('../css/patientAssignment.css');
 }
+else if (document.body.classList.contains("patientList")) {
+    import('../css/patientList.css');
+}

@@ -57,6 +57,10 @@ Route::post('/patient-assignment', [DashboardController::class, 'storePatientAss
 
 
 
+Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
+
+
+
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
