@@ -18,6 +18,10 @@ class Patient extends Model
         'admission_date',
     ];
 
+    protected $casts = [
+        'admission_date' => 'datetime',
+    ];
+
     public function user()
 {
     return $this->belongsTo(User::class);
