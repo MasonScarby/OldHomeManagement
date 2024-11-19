@@ -1,13 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
-
+use App\Http\Controllers\EmployeesController;
 
 
 /*
@@ -42,7 +40,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
+Route::get('/register', [UserController::class, 'showRegisterForm']);
 Route::post('/register', [UserController::class, 'store']);
 
 
@@ -60,3 +58,5 @@ Route::post('/patient-assignment', [DashboardController::class, 'storePatientAss
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
+Route::get('/employees', [EmployeesController::class, 'index']);
+Route::post('/employees', [EmployeesController::class, 'store']);
