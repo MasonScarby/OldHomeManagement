@@ -6,7 +6,7 @@
     <title>Register</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Register</h1>
 
     @if($errors->any())
         <div style="color: red;">
@@ -63,5 +63,7 @@
 
         <button type="submit">Register</button>
     </form> 
+
+    <a href="{{ route('login') }}">Login</a>
 </body>
 </html>
