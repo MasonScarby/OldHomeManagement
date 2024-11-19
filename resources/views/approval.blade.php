@@ -7,6 +7,17 @@
             <div class="card">
                 <div class="card-header">{{ __('Approval Dashboard') }}</div>
 
+                <nav>
+                    <ul>
+                        <li><a href="{{ route('approval') }}">Approval Page</a></li>
+                
+                        @if(auth()->check() && auth()->user()->role->access_level === 1)
+                            <li><a href="{{ route('roles.index') }}">Create Roles</a></li>
+                        @endif
+                    </ul>
+                </nav>
+                
+                
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

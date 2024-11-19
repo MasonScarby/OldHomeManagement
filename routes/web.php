@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
-Use\App\Http\Controllers\AuthController;
-Use\App\Http\Controllers\DashboardController;
-Use\App\Http\Controllers\UserController;
-Use\App\Http\Controllers\RoleController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
+
 
 
 /*
@@ -40,23 +42,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
+Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [UserController::class, 'store']);
 
 
 
-// Route::get('/get-patient-name/{id}', function($id) {
-//     $patient = Patient::find($id);
-//     return 
-// })
-
-Route::get('/roles', function (){
-    return view('roles');
-});
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
-Route::get('/user', [UserController::class, 'showRegisterForm']);
-Route::post('/user', [UserController::class, 'store']);
+Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
+Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
+
+
 
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);

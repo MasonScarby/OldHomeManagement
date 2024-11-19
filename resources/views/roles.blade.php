@@ -6,7 +6,25 @@
     <title>Role Creator</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="roles">
+
+    <nav>
+        <ul>
+            <li><a href="{{ route('approval') }}">Approval Page</a></li>
+    
+            @if(auth()->check() && auth()->user()->role->access_level === 1)
+                <li><a href="{{ route('roles.index') }}">Create Roles</a></li>
+            @endif
+    
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
     <div class="container">
         <h1>Role History</h1>
         <table class="table">
