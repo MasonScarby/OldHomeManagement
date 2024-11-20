@@ -7,6 +7,8 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="employees">
+    @include('navbar')
+    
 <div class="container">
     <h2>Employee</h2>
 

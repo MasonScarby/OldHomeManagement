@@ -8,10 +8,12 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="patientList">
+
+    @include('navbar')
+    
     <div class="container">
         <h1>Patient List</h1>
 
-        @include('navbar')
 
         <form action="{{ route('patientList') }}" method="GET">
             <label for="search_by">Search By:</label>

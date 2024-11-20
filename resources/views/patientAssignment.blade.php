@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="patient_assignment">
+    @include('navbar')
+
     <h1>Additional Information of Patient</h1>
 
     @if ($errors->has('patient_id'))
@@ -80,6 +82,13 @@
                 $('#patient_id_error').text('Please enter a patient id.').show();
             }
         });
+    });
+
+    // Set the minimum date for the admission_date input
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date(); // Get today's date
+        const formattedDate = today.toISOString().split('T')[0]; // Format it as yyyy-mm-dd
+        document.getElementById('admission_date').setAttribute('min', formattedDate); // Set the min attribute
     });
 </script>
 
