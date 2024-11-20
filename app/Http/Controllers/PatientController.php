@@ -55,5 +55,4 @@ class PatientController extends Controller
         return redirect()->route('login');  // Redirect after successful patient creation
     }
     
-
 }

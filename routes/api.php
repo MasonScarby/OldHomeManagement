@@ -6,6 +6,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RosterController;
 
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -23,3 +24,6 @@ Route::post('/roles', [RoleController::class, 'store']);
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
+
+Route::post('/roster', [RosterController::class, 'store']);
+Route::get('/roster', [RosterController::class, 'index']);

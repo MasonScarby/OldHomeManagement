@@ -8,10 +8,11 @@
 </head>
 <body class="login">
     <h1>Login</h1>
-    @if($errors->any())
-        <div style="color: red;">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
             <ul>
-                @foreach($errors->all() as $error)
+                @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>

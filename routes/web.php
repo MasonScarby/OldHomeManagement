@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RosterController;
+
 use Illuminate\Support\Facades\Route;
 
 // Your route definitions here
@@ -51,3 +53,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
+
+//patient list
+Route::get('/patient/search', [PatientController::class, 'search'])->name('patient.search');
+Route::get('/patients', [PatientController::class, 'patientList']);
+
+
+Route::get('/roster', [RosterController::class, 'showRosterForm']);
+Route::post('/roster', [RosterController::class, 'store'])->name('roster.store');

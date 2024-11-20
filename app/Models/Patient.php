@@ -17,4 +17,10 @@ class Patient extends Model
         'group',
         'admission_date',
     ];
+    public function user()
+{
+    return $this->belongsTo(User::class);  // A patient belongs to a user
 }
+}
+
+

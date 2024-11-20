@@ -22,13 +22,11 @@ class RoleController extends Controller
             'access_level' => 'required|integer',
         ]);
 
-        // Create a new role and store it in the database
         $role = Role::create([
             'role_name' => $request->role_name,
             'access_level' => $request->access_level,
         ]);
 
-        // Return a success message with the created role
         return redirect()->route('roles.index');    
     }
     public function create()

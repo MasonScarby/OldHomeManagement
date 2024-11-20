@@ -11,6 +11,7 @@ class UserController extends Controller
     public function showRegisterForm()
     {
         $roles = \App\Models\Role::all(); 
+        
         return view('user', compact('roles'));
     }
 
