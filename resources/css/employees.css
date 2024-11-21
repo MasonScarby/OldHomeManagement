@@ -49,21 +49,5 @@ h2 {
     width: 120px;
     font-size: 1em;
 }
-.controls .ok-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-}
-.controls .cancel-btn {
-    background-color: #3b8d3b;
-    color: white;
-    border: 1px solid #3b8d3b;
-}
-.button-label {
-    background-color: #0073e6;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
-}
+
+
