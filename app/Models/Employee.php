@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class employees extends Model
+class Employee extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'employee_id',
         'user_id',
-        'role_name',
+        'first_name',
+        'last_name',
+        'role_id',
         'salary',
     ];
     public function user(): BelongsTo
@@ -21,6 +23,6 @@ class employees extends Model
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_name');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }
