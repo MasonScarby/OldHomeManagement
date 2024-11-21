@@ -11,13 +11,20 @@
     <h2>Employee</h2>
 
     <table class="employee-table">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Salary</th>
-        </tr>
-        <!-- Dynamic employee data will be linked here -->
+    <tr>
+        <th>Emp ID</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Salary</th>
+    </tr>
+    @foreach($employees as $employee)
+    <tr>
+        <td>{{ $employee->id }}</td>
+        <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
+        <td>{{ $employee->role->role_name }}</td> 
+        <td>{{ $employee->salary }}</td>
+    </tr>
+    @endforeach
     </table>
 
     <div class="controls">
