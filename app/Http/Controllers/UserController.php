@@ -3,8 +3,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\supervisor;
+use App\Models\doctor;
+use App\Models\caregiver;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -50,12 +56,33 @@ class UserController extends Controller
 
         $user->save();
 
-         $role = $user->role->role_name;
-
-         if ($role == 'patient') {
-             return view("patientInformation");  
-         } else {
-             return view("login");
-         }
+        $role = $user->role->role_name;
+        
+       // return response()->json(['message' => 'successful'], 201);
+       if ($role === 'patient') {
+        return view("patientInformation");
+        } 
+        elseif ($role === 'supervisor') {
+            Supervisor::create([
+                'user_id' => $user->id,
+            ]);
+            return response()->json(['message' => 'successful supervisor'], 201);
+        } 
+        elseif ($role === 'doctor') {
+            Doctor::create([
+                'user_id' => $user->id,
+            ]);
+            return response()->json(['message' => 'successful doctor'], 201);
+        } 
+        elseif ($role === 'caregiver') {
+            Caregiver::create([
+                'user_id' => $user->id,
+            ]);
+            return response()->json(['message' => 'successful caregiver'], 201);
+        } 
+        else {
+            return response()->json(['message' => 'successful else'], 201);
+            //UPDATE TO RETURN VIEWS
+        }
     }
 }

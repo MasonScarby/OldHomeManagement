@@ -61,3 +61,6 @@ Route::get('/patients', [PatientController::class, 'patientList']);
 
 Route::get('/roster', [RosterController::class, 'showRosterForm']);
 Route::post('/roster', [RosterController::class, 'store'])->name('roster.store');
+
+Route::get('/rosterList', [RosterController::class, 'showRosterListForm']);
+Route::post('/rosterList', [RosterController::class, 'populateRosterListForm']);

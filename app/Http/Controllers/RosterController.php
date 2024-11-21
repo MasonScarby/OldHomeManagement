@@ -55,8 +55,8 @@ class RosterController extends Controller
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',
-            'supervisor' => 'required|string|max:255',
-            'doctor' => 'required|string|max:255',
+            'supervisor_id' => 'required|string|max:255',
+            'doctor_id' => 'required|string|max:255',
             'caregiver1' => 'required|string|max:255',
             'caregiver2' => 'required|string|max:255',
             'caregiver3' => 'required|string|max:255',
@@ -73,19 +73,25 @@ class RosterController extends Controller
         // Create a new roster entry
         $roster = Roster::create($request->only([
             'date',
-            'supervisor',
-            'doctor',
+            'supervisor_id',
+            'doctor_id',
             'caregiver1',
             'caregiver2',
             'caregiver3',
-            'caregiver4'
+            'caregiver4',
         ]));
 
+
+        
         return response()->json([
             'message' => 'Roster entry created successfully!',
             'roster' => $roster
         ], 201); // HTTP 201 for resource creation
     }
+
+
+    
+   
 
     /**
      * Display the specified roster entry.
@@ -93,44 +99,6 @@ class RosterController extends Controller
     public function show(Roster $roster)
     {
         return response()->json([
-            'roster' => $roster
-        ], 200);
-    }
-
-    /**
-     * Update the specified roster entry in storage.
-     */
-    public function update(Request $request, Roster $roster)
-    {
-        $validator = Validator::make($request->all(), [
-            'date' => 'sometimes|required|date',
-            'supervisor' => 'sometimes|required|string|max:255',
-            'doctor' => 'sometimes|required|string|max:255',
-            'caregiver1' => 'sometimes|required|string|max:255',
-            'caregiver2' => 'sometimes|required|string|max:255',
-            'caregiver3' => 'sometimes|required|string|max:255',
-            'caregiver4' => 'sometimes|required|string|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors()
-            ], 400);
-        }
-
-        $roster->update($request->only([
-            'date',
-            'supervisor',
-            'doctor',
-            'caregiver1',
-            'caregiver2',
-            'caregiver3',
-            'caregiver4'
-        ]));
-
-        return response()->json([
-            'message' => 'Roster entry updated successfully!',
             'roster' => $roster
         ], 200);
     }
@@ -146,4 +114,36 @@ class RosterController extends Controller
             'message' => 'Roster entry deleted successfully!'
         ], 200);
     }
+
+
+    public function showRosterListForm()
+{
+    // Eager load the related user data for supervisor, doctor, and caregivers
+    $rosters = Roster::with([
+        'supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'
+    ])->get();
+
+    // Pass the rosters to the view
+    return view('rosterList', compact('rosters'));
+}
+
+    public function populateRosterListForm(Request $request)
+    {
+        $query = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4']);
+
+        if ($request->has('date') && $date = $request->input('date')) {
+            $query->where('date', $date);
+        }
+
+    
+        $rosters = $query->get();
+
+        if ($rosters->isEmpty()) {
+            return view('rosterList', compact('rosters'))->with('message', 'No roster data available for the selected date.');
+        }
+        return view('rosterList', compact('rosters'));
+    }
+
+
+
 }

@@ -17,8 +17,8 @@
     </div>
 
     <div class="form-group">
-        <label for="supervisor">Supervisor</label>
-        <select name="supervisor" id="supervisor" class="form-control">
+        <label for="supervisor_id">Supervisor</label>
+        <select name="supervisor_id" id="supervisor_id" class="form-control">
             <option value="">Select Supervisor</option>
             @foreach($supervisors as $supervisor)
                 <option value="{{ $supervisor->id }}" {{ old('supervisor') == $supervisor->id ? 'selected' : '' }}>
@@ -29,8 +29,8 @@
     </div>
 
     <div class="form-group">
-    <label for="doctor">Doctor</label>
-    <select name="doctor" id="doctor" class="form-control">
+    <label for="doctor_id">Doctor</label>
+    <select name="doctor_id" id="doctor_id" class="form-control">
         <option value="">Select Doctor</option>
         @foreach($doctors as $doctor)
             <option value="{{ $doctor->id }}" {{ old('doctor') == $doctor->id ? 'selected' : '' }}>
