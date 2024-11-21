@@ -16,11 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
             $table->string('first_name');
             $table->string('last_name');
-            $table->foreignId('role_name')->constrained('roles')->onDelete('cascade');
-            $table->decimal('salary', 10, 2); 
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->decimal('salary', 10, 2)->nullable();
             $table->timestamps(); 
         });
     }
+    
 
     /**
      * Reverse the migrations.
