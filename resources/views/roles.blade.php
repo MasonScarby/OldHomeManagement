@@ -7,23 +7,7 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="roles">
-
-    <nav>
-        <ul>
-            <li><a href="{{ route('approval') }}">Approval Page</a></li>
-    
-            @if(auth()->check() && auth()->user()->role->access_level === 1)
-                <li><a href="{{ route('roles.index') }}">Create Roles</a></li>
-            @endif
-    
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
+    @include('navbar')
 
     <div class="container">
         <h1>Role History</h1>
@@ -46,7 +30,7 @@
         @csrf
         <div class="input-group">
             <label for ="role_name">Role Name:</label>
-            <input type="text" id="role_name" name="role_name" required>
+            <input type="text" id="role_name" name="role_name" maxlength="20" required>
         </div>
 
         <div class="input-group">

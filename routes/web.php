@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\PatientController;
 
 
 /*
@@ -52,6 +53,10 @@ Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
 Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
 Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
+
+
+
+Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
 
 
 
