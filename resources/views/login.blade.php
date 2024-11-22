@@ -6,7 +6,7 @@
     <title>Login</title>
     @vite(['resources/js/app.js'])
 </head>
-<body class="login">
+<body>
     <h1>Login</h1>
 
     @if ($errors->any())
@@ -22,12 +22,14 @@
     <form action="{{ url('login') }}" method="POST">
         @csrf
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" required>
+        <input type="text" id="email" name="email" maxlength="30" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" maxlength="30" required>
 
         <input type="Submit" value="Login">
     </form>
+
+    <a href="{{ route('register') }}">Create an account</a>
 </body>
 </html>

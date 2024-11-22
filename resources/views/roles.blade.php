@@ -7,6 +7,8 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="roles">
+    @include('navbar')
+
     <div class="container">
         <h1>Role History</h1>
         <table class="table">
@@ -28,7 +30,7 @@
         @csrf
         <div class="input-group">
             <label for ="role_name">Role Name:</label>
-            <input type="text" id="role_name" name="role_name" required>
+            <input type="text" id="role_name" name="role_name" maxlength="20" required>
         </div>
 
         <div class="input-group">

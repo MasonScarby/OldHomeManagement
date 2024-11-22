@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\PatientController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\RosterController;
+use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\PatientController;
 
-use Illuminate\Support\Facades\Route;
-
-// Your route definitions here
 
 
 
@@ -54,13 +52,30 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
-//patient list
-Route::get('/patient/search', [PatientController::class, 'search'])->name('patient.search');
-Route::get('/patients', [PatientController::class, 'patientList']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/roster', [RosterController::class, 'showRosterForm']);
-Route::post('/roster', [RosterController::class, 'store'])->name('roster.store');
+
+Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [UserController::class, 'store']);
+
+
+
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+
+Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
+Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
+
+
+
+Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
+
+
 
 Route::get('/rosterList', [RosterController::class, 'showRosterListForm']);
 Route::post('/rosterList', [RosterController::class, 'populateRosterListForm']);
+Route::get('/employees', [EmployeesController::class, 'index']);
+Route::post('/employees', [EmployeesController::class, 'store']);
