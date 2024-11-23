@@ -14,10 +14,10 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 20);
             $table->string('last_name', 20);
             $table->string('email', 30)->unique();
-            $table->string('password', 30);
+            $table->string('password', 255);
             $table->string('phone', 15);
             $table->date('date_of_birth');
-            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_approved')->default(false); // Set default value to false
             $table->timestamps();
         });
     }
