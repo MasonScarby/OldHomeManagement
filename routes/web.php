@@ -59,6 +59,35 @@ Route::get('/patient/search', [PatientController::class, 'search'])->name('patie
 Route::get('/patients', [PatientController::class, 'patientList']);
 
 
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+
+Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
+Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
+
+
+
+Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
+
+
+
+Route::post('/patient', [PatientController::class, 'store']);
+Route::get('/patient', [PatientController::class, 'patientsPage']);
+
+
+Route::middleware(['auth', 'role:Admin,Supervisor'])->group(function () {
+    Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
+    Route::post('/employees', [EmployeesController::class, 'store']);
+});
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
+});
+
+
+
 Route::get('/roster', [RosterController::class, 'showRosterForm']);
 Route::post('/roster', [RosterController::class, 'store'])->name('roster.store');
 

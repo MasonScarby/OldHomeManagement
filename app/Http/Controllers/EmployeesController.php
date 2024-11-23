@@ -11,7 +11,8 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::with(['user', 'role'])->get();
+        return view('employees', compact('employees')); 
     }
 
     /**
@@ -19,7 +20,7 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+   
     }
 
     /**
@@ -46,3 +47,4 @@ class EmployeesController extends Controller
         //
     }
 }
+?>
