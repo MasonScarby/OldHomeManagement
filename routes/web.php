@@ -63,5 +63,15 @@ Route::get('/patientList', [PatientController::class, 'patientList'])->name('pat
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
-Route::get('/employees', [EmployeesController::class, 'index']);
-Route::post('/employees', [EmployeesController::class, 'store']);
+
+Route::middleware(['auth', 'role:Admin,Supervisor'])->group(function () {
+    Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
+    Route::post('/employees', [EmployeesController::class, 'store']);
+});
+
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
+});
+
+
+

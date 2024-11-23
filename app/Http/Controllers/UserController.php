@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Patient;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,15 +36,20 @@ class UserController extends Controller
         'role_id' => 'required|exists:roles,id',
     ];
 
+    $role = Role::find($request->input('role_id'));
+
     // Add validation for patient-specific fields if role is Patient
-    if ($request->input('role_id') == 5) { // Assuming '5' is the ID for the Patient role
+    if ($role && strtolower($role->role_name) === 'patient') { 
         $rules = array_merge($rules, [
             'family_code' => 'required|string|max:5',
             'emergency_contact' => 'required|string|max:15',
             'contact_relationship' => 'required|string|max:20',
         ]);
+
+
     }
 
+    
     $validator = Validator::make($request->all(), $rules);
 
     if ($validator->fails()) {
@@ -62,7 +69,7 @@ class UserController extends Controller
     ]);
 
     // If the user is a patient, save to the patients table
-    if ($user->role_id == 5) {
+    if ($role && strtolower($role->role_name) === 'patient') {
         Patient::create([
             'user_id' => $user->id,
             'family_code' => $request->input('family_code'),
@@ -70,6 +77,21 @@ class UserController extends Controller
             'contact_relationship' => $request->input('contact_relationship'),
             'group' => $request->input('group', ''),
             'admission_date' => $request->input('admission_date', now()),
+        ]);
+    }
+
+    if ($role && strtolower($role && in_array(strtolower($role->role_name), ['admin', 'supervisor', 'doctor', 'caregiver']))) { 
+        $rules = array_merge($rules, [
+            'salary' => 'numeric|min:0'
+        ]);
+    }
+
+
+    if ($role && strtolower($role && in_array(strtolower($role->role_name), ['admin', 'supervisor', 'doctor', 'caregiver']))) {
+        $employee = Employee::create([
+        'user_id' => $user->id,
+        'role_id' => $role->id,
+        'salary' => $request->input('salary'),
         ]);
     }
 

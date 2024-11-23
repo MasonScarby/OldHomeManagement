@@ -11,7 +11,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with('user','role')->get();
+        $employees = Employee::with(['user', 'role'])->get();
         return view('employees', compact('employees')); 
     }
 
@@ -20,7 +20,9 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-   
+        
+
+
     }
 
     /**
@@ -46,5 +48,20 @@ class EmployeesController extends Controller
     {
         //
     }
+
+    public function updateSalary(Request $request)
+    {
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id', 
+            'new_salary' => 'required|numeric|min:0',
+        ]);
+    
+        $employee = Employee::findOrFail($validated['employee_id']);
+        $employee->salary = $validated['new_salary'];
+        $employee->save();
+    
+        return redirect()->back()->with('success', 'Salary updated successfully.');
+    }    
 }
+
 ?>
