@@ -17,14 +17,10 @@ class Patient extends Model
         'group',
         'admission_date',
     ];
-
-    protected $casts = [
-        'admission_date' => 'datetime',
-    ];
-
     public function user()
 {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class);  // A patient belongs to a user
+}
 }
 
-}
+

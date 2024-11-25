@@ -1,15 +1,16 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeesController;
+
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RosterController;
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();});
 
 // users
 Route::post('/users', [UserController::class, 'store']);
@@ -19,10 +20,10 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
 
+
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
 
-// employees
-Route::get('/employees', [EmployeesController::class, 'index']);
-Route::post('/employees', [EmployeesController::class, 'store']);
+Route::post('/roster', [RosterController::class, 'store']);
+Route::get('/roster', [RosterController::class, 'index']);
