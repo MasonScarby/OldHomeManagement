@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Patient;
 use App\Models\Employee;
+use App\Models\Supervisor;
+use App\Models\Caregiver;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -86,10 +89,26 @@ class UserController extends Controller
     if ($role && strtolower($role && in_array(strtolower($role->role_name), ['admin', 'supervisor', 'doctor', 'caregiver']))) {
         $employee = Employee::create([
         'user_id' => $user->id,
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
         'role_id' => $role->id,
         'salary' => $request->input('salary'),
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'supervisor') {
+        Supervisor::create([
+            'user_id' => $user->id,
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'doctor') {
+        Doctor::create([
+            'user_id' => $user->id,
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'caregiver') {
+        Caregiver::create([
+            'user_id' => $user->id,
         ]);
     }
 

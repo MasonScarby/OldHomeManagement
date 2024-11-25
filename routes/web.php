@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RosterController;
+
 
 
 /*
@@ -65,3 +67,7 @@ Route::get('/patient', [PatientController::class, 'patientsPage']);
 
 Route::get('/employees', [EmployeesController::class, 'index']);
 Route::post('/employees', [EmployeesController::class, 'store']);
+
+
+Route::get('/roster', [RosterController::class, 'showRosterForm'])->name('roster');
+Route::post('/roster', [RosterController::class, 'store'])->name('roster.store');
