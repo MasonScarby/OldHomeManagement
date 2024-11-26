@@ -10,6 +10,9 @@ use Illuminate\Mail\Message;
 use App\Models\Role;
 use App\Models\Patient;
 use App\Models\Employee;
+use App\Models\Supervisor;
+use App\Models\Caregiver;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -155,6 +158,24 @@ class UserController extends Controller
         'user_id' => $user->id,
         'role_id' => $role->id,
         'salary' => $request->input('salary'),
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'supervisor') {
+        Supervisor::create([
+            'user_id' => $user->id,
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'doctor') {
+        Doctor::create([
+            'user_id' => $user->id,
+        ]);
+    }
+
+    if ($role && strtolower($role->role_name) === 'caregiver') {
+        Caregiver::create([
+            'user_id' => $user->id,
         ]);
     }
 
