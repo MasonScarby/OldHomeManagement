@@ -4,11 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Role;
-<<<<<<< HEAD
-=======
-
->>>>>>> ad26fa54b6adb5a30f5dd1d6022296267f880ff2
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,16 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create([
-            'role_name' => 'Admin',
-<<<<<<< HEAD
-            'access_level' => 1
-        ]);
-=======
-            'access_level' => 1,
-        ]);
+        // \App\Models\User::factory(10)->create();
 
-        
->>>>>>> ad26fa54b6adb5a30f5dd1d6022296267f880ff2
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

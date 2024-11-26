@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('contact_relationship', 20);
             $table->string('group', 1);
             $table->date('admission_date');
-
             $table->timestamps();
         });
         

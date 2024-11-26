@@ -13,12 +13,14 @@ class RoleController extends Controller
     {
         $roles = Role::all(columns: ['role_name', 'access_level']);
         return view('roles', data: compact('roles'));
+        $roles = Role::all(columns: ['role_name', 'access_level']);
+        return view('roles', data: compact('roles'));
     }
 
     public function store(Request $request) 
     {
         $request->validate([
-            'role_name' => 'required|string|max:50',
+            'role_name' => 'required|string|max:20',
             'access_level' => 'required|integer',
         ]);
 
@@ -27,6 +29,7 @@ class RoleController extends Controller
             'access_level' => $request->access_level,
         ]);
 
+        // Return a success message with the created role
         return redirect()->route('roles.index');    
     }
     public function create()
@@ -66,9 +69,6 @@ class RoleController extends Controller
     {
         //
     }
-    public function showRoles(){
-        $roles = Role::all(['role_name', 'access_level']);
-        return view('roles', compact('roles'));
-    }
+    
 
 }
