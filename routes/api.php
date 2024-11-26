@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeesController;
+
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
@@ -20,12 +20,10 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
 
+
 // appointments
 Route::get('/createAppointment', [AppointmentController::class, 'index']);
 Route::post('/createAppointment', [AppointmentController::class, 'store']);
-Route::post('/users', [UserController::class, 'store']);
-// Route::get('/users', [UserController::class, 'index']);
 
-// employees
-Route::get('/employees', [EmployeesController::class, 'index']);
-Route::post('/employees', [EmployeesController::class, 'store']);
+Route::post('/roster', [RosterController::class, 'store']);
+Route::get('/roster', [RosterController::class, 'index']);

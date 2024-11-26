@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
 {
-    
+    public function patientsPage()
+    {
+        return view('patientInformation');
+    }
     
     public function index()
     {
@@ -22,47 +25,34 @@ class PatientController extends Controller
         return view('patient.create');
     }
 
-
-public function patientList(Request $request)
-{
-    // Start with the query to get patients, eager load the 'user' relationship
-    $query = Patient::with('user')
-                    ->whereHas('user', function($query) {
-                        $query->where('is_approved', true); // Only include approved users
-                    });
-
-    // Check if a search is performed
-    if ($request->has('search') && $request->has('search_by')) {
-        $search = $request->input('search');
-        $searchBy = $request->input('search_by');
-
-        // Apply filter based on the selected search field
-        if ($searchBy == 'patient_id') {
-            $query->where('id', 'like', "%$search%");
-        } elseif ($searchBy == 'name') {
-            $query->whereHas('user', function($query) use ($search) {
-                $query->where('first_name', 'like', "%$search%")
-                      ->orWhere('last_name', 'like', "%$search%");
-            });
-        } elseif ($searchBy == 'emergency_contact') {
-            $query->where('emergency_contact', 'like', "%$search%");
-        } elseif ($searchBy == 'contact_relationship') {
-            $query->where('contact_relationship', 'like', "%$search%");
-        } elseif ($searchBy == 'admission_date') {
-            $query->whereDate('admission_date', 'like', "%$search%");
-        } elseif ($searchBy == 'age') {
-            // Filter by age: assuming the search input is the age
-            $age = (int) $search;
-            $query->whereHas('user', function ($query) use ($age) {
-                $query->whereRaw('TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) = ?', [$age]);
-            });
+    public function store(Request $request)
+    {
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'family_code' => 'required|string|max:5',
+            'emergency_contact' => 'required|string',
+            'contact_relationship' => 'required|string|max:20',
+        ]);
+        
+        // Return validation errors if any
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
+        
+        // Create a new patient instance
+        $patient = new Patient();
+        $patient->user_id = $request->input('user_id');
+        $patient->family_code = $request->input('family_code');
+        $patient->emergency_contact = $request->input('emergency_contact');
+        $patient->contact_relationship = $request->input('contact_relationship');
+        $patient->group = $request->input('group', '');  // Default null if not provided
+        $patient->admission_date = $request->input('admission_date', now()); // Default null if not provided
+        
+        $patient->save();
+        
+        // Redirect to a different page or return a response
+        return redirect()->route('login');  // Redirect after successful patient creation
     }
-
-    // Execute the query and get the filtered results
-    $patients = $query->get();
-
-    return view('patientList', compact('patients'));
-}
-
+    
 }
