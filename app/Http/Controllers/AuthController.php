@@ -54,7 +54,8 @@ class AuthController extends Controller
         }
     }
 
-    return redirect()->route('login')->withErrors(['email' => 'The provided credentials are incorrect.']);}
+    return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
+}
     // Handle logout
     public function logout(Request $request)
     {
