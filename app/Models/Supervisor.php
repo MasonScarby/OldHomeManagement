@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class doctor extends Model
+class Supervisor extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
     ];
@@ -17,7 +18,6 @@ class doctor extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Assuming the user has first_name and last_name attributes
     public function getFullNameAttribute()
     {
         return $this->user->first_name . ' ' . $this->user->last_name;
