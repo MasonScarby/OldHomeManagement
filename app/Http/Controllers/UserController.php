@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function showRegisterForm()
     {
-        $roles = \App\Models\Role::all(); 
+        $roles = Role::all(); 
         return view('register', compact('roles'));
     }
 
