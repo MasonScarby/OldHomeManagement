@@ -30,4 +30,39 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class);  // A user can have many patients
     }
     
+    public function superviser()
+    {
+        return $this->hasMany(Roster::class, 'supervisor', 'id');
+    }
+
+    /**
+     * Get the rosters where the user is the doctor.
+     */
+    public function doctor()
+    {
+        return $this->hasMany(Roster::class, 'doctor', 'id');
+    }
+
+    /**
+     * Get the rosters where the user is one of the caregivers.
+     */
+    public function caregiver1()
+    {
+        return $this->hasMany(Roster::class, 'caregiver1', 'id');
+    }
+
+    public function caregiver2()
+    {
+        return $this->hasMany(Roster::class, 'caregiver2', 'id');
+    }
+
+    public function caregiver3()
+    {
+        return $this->hasMany(Roster::class, 'caregiver3', 'id');
+    }
+
+    public function caregiver4()
+    {
+        return $this->hasMany(Roster::class, 'caregiver4', 'id');
+    }
 }

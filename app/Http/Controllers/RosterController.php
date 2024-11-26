@@ -9,103 +9,73 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Patient;
+use Illuminate\Support\Facades\Log;
+
 
 class RosterController extends Controller
 {
-    /**
-     * Display a form for creating a new roster entry.
-     */
-    public function showRosterForm()
-    {
-        $supervisors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Supervisor')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
 
-        $doctors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Doctor')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
-
-        $caregivers = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Caregiver')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
-
-        return view('newRoster', compact('supervisors','doctors','caregivers'));
-    }
-
-    /**
-     * Display a listing of all roster entries.
-     */
     public function index()
     {
-        $rosters = Roster::all();
+        // Fetch approved supervisors
+        $supervisors = User::whereHas('role', function ($query) {
+            $query->where('role_name', 'supervisor');
+        })->where('is_approved', true)->get();
 
-        return response()->json([
-            'rosters' => $rosters
-        ], 200); // Return JSON response with HTTP 200
+        // Fetch approved doctors
+        $doctors = User::whereHas('role', function ($query) {
+            $query->where('role_name', 'doctor');
+        })->where('is_approved', true)->get();
+
+        // Fetch approved caregivers
+        $caregivers = User::whereHas('role', function ($query) {
+            $query->where('role_name', 'caregiver');
+        })->where('is_approved', true)->get();
+
+        // Pass data to the view
+        return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
     }
+    
 
-    /**
-     * Store a newly created roster entry in storage.
-     */
+   
     public function store(Request $request)
     {
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'date' => 'required|date',
-            'supervisor_id' => 'required|string|max:255',
-            'doctor_id' => 'required|string|max:255',
-            'caregiver1' => 'required|string|max:255',
-            'caregiver2' => 'required|string|max:255',
-            'caregiver3' => 'required|string|max:255',
-            'caregiver4' => 'required|string|max:255',
+            'supervisor' => 'required|exists:users,id',
+            'doctor' => 'required|exists:users,id',
+            'caregiver1' => 'nullable|exists:users,id',
+            'caregiver2' => 'nullable|exists:users,id',
+            'caregiver3' => 'nullable|exists:users,id',
+            'caregiver4' => 'nullable|exists:users,id',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors()
-            ], 400);
-        }
-
-        // Create a new roster entry
-        $roster = Roster::create($request->only([
-            'date',
-            'supervisor_id',
-            'doctor_id',
-            'caregiver1',
-            'caregiver2',
-            'caregiver3',
-            'caregiver4',
-        ]));
-
-
-        
-        return response()->json([
-            'message' => 'Roster entry created successfully!',
-            'roster' => $roster
-        ], 201); // HTTP 201 for resource creation
-    }
-
-
     
-   
-
-    /**
-     * Display the specified roster entry.
-     */
-    public function show(Roster $roster)
-    {
-        return response()->json([
-            'roster' => $roster
-        ], 200);
+        Roster::create([
+            'date' => $request->date,
+            'supervisor' => $request->supervisor,
+            'doctor' => $request->doctor,
+            'caregiver1' => $request->caregiver1,
+            'caregiver2' => $request->caregiver2,
+            'caregiver3' => $request->caregiver3,
+            'caregiver4' => $request->caregiver4,
+        ]);
+    
+        return redirect()->back()->with('success', 'Roster created successfully!');
     }
 
-    /**
-     * Remove the specified roster entry from storage.
-     */
+    public function show(Request $request)
+    {
+        $date = $request->input('date');
+
+        // Fetch rosters for the selected date
+        $rosters = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'])
+            ->whereDate('date', $date)
+            ->get();
+
+        return view('rosterList', compact('rosters', 'date'));
+    }
+        
     public function destroy(Roster $roster)
     {
         $roster->delete();
@@ -114,36 +84,4 @@ class RosterController extends Controller
             'message' => 'Roster entry deleted successfully!'
         ], 200);
     }
-
-
-    public function showRosterListForm()
-{
-    // Eager load the related user data for supervisor, doctor, and caregivers
-    $rosters = Roster::with([
-        'supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'
-    ])->get();
-
-    // Pass the rosters to the view
-    return view('rosterList', compact('rosters'));
-}
-
-    public function populateRosterListForm(Request $request)
-    {
-        $query = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4']);
-
-        if ($request->has('date') && $date = $request->input('date')) {
-            $query->where('date', $date);
-        }
-
-    
-        $rosters = $query->get();
-
-        if ($rosters->isEmpty()) {
-            return view('rosterList', compact('rosters'))->with('message', 'No roster data available for the selected date.');
-        }
-        return view('rosterList', compact('rosters'));
-    }
-
-
-
 }

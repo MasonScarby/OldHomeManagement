@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RosterController;
 
 
 
@@ -75,7 +76,11 @@ Route::get('/patientList', [PatientController::class, 'patientList'])->name('pat
 
 
 
-Route::get('/rosterList', [RosterController::class, 'showRosterListForm']);
-Route::post('/rosterList', [RosterController::class, 'populateRosterListForm']);
 Route::get('/employees', [EmployeesController::class, 'index']);
 Route::post('/employees', [EmployeesController::class, 'store']);
+
+
+
+Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
+Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
+Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.list');
