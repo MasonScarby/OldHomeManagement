@@ -22,9 +22,14 @@ class UserController extends Controller
 {
     public function showRegisterForm()
     {
+<<<<<<< HEAD
+        $roles = Role::all(); 
+        return view('register', compact('roles'));
+=======
         $roles = \App\Models\Role::all(); 
         
         return view('user', compact('roles'));
+>>>>>>> ad26fa54b6adb5a30f5dd1d6022296267f880ff2
     }
 
     public function index()
