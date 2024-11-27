@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\PatientLog;
+use App\Models\User;
+use App\Models\Roster;
+use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PatientLogsController extends Controller
 {
@@ -32,5 +36,49 @@ class PatientLogsController extends Controller
         );
 
         return response()->json(['message' => 'Log saved successfully.', 'log' => $log]);
+    }
+
+    public function getLogByDate($patientId, $date)
+    {
+         // Fetch the patient based on the given patient ID
+         $patient = Patient::where('id', $patientId)->first();
+
+         // If patient not found, return error
+         if (!$patient) {
+             return response()->json(['error' => 'Patient not found'], 404);
+         }
+ 
+         // Fetch the patient's log for the given date
+         $log = PatientLog::where('patient_id', $patient->id)
+                         ->where('date', $date)
+                         ->first();
+ 
+         $doctor = null;
+         $caregiver = null;
+ 
+         // Fetch the roster for the given date to get the doctor
+         $roster = Roster::where('date', $date)->first();
+         if ($roster) {
+             $doctor = User::find($roster->doctor); // Find the doctor based on the roster's doctor ID
+         }
+ 
+         // If log exists, fetch caregiver details
+         if ($log) {
+             $caregiver = User::find($log->caregiver_id); // Fetch caregiver from the user table
+         }
+ 
+         // Return the log data, doctor name, caregiver name, and other details
+         return response()->json([
+             'log' => $log ? [
+                 'doctor_name' => $doctor ? $doctor->first_name . ' ' . $doctor->last_name : 'No doctor assigned', // Doctor's full name
+                 'caregiver_name' => $caregiver ? $caregiver->first_name . ' ' . $caregiver->last_name : 'No caregiver assigned', // Caregiver's full name
+                 'morning_med_status' => $log->morning_med_status,
+                 'afternoon_med_status' => $log->afternoon_med_status,
+                 'night_med_status' => $log->night_med_status,
+                 'breakfast_status' => $log->breakfast_status,
+                 'lunch_status' => $log->lunch_status,
+                 'dinner_status' => $log->dinner_status,
+             ] : null
+         ]);
     }
 }
