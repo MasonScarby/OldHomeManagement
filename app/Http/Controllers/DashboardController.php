@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Patient;
 use App\Models\Roster;
+use App\Models\PatientLog;
 
 class DashboardController extends Controller
 {
@@ -92,7 +93,33 @@ public function caregiverHome()
 
 public function patientHome()
 {
-    return view('patientHome');
+    $user = Auth::user(); // Get the logged-in patient
+    $date = now()->toDateString(); // Today's date
+
+    // Fetch the patient's information from the patients table
+    $patient = Patient::where('user_id', $user->id)->first(); // Assuming 'user_id' links to the 'users' table
+
+    // Fetch the patient's log data for today, if it exists
+    $log = PatientLog::where('patient_id', $patient->id)
+                    ->where('date', $date)
+                    ->first();
+
+    $doctor = null;
+    $roster = Roster::where('date', $date)
+                    ->first(); // Get the roster for the given date
+    if ($roster) {
+        // Check if the doctor exists in the roster
+        $doctor = User::find($roster->doctor); // Fetch the doctor's user information
+    }
+
+    $caregiver = null;
+    if ($log) {
+        // Fetch caregiver details from the users table
+        $caregiver = User::find($log->caregiver_id);
+    }
+
+    // Pass data to the view
+    return view('patientHome', compact('log', 'date', 'user', 'patient', 'doctor', 'caregiver'));
 }
 
 public function familyMemberHome()
