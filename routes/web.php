@@ -70,9 +70,9 @@ Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
-Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
-Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
-Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
+Route::get('/patient-assignment', [PatientController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+Route::get('/search-patient', [PatientController::class, 'searchPatientById']);
+Route::post('/patient-assignment', [PatientController::class, 'storePatientAssignment']);
 
 
 

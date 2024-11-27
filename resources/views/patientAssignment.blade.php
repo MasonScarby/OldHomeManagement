@@ -12,11 +12,21 @@
 
     <h1>Additional Information of Patient</h1>
 
-    @if ($errors->has('patient_id'))
-        <div style="color: red;">
-            {{ $errors->first('patient_id') }}
-        </div>
-    @endif
+    @if ($errors->any())
+    <ul style="color: red;">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
+
+    {{-- @if ($errors->any())
+        <ul style="color: red;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif --}}
 
     @if(session('status'))
         <div style="color: green;">
@@ -36,7 +46,7 @@
         <button type="button" id="searchButton">Search</button>
 
         <label for="patient_name">Patient Name</label>
-        <input type="text" id="patient_name" name="patient_name" readonly>
+        <input type="text" id="patient_name" name="patient_name" readonly required>
 
         <label for="group">Group</label>
         <input type="text" id="group" name="group" maxlength="1" required>
@@ -44,7 +54,7 @@
         <label for="admission_date">Admission Date</label>
         <input type="date" id="admission_date" name="admission_date" required>
 
-        <input type="submit" value="Ok">
+        <button type="submit" id="okButton">Ok</button>
     </form>
 
 
