@@ -10,8 +10,6 @@
 
     <h1>New Roster</h1>
 
-    @include('navbar')
-
     <form action="{{ route('newRoster.store') }}" method="POST">
         @csrf
 

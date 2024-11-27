@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Roster::class, 'caregiver4', 'id');
     }
+
+    public function caregiverLogs()
+    {
+        return $this->hasMany(PatientLog::class, 'caregiver_id');
+    }
 }

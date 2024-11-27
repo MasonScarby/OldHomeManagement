@@ -35,7 +35,6 @@
                 <th>Caregiver 4</th>
             </tr>
             @foreach($rosters as $roster)
-
                 <tr>
                     <td>{{ $roster->date }}</td>
                     <td>{{ $roster->supervisor?->first_name ?? 'No supervisor' }} {{ $roster->supervisor?->last_name ?? '' }}</td>

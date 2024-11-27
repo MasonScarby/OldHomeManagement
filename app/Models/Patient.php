@@ -27,6 +27,10 @@ class Patient extends Model
     return $this->belongsTo(User::class);
 }
 
+public function logs()
+    {
+        return $this->hasMany(PatientLog::class, 'patient_id');
+    }
 }
 
 

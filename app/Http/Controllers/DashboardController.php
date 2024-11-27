@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Patient;
+use App\Models\Roster;
 
 class DashboardController extends Controller
 {
@@ -56,8 +58,37 @@ public function doctorHome()
 
 public function caregiverHome()
 {
-    return view('caregiverHome');
+    $user = Auth::user(); // Get the logged-in caregiver
+    $date = now()->toDateString(); // Today's date
+
+    // Find today's roster
+    $roster = Roster::whereDate('date', $date)->first();
+
+    if (!$roster) {
+        $patients = collect(); // Empty collection if no roster found
+    } else {
+        // Determine the caregiver's group
+        $group = null;
+        if ($roster->caregiver1 === $user->id) {
+            $group = 'A';
+        } elseif ($roster->caregiver2 === $user->id) {
+            $group = 'B';
+        } elseif ($roster->caregiver3 === $user->id) {
+            $group = 'C';
+        } elseif ($roster->caregiver4 === $user->id) {
+            $group = 'D';
+        }
+
+        // Query patients for the caregiver's group
+        $patients = $group ? Patient::with(['user', 'logs' => function ($query) use ($user, $date) {
+            $query->where('caregiver_id', $user->id)->whereDate('date', $date);
+        }])->where('group', $group)->get() : collect();
+    }
+
+    // Pass data to view
+    return view('caregiverHome', compact('patients', 'date'));
 }
+
 
 public function patientHome()
 {

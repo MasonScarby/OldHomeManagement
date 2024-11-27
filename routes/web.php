@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RosterController;
+use App\Http\Controllers\PatientLogsController;
 
 
 
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
     Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
+    Route::post('/patient-logs', [PatientLogsController::class, 'storeOrUpdate'])->name('patientLogs.storeOrUpdate');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
