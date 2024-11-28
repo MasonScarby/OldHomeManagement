@@ -81,4 +81,52 @@ class PatientLogsController extends Controller
              ] : null
          ]);
     }
+
+    public function getLogForFamily(Request $request)
+{
+    $validated = $request->validate([
+        'date' => 'required|date',
+        'familyCode' => 'required|string|max:5',
+        'patientId' => 'required|exists:patients,id',
+    ]);
+
+    // Fetch the patient based on the ID and family code
+    $patient = Patient::where('id', $validated['patientId'])
+                      ->where('family_code', $validated['familyCode'])
+                      ->first();
+
+    if (!$patient) {
+        return response()->json(['error' => 'Invalid patient ID or family code.'], 404);
+    }
+
+    // Fetch the patient's log for the given date
+    $log = PatientLog::where('patient_id', $patient->id)
+                     ->where('date', $validated['date'])
+                     ->first();
+
+    if (!$log) {
+        return response()->json(['message' => 'No log data available for the selected date.'], 200);
+    }
+
+    // Fetch the roster for the given date to get the doctor
+    $roster = Roster::where('date', $validated['date'])->first();
+    $doctor = $roster ? User::find($roster->doctor) : null;
+
+    // Fetch caregiver details
+    $caregiver = $log ? User::find($log->caregiver_id) : null;
+
+    // Prepare the response data
+    return response()->json([
+        'log' => [
+            'doctor_name' => $doctor ? $doctor->first_name . ' ' . $doctor->last_name : 'No doctor assigned',
+            'caregiver_name' => $caregiver ? $caregiver->first_name . ' ' . $caregiver->last_name : 'No caregiver assigned',
+            'morning_med_status' => $log->morning_med_status,
+            'afternoon_med_status' => $log->afternoon_med_status,
+            'night_med_status' => $log->night_med_status,
+            'breakfast_status' => $log->breakfast_status,
+            'lunch_status' => $log->lunch_status,
+            'dinner_status' => $log->dinner_status,
+        ],
+    ]);
+}
 }

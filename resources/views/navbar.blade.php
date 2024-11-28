@@ -12,6 +12,7 @@
         <li><a href="{{ route('approval') }}">Approval</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li> 
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
     @endif
 
     <!-- Doctor Navbar -->

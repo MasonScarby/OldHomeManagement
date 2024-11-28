@@ -13,20 +13,12 @@
     <h1>Additional Information of Patient</h1>
 
     @if ($errors->any())
-    <ul style="color: red;">
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
-
-    {{-- @if ($errors->any())
         <ul style="color: red;">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
-    @endif --}}
+    @endif
 
     @if(session('status'))
         <div style="color: green;">
