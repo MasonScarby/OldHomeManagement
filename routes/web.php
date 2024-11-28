@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RosterController;
 use App\Http\Controllers\PatientLogsController;
+use App\Http\Controllers\AdminReportController;
 
 
 
@@ -90,3 +91,6 @@ Route::post('/employees', [EmployeesController::class, 'store']);
 Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
 Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
 Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.list');
+
+Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
+Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
