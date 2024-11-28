@@ -51,11 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
+    Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
 Route::post('/patient-logs', [PatientLogsController::class, 'storeOrUpdate'])->name('patientLogs.storeOrUpdate'); // Store or Update log
 Route::get('/patient/logs/{patientId}/{date}', [PatientLogsController::class, 'getLogByDate'])->name('patient.logs');
 Route::get('/patient/home', [PatientLogsController::class, 'index'])->name('patient.home'); // Display patient log home page
+Route::get('/family-member/logs', [PatientLogsController::class, 'getLogForFamily'])->name('familyMember.logs');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
