@@ -41,7 +41,13 @@
         <input type="text" id="patient_name" name="patient_name" readonly required>
 
         <label for="group">Group</label>
-        <input type="text" id="group" name="group" maxlength="1" required>
+        <select id="group" name="group" required>
+            <option value="">Select a Group</option> <!-- Default option -->
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
 
         <label for="admission_date">Admission Date</label>
         <input type="date" id="admission_date" name="admission_date" required>
