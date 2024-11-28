@@ -117,7 +117,7 @@ class PatientController extends Controller
         $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'patient_name' => 'required',
-            'group' => 'required|max:1',
+            'group' => 'required|in:A,B,C,D',            
             'admission_date' => 'required|date',
         ]);
 
