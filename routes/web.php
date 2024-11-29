@@ -83,7 +83,7 @@ Route::get('/patientList', [PatientController::class, 'patientList'])->name('pat
 
 
 
-Route::get('/employees', [EmployeesController::class, 'index']);
+Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
 Route::post('/employees', [EmployeesController::class, 'store']);
 
 
