@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
     @include('navbar')
     
 <div class="container">
-    <h2>Employee</h2>
+    <h2>Employees</h2>
 
     <table class="employee-table">
     <tr>
