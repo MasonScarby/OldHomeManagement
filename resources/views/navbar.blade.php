@@ -4,7 +4,11 @@
         <li><a href="{{ route('approval') }}">Approval</a></li>
         <li><a href="{{ route('roles.index') }}">Manage Roles</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li>
-        <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route(name: 'patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route(name: 'appointment.appointmentForm') }}">Appointment Page</a></li>
+        <li><a href="{{ route(name: 'payment.paymentPage') }}">Appointment Page</a></li>
+
+
     @endif
     <!-- Supervisor navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 2)

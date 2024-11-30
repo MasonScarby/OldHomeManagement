@@ -9,31 +9,39 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Patient
+;
+
 
 class RosterController extends Controller
 {
     /**
      * Display a form for creating a new roster entry.
      */
-    public function showRosterForm()
-    {
-        $supervisors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Supervisor')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
+   public function showRosterForm()
+{
+    // Get Supervisors
+    $supervisors = User::join('roles', 'users.role_id', '=', 'roles.id') 
+        ->where('roles.role_name', 'Supervisor')
+        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+        ->get();
 
-        $doctors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Doctor')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
+    // Get Doctors
+    $doctors = User::join('roles', 'users.role_id', '=', 'roles.id') 
+        ->where('roles.role_name', 'Doctor')
+        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+        ->get();
 
-        $caregivers = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Caregiver')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
+    // Get Caregivers
+    $caregivers = User::join('roles', 'users.role_id', '=', 'roles.id') 
+        ->where('roles.role_name', 'Caregiver')
+        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+        ->get();
 
-        return view('newRoster', compact('supervisors','doctors','caregivers'));
-    }
+    // Return the form view with necessary data
+    return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
+}
+
 
     /**
      * Display a listing of all roster entries.
@@ -44,7 +52,7 @@ class RosterController extends Controller
 
         return response()->json([
             'rosters' => $rosters
-        ], 200); // Return JSON response with HTTP 200
+        ], 201); 
     }
 
     /**
@@ -55,14 +63,15 @@ class RosterController extends Controller
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',
-            'supervisor_id' => 'required|string|max:255',
-            'doctor_id' => 'required|string|max:255',
-            'caregiver1' => 'required|string|max:255',
-            'caregiver2' => 'required|string|max:255',
-            'caregiver3' => 'required|string|max:255',
-            'caregiver4' => 'required|string|max:255',
+            'supervisor_id' => 'required|exists:users,id',
+            'doctor_id' => 'required|exists:users,id',
+            'caregiver1_id' => 'required|exists:users,id',
+            'caregiver2_id' => 'required|exists:users,id',
+            'caregiver3_id' => 'required|exists:users,id',
+            'caregiver4_id' => 'required|exists:users,id',
         ]);
 
+        // If validation fails, return a response with validation errors
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'Validation failed',
@@ -71,28 +80,23 @@ class RosterController extends Controller
         }
 
         // Create a new roster entry
-        $roster = Roster::create($request->only([
-            'date',
-            'supervisor_id',
-            'doctor_id',
-            'caregiver1',
-            'caregiver2',
-            'caregiver3',
-            'caregiver4',
-        ]));
+        $roster = Roster::create([
+            'date' => $request->date,
+            'supervisor_id' => $request->supervisor_id,
+            'doctor_id' => $request->doctor_id,
+            'caregiver1_id' => $request->caregiver1_id,
+            'caregiver2_id' => $request->caregiver2_id,
+            'caregiver3_id' => $request->caregiver3_id,
+            'caregiver4_id' => $request->caregiver4_id,
+        ]);
 
-
-        
+        // Return success response
         return response()->json([
             'message' => 'Roster entry created successfully!',
             'roster' => $roster
         ], 201); // HTTP 201 for resource creation
     }
-
-
     
-   
-
     /**
      * Display the specified roster entry.
      */
@@ -117,33 +121,29 @@ class RosterController extends Controller
 
 
     public function showRosterListForm()
-{
-    // Eager load the related user data for supervisor, doctor, and caregivers
-    $rosters = Roster::with([
-        'supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'
-    ])->get();
-
-    // Pass the rosters to the view
-    return view('rosterList', compact('rosters'));
-}
-
-    public function populateRosterListForm(Request $request)
     {
-        $query = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4']);
+        $rosters = Roster::with([
+           'user'
+        ])->get();
 
-        if ($request->has('date') && $date = $request->input('date')) {
-            $query->where('date', $date);
-        }
-
-    
-        $rosters = $query->get();
-
-        if ($rosters->isEmpty()) {
-            return view('rosterList', compact('rosters'))->with('message', 'No roster data available for the selected date.');
-        }
+        // Pass the rosters to the view
         return view('rosterList', compact('rosters'));
     }
 
+    public function rosterList(Request $request)
+    {
+        $query = Roster::with([
+            'supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'
+        ]);
 
+        // Filter by date if provided
+        if ($request->has('date')) {
+            $date = $request->input('date');
+            $query->whereDate('date', $date);
+        }
+
+        $rosters = $query->get();
+        return view('rosterList', compact('rosters'));
+    }
 
 }

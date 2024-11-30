@@ -20,14 +20,31 @@ class User extends Authenticatable
         'is_approved'
     ];
 
-    public function role(): BelongsTo
+//apointments page
+    public function appointmentsAsPatient()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
 
-    public function patients()
+    public function appointmentsAsDoctor()
     {
-        return $this->hasMany(Patient::class);  // A user can have many patients
+        return $this->hasMany(Appointment::class, 'doctor_id');
     }
-    
+// roles
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    //newRoster -> dont need i think
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    //payment 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
