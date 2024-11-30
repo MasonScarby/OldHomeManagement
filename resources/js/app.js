@@ -15,3 +15,7 @@ else if (document.body.classList.contains("patientAssignment")) {
 else if (document.body.classList.contains("patientList")) {
     import('../css/patientList.css');
 }
+else if (document.body.classList.contains("caregiverHome")) {
+    import('../css/caregiverHome.css');
+}
+

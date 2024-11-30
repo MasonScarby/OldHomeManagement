@@ -4,17 +4,25 @@
         <li><a href="{{ route('approval') }}">Approval</a></li>
         <li><a href="{{ route('roles.index') }}">Manage Roles</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li>
+<<<<<<< HEAD
         <li><a href="{{ route(name: 'patient.assignment') }}">Patient Assignment</a></li>
         <li><a href="{{ route(name: 'appointment.appointmentForm') }}">Appointment Page</a></li>
         <li><a href="{{ route(name: 'payment.paymentPage') }}">Appointment Page</a></li>
 
 
+=======
+        <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
+        <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+>>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
     @endif
     <!-- Supervisor navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 2)
         <li><a href="{{ route('approval') }}">Approval</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li> 
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
+        <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
     @endif
 
     <!-- Doctor Navbar -->
@@ -40,6 +48,7 @@
     @endif
 
     <!-- Common links for all users -->
+    <li><a href="{{ route('rosters.list') }}">Roster List</a></li>
     <li>
         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf

@@ -65,4 +65,85 @@ class PatientController extends Controller
         return view('patientList', compact('patients'));
     }
 
+<<<<<<< HEAD
+=======
+
+
+    public function showPatientAssignmentForm(Request $request)
+    {
+        return view('patientAssignment');
+    }
+
+    public function searchPatientById(Request $request)
+    {
+        $patientId = $request->input('patient_id');
+
+        // Validate the input
+        if (!$patientId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Please enter a patient ID.',
+            ]);
+        }
+
+        // Find the patient by ID
+        $patient = Patient::with('user')->find($patientId);
+
+        if (!$patient) {
+            // If patient doesn't exist
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Patient ID does not exist.',
+            ]);
+        }
+
+        if (!$patient->user->is_approved) {
+            // If patient exists but is not approved
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Only approved patients can be assigned a group.',
+            ]);
+        }
+
+        // If the patient exists and is approved, return success
+        return response()->json([
+            'status' => 'success',
+            'first_name' => $patient->user->first_name,
+            'last_name' => $patient->user->last_name,
+        ]);
+    }
+
+    public function storePatientAssignment(Request $request)
+    {
+        // Validate form inputs
+        $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'patient_name' => 'required',
+            'group' => 'required|in:A,B,C,D',            
+            'admission_date' => 'required|date',
+        ]);
+
+        // Check if the patient exists
+        $patient = Patient::with('user')->find($request->input('patient_id'));
+
+        if (!$patient) {
+            return redirect()->back()->withErrors(['patient_id' => 'Patient ID does not exist.']);
+        }
+
+        if (!$patient->user->is_approved) {
+            // If the patient exists but is not approved
+            return redirect()->back()->withErrors(['patient_id' => 'Only approved patients can be assigned a group.']);
+        }
+
+        // Update the patient record
+        $patient->update([
+            'group' => $request->input('group'),
+            'admission_date' => $request->input('admission_date'),
+        ]);
+
+        // Redirect with a success message
+        return redirect()->back()->with('status', 'Patient information updated successfully!');
+    }
+
+>>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 }

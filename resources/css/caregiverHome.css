@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.alert {
+    display: none;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid green;
+    color: green;
+}

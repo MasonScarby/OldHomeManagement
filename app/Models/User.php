@@ -47,4 +47,48 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+<<<<<<< HEAD
+=======
+    
+    public function superviser()
+    {
+        return $this->hasMany(Roster::class, 'supervisor', 'id');
+    }
+
+    /**
+     * Get the rosters where the user is the doctor.
+     */
+    public function doctor()
+    {
+        return $this->hasMany(Roster::class, 'doctor', 'id');
+    }
+
+    /**
+     * Get the rosters where the user is one of the caregivers.
+     */
+    public function caregiver1()
+    {
+        return $this->hasMany(Roster::class, 'caregiver1', 'id');
+    }
+
+    public function caregiver2()
+    {
+        return $this->hasMany(Roster::class, 'caregiver2', 'id');
+    }
+
+    public function caregiver3()
+    {
+        return $this->hasMany(Roster::class, 'caregiver3', 'id');
+    }
+
+    public function caregiver4()
+    {
+        return $this->hasMany(Roster::class, 'caregiver4', 'id');
+    }
+
+    public function caregiverLogs()
+    {
+        return $this->hasMany(PatientLog::class, 'caregiver_id');
+    }
+>>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 }
