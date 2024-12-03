@@ -17,38 +17,35 @@
         <input type="submit" value="Search">
     </form>
 
-
-    {{-- <pre>
-        {{ print_r($rosters) }} 
-
-    </pre> --}}
-
-    @if(isset($rosters) && $rosters->isNotEmpty())
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Supervisor</th>
-                <th>Doctor</th>
-                <th>Caregiver 1</th>
-                <th>Caregiver 2</th>
-                <th>Caregiver 3</th>
-                <th>Caregiver 4</th>
-            </tr>
-            @foreach($rosters as $roster)
+    @if(isset($rosters) && !empty($rosters))
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
                 <tr>
-                    <td>{{ $roster->date }}</td>
-                    <td>{{ $roster->supervisor?->first_name ?? 'No supervisor' }} {{ $roster->supervisor?->last_name ?? '' }}</td>
-                    <td>{{ $roster->doctor?->first_name ?? 'No doctor' }} {{ $roster->doctor?->last_name ?? '' }}</td>
-                    <td>{{ $roster->caregiver1?->first_name ?? 'No caregiver' }} {{ $roster->caregiver1?->last_name ?? '' }}</td>
-                    <td>{{ $roster->caregiver2?->first_name ?? 'No caregiver' }} {{ $roster->caregiver2?->last_name ?? '' }}</td>
-                    <td>{{ $roster->caregiver3?->first_name ?? 'No caregiver' }} {{ $roster->caregiver3?->last_name ?? '' }}</td>
-                    <td>{{ $roster->caregiver4?->first_name ?? 'No caregiver' }} {{ $roster->caregiver4?->last_name ?? '' }}</td>
+                    <th>Date</th>
+                    <th>Supervisor</th>
+                    <th>Doctor</th>
+                    <th>Caregiver 1</th>
+                    <th>Caregiver 2</th>
+                    <th>Caregiver 3</th>
+                    <th>Caregiver 4</th>
                 </tr>
-            @endforeach
+            </thead>
+            <tbody>
+                @foreach($rosters as $roster)
+                    <tr>
+                        <td>{{ $roster['date'] }}</td>
+                        <td>{{ $roster['supervisor'] }}</td>
+                        <td>{{ $roster['doctor'] }}</td>
+                        <td>{{ $roster['caregiver1'] }}</td>
+                        <td>{{ $roster['caregiver2'] }}</td>
+                        <td>{{ $roster['caregiver3'] }}</td>
+                        <td>{{ $roster['caregiver4'] }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     @elseif(isset($date))
-        <p>No rosters found for the selected date.</p>
+        <p>No roster found for the selected date.</p>
     @endif
-
 </body>
 </html>
