@@ -37,8 +37,3 @@ public function logs()
     {
         return $this->hasMany(PatientLog::class, 'patient_id');
     }
-}
-
-
-
-

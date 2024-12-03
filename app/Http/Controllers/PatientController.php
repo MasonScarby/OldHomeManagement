@@ -200,3 +200,4 @@ class PatientController extends Controller
 
    
 }
+
