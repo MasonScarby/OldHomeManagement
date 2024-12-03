@@ -33,5 +33,7 @@
     </form>
 
     <a href="{{ route('register') }}">Create an account</a>
+
+    @include('footer')
 </body>
 </html>

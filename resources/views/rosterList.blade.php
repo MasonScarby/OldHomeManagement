@@ -48,5 +48,7 @@
     @elseif(isset($date))
         <p>No roster found for the selected date.</p>
     @endif
+
+    @include('footer')
 </body>
 </html>

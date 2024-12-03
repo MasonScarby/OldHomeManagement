@@ -90,5 +90,7 @@
             <button type="submit" class="pay">Submit Payment</button>
         </form>
     </div>
+
+    @include('footer')
 </body>
 </html>

@@ -122,5 +122,7 @@
                 .catch(error => console.error('Error fetching log:', error));
         });
     </script>
+    
+    @include('footer')
 </body>
 </html>

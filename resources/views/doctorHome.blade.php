@@ -18,6 +18,6 @@
 
     {{ __('You are logged in as doctor!') }}
 
-    
+    @include('footer')
 </body>
 </html>
