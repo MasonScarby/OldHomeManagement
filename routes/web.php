@@ -79,3 +79,4 @@ Route::get('/rosterList', [RosterController::class, 'showRosterListForm']);
 Route::post('/rosterList', [RosterController::class, 'populateRosterListForm']);
 Route::get('/employees', [EmployeesController::class, 'index']);
 Route::post('/employees', [EmployeesController::class, 'store']);
+Route::put('/employees/update-salary', [EmployeeController::class, 'updateSalary'])->name('employees.updateSalary');
