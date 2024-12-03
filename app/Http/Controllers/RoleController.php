@@ -13,8 +13,6 @@ class RoleController extends Controller
     {
         $roles = Role::all(columns: ['role_name', 'access_level']);
         return view('roles', data: compact('roles'));
-        $roles = Role::all(columns: ['role_name', 'access_level']);
-        return view('roles', data: compact('roles'));
     }
 
     public function store(Request $request) 
@@ -24,6 +22,7 @@ class RoleController extends Controller
             'access_level' => 'required|integer',
         ]);
 
+        // Create a new role and store it in the database
         $role = Role::create([
             'role_name' => $request->role_name,
             'access_level' => $request->access_level,
