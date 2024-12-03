@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Form</title>
+    <title>Payment</title>
+    @vite(['resources/js/app.js'])
 
-    @include('navbar')
 
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
@@ -65,6 +64,8 @@
     </style>
 </head>
 <body>
+    @include('navbar')
+
     <div class="form-container">
         <h3>Payment Management</h3>
         

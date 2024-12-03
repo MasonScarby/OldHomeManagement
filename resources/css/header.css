@@ -1,0 +1,48 @@
+.header {
+    background-color: #303030;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-right: 20px;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.logo img {
+    height: 150px;
+    width: auto;
+    margin-right: 15px;
+}
+
+nav li {
+    
+}
+
+nav a {
+    color: whitesmoke;
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    cursor: pointer;
+    color: #E4C297;
+}
+
+.logout {
+    background: none;
+    border: none;
+    color: whitesmoke;
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logout:hover {
+    cursor: pointer;
+    color: #E4C297;
+}

@@ -7,6 +7,8 @@
     @vite(['resources/js/app.js'])
 </head>
 <body>
+    @include('navbar')
+    
     <h1>Login</h1>
 
     @if ($errors->any())
