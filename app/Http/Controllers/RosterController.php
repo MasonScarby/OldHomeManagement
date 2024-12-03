@@ -9,52 +9,13 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-<<<<<<< HEAD
-use App\Models\Patient
-;
-=======
 use App\Models\Patient;
 use Illuminate\Support\Facades\Log;
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 
 
 class RosterController extends Controller
 {
-<<<<<<< HEAD
-    /**
-     * Display a form for creating a new roster entry.
-     */
-   public function showRosterForm()
-{
-    // Get Supervisors
-    $supervisors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-        ->where('roles.role_name', 'Supervisor')
-        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-        ->get();
 
-    // Get Doctors
-    $doctors = User::join('roles', 'users.role_id', '=', 'roles.id') 
-        ->where('roles.role_name', 'Doctor')
-        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-        ->get();
-
-    // Get Caregivers
-    $caregivers = User::join('roles', 'users.role_id', '=', 'roles.id') 
-        ->where('roles.role_name', 'Caregiver')
-        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-        ->get();
-
-    // Return the form view with necessary data
-    return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
-}
-
-
-    /**
-     * Display a listing of all roster entries.
-     */
-=======
-
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
     public function index()
     {
         // Fetch approved supervisors
@@ -62,11 +23,6 @@ class RosterController extends Controller
             $query->where('role_name', 'supervisor');
         })->where('is_approved', true)->get();
 
-<<<<<<< HEAD
-        return response()->json([
-            'rosters' => $rosters
-        ], 201); 
-=======
         // Fetch approved doctors
         $doctors = User::whereHas('role', function ($query) {
             $query->where('role_name', 'doctor');
@@ -79,7 +35,6 @@ class RosterController extends Controller
 
         // Pass data to the view
         return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
     }
     
 
@@ -88,50 +43,6 @@ class RosterController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-<<<<<<< HEAD
-            'supervisor_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:users,id',
-            'caregiver1_id' => 'required|exists:users,id',
-            'caregiver2_id' => 'required|exists:users,id',
-            'caregiver3_id' => 'required|exists:users,id',
-            'caregiver4_id' => 'required|exists:users,id',
-        ]);
-
-        // If validation fails, return a response with validation errors
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors()
-            ], 400);
-        }
-
-        // Create a new roster entry
-        $roster = Roster::create([
-            'date' => $request->date,
-            'supervisor_id' => $request->supervisor_id,
-            'doctor_id' => $request->doctor_id,
-            'caregiver1_id' => $request->caregiver1_id,
-            'caregiver2_id' => $request->caregiver2_id,
-            'caregiver3_id' => $request->caregiver3_id,
-            'caregiver4_id' => $request->caregiver4_id,
-        ]);
-
-        // Return success response
-        return response()->json([
-            'message' => 'Roster entry created successfully!',
-            'roster' => $roster
-        ], 201); // HTTP 201 for resource creation
-    }
-    
-    /**
-     * Display the specified roster entry.
-     */
-    public function show(Roster $roster)
-    {
-        return response()->json([
-            'roster' => $roster
-        ], 200);
-=======
             'supervisor' => 'required|exists:users,id',
             'doctor' => 'required|exists:users,id',
             'caregiver1' => 'nullable|exists:users,id',
@@ -151,19 +62,45 @@ class RosterController extends Controller
         ]);
     
         return redirect()->back()->with('success', 'Roster created successfully!');
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
     }
 
     public function show(Request $request)
     {
         $date = $request->input('date');
 
-        // Fetch rosters for the selected date
-        $rosters = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'])
-            ->whereDate('date', $date)
-            ->get();
+        if (!$date) {
+            return view('rosterList', ['rosters' => null, 'date' => null]);
+        }
 
-        return view('rosterList', compact('rosters', 'date'));
+        // Fetch the roster for the given date
+        $roster = Roster::where('date', $date)->first();
+
+        if (!$roster) {
+            return view('rosterList', ['rosters' => null, 'date' => $date]);
+        }
+
+        // Fetch related user details for each role
+        $supervisor = $roster->supervisor ? User::find($roster->supervisor) : null;
+        $doctor = $roster->doctor ? User::find($roster->doctor) : null;
+        $caregiver1 = $roster->caregiver1 ? User::find($roster->caregiver1) : null;
+        $caregiver2 = $roster->caregiver2 ? User::find($roster->caregiver2) : null;
+        $caregiver3 = $roster->caregiver3 ? User::find($roster->caregiver3) : null;
+        $caregiver4 = $roster->caregiver4 ? User::find($roster->caregiver4) : null;
+
+        // Prepare data for the view
+        $rosters = [
+            [
+                'date' => $roster->date,
+                'supervisor' => $supervisor ? $supervisor->first_name . ' ' . $supervisor->last_name : 'No supervisor assigned',
+                'doctor' => $doctor ? $doctor->first_name . ' ' . $doctor->last_name : 'No doctor assigned',
+                'caregiver1' => $caregiver1 ? $caregiver1->first_name . ' ' . $caregiver1->last_name : 'No caregiver assigned',
+                'caregiver2' => $caregiver2 ? $caregiver2->first_name . ' ' . $caregiver2->last_name : 'No caregiver assigned',
+                'caregiver3' => $caregiver3 ? $caregiver3->first_name . ' ' . $caregiver3->last_name : 'No caregiver assigned',
+                'caregiver4' => $caregiver4 ? $caregiver4->first_name . ' ' . $caregiver4->last_name : 'No caregiver assigned',
+            ],
+        ];
+
+        return view('rosterList', ['rosters' => $rosters, 'date' => $date]);
     }
         
     public function destroy(Roster $roster)
@@ -174,36 +111,4 @@ class RosterController extends Controller
             'message' => 'Roster entry deleted successfully!'
         ], 200);
     }
-<<<<<<< HEAD
-
-
-    public function showRosterListForm()
-    {
-        $rosters = Roster::with([
-           'user'
-        ])->get();
-
-        // Pass the rosters to the view
-        return view('rosterList', compact('rosters'));
-    }
-
-    public function rosterList(Request $request)
-    {
-        $query = Roster::with([
-            'supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'
-        ]);
-
-        // Filter by date if provided
-        if ($request->has('date')) {
-            $date = $request->input('date');
-            $query->whereDate('date', $date);
-        }
-
-        $rosters = $query->get();
-        return view('rosterList', compact('rosters'));
-    }
-
 }
-=======
-}
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
