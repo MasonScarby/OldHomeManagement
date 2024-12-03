@@ -65,6 +65,8 @@ class PatientController extends Controller
         return view('patientList', compact('patients'));
     }
 
+<<<<<<< HEAD
+=======
 
 
     public function showPatientAssignmentForm(Request $request)
@@ -143,4 +145,5 @@ class PatientController extends Controller
         return redirect()->back()->with('status', 'Patient information updated successfully!');
     }
 
+>>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 }

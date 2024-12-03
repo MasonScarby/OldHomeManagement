@@ -83,7 +83,6 @@
 
     <a href="{{ route('login') }}">Login</a>
 
-
     <script>
         const roleSelect = document.getElementById('role_id');
         const patientFields = document.getElementById('patientFields');
@@ -92,7 +91,7 @@
         const contactRelationshipInput = document.getElementById('contact_relationship');
 
         roleSelect.addEventListener('change', () => {
-            if (roleSelect.options[roleSelect.selectedIndex].text === 'Patient') {
+            if (roleSelect.options[roleSelect.selectedIndex].text === 'Patient' || roleSelect.options[roleSelect.selectedIndex].text === 'patient' ) {
                 patientFields.style.display = 'block';
                 familyCodeInput.required = true;
                 emergencyContactInput.required = true;
