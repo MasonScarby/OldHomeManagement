@@ -1,6 +1,7 @@
 import './bootstrap';
 import('../css/app.css');
 import('../css/header.css');
+import('../css/footer.css');
 
 if (document.body.classList.contains("createAppointment")) {
     import('../css/createAppointment.css');

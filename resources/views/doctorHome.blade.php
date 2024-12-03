@@ -124,5 +124,7 @@
             </tbody>
         </table>
     </div>
+    
+    @include('footer')
 </body>
 </html>

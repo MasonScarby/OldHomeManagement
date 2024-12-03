@@ -8,7 +8,7 @@
     @vite(['resources/js/app.js'])
 </head>
 <body>
-@include('navbar')
+    @include('navbar')
 
     <form action="{{ route('appointment.store') }}" method="post">
         @csrf
@@ -84,5 +84,7 @@
             });
         });
     </script>
+
+    @include('footer')
 </body>
 </html>

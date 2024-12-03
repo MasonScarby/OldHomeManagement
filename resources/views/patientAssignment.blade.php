@@ -58,48 +58,49 @@
 
 
     <script>
-    $(document).ready(function() {
-        $('#searchButton').click(function() {
-            let patientId = $('#patient_id').val();
+        $(document).ready(function() {
+            $('#searchButton').click(function() {
+                let patientId = $('#patient_id').val();
 
-            // Clear any previous error messages
-            $('#patient_id_error').text('').hide(); // Clear and hide the error div before each search
+                // Clear any previous error messages
+                $('#patient_id_error').text('').hide(); // Clear and hide the error div before each search
 
-            if (patientId) {
-                $.ajax({
-                    url: "{{ url('/search-patient') }}", // Define the URL to call
-                    method: "GET",
-                    data: { patient_id: patientId },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            // Combine first and last name
-                            let patientFullName = response.first_name + ' ' + response.last_name;
-                            $('#patient_name').val(patientFullName);
-                        } else {
-                            // Show error message below the patient_id field
-                            $('#patient_id_error').text(response.message).show();
-                            $('#patient_name').val(''); // Clear the patient name field
+                if (patientId) {
+                    $.ajax({
+                        url: "{{ url('/search-patient') }}", // Define the URL to call
+                        method: "GET",
+                        data: { patient_id: patientId },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                // Combine first and last name
+                                let patientFullName = response.first_name + ' ' + response.last_name;
+                                $('#patient_name').val(patientFullName);
+                            } else {
+                                // Show error message below the patient_id field
+                                $('#patient_id_error').text(response.message).show();
+                                $('#patient_name').val(''); // Clear the patient name field
+                            }
+                        },
+                        error: function() {
+                            // Show generic error message if the request fails
+                            $('#patient_id_error').text('Error occurred while searching.').show();
                         }
-                    },
-                    error: function() {
-                        // Show generic error message if the request fails
-                        $('#patient_id_error').text('Error occurred while searching.').show();
-                    }
-                });
-            } else {
-                // Show error message if patient_id is not entered
-                $('#patient_id_error').text('Please enter a patient id.').show();
-            }
+                    });
+                } else {
+                    // Show error message if patient_id is not entered
+                    $('#patient_id_error').text('Please enter a patient id.').show();
+                }
+            });
         });
-    });
 
-    // Set the minimum date for the admission_date input
-    document.addEventListener('DOMContentLoaded', function() {
-        const today = new Date(); // Get today's date
-        const formattedDate = today.toISOString().split('T')[0]; // Format it as yyyy-mm-dd
-        document.getElementById('admission_date').setAttribute('min', formattedDate); // Set the min attribute
-    });
-</script>
+        // Set the minimum date for the admission_date input
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date(); // Get today's date
+            const formattedDate = today.toISOString().split('T')[0]; // Format it as yyyy-mm-dd
+            document.getElementById('admission_date').setAttribute('min', formattedDate); // Set the min attribute
+        });
+    </script>
 
+    @include('footer')
 </body>
 </html>

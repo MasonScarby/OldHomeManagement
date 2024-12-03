@@ -41,5 +41,7 @@
         <button type="submit">Cancel</button>
        </form>
     </div>
+
+    @include('footer')
 </body>
 </html>
