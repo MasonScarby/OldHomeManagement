@@ -54,6 +54,5 @@ class AppointmentController extends Controller
             'data' => $appointment,
         ], 201);
     }
-    
 
 }

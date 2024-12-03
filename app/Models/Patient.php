@@ -23,12 +23,17 @@ class Patient extends Model
     ];
 
     public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Define the relationship with the Appointment model
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 
 public function logs()
     {
         return $this->hasMany(PatientLog::class, 'patient_id');
     }
-}
