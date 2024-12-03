@@ -32,10 +32,3 @@ public function logs()
         return $this->hasMany(PatientLog::class, 'patient_id');
     }
 }
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
