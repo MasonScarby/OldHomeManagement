@@ -9,18 +9,13 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-<<<<<<< HEAD
-use App\Models\Patient
-;
-=======
 use App\Models\Patient;
 use Illuminate\Support\Facades\Log;
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 
 
 class RosterController extends Controller
 {
-<<<<<<< HEAD
+
     /**
      * Display a form for creating a new roster entry.
      */
@@ -52,35 +47,31 @@ class RosterController extends Controller
     /**
      * Display a listing of all roster entries.
      */
-=======
+    // public function index()
+    // {
+    //     // Fetch approved supervisors
+    //     $supervisors = User::whereHas('role', function ($query) {
+    //         $query->where('role_name', 'supervisor');
+    //     })->where('is_approved', true)->get();
 
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
-    public function index()
-    {
-        // Fetch approved supervisors
-        $supervisors = User::whereHas('role', function ($query) {
-            $query->where('role_name', 'supervisor');
-        })->where('is_approved', true)->get();
 
-<<<<<<< HEAD
-        return response()->json([
-            'rosters' => $rosters
-        ], 201); 
-=======
-        // Fetch approved doctors
-        $doctors = User::whereHas('role', function ($query) {
-            $query->where('role_name', 'doctor');
-        })->where('is_approved', true)->get();
+    //     return response()->json([
+    //         'rosters' => $rosters
+    //     ], 201); 
 
-        // Fetch approved caregivers
-        $caregivers = User::whereHas('role', function ($query) {
-            $query->where('role_name', 'caregiver');
-        })->where('is_approved', true)->get();
+    //     // Fetch approved doctors
+    //     $doctors = User::whereHas('role', function ($query) {
+    //         $query->where('role_name', 'doctor');
+    //     })->where('is_approved', true)->get();
 
-        // Pass data to the view
-        return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
-    }
+    //     // Fetch approved caregivers
+    //     $caregivers = User::whereHas('role', function ($query) {
+    //         $query->where('role_name', 'caregiver');
+    //     })->where('is_approved', true)->get();
+
+    //     // Pass data to the view
+    //     return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
+    // }
     
 
    
@@ -88,51 +79,6 @@ class RosterController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-<<<<<<< HEAD
-            'supervisor_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:users,id',
-            'caregiver1_id' => 'required|exists:users,id',
-            'caregiver2_id' => 'required|exists:users,id',
-            'caregiver3_id' => 'required|exists:users,id',
-            'caregiver4_id' => 'required|exists:users,id',
-        ]);
-
-        // If validation fails, return a response with validation errors
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors()
-            ], 400);
-        }
-
-        // Create a new roster entry
-        $roster = Roster::create([
-            'date' => $request->date,
-            'supervisor_id' => $request->supervisor_id,
-            'doctor_id' => $request->doctor_id,
-            'caregiver1_id' => $request->caregiver1_id,
-            'caregiver2_id' => $request->caregiver2_id,
-            'caregiver3_id' => $request->caregiver3_id,
-            'caregiver4_id' => $request->caregiver4_id,
-        ]);
-
-        // Return success response
-        return response()->json([
-            'message' => 'Roster entry created successfully!',
-            'roster' => $roster
-        ], 201); // HTTP 201 for resource creation
-    }
-    
-    /**
-     * Display the specified roster entry.
-     */
-    public function show(Roster $roster)
-    {
-        return response()->json([
-            'roster' => $roster
-        ], 200);
-=======
-            'supervisor' => 'required|exists:users,id',
             'doctor' => 'required|exists:users,id',
             'caregiver1' => 'nullable|exists:users,id',
             'caregiver2' => 'nullable|exists:users,id',
@@ -151,9 +97,7 @@ class RosterController extends Controller
         ]);
     
         return redirect()->back()->with('success', 'Roster created successfully!');
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
     }
-
     public function show(Request $request)
     {
         $date = $request->input('date');
@@ -174,7 +118,6 @@ class RosterController extends Controller
             'message' => 'Roster entry deleted successfully!'
         ], 200);
     }
-<<<<<<< HEAD
 
 
     public function showRosterListForm()
@@ -204,6 +147,6 @@ class RosterController extends Controller
     }
 
 }
-=======
-}
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
+
+
+

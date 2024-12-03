@@ -8,13 +8,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RosterController;
-<<<<<<< HEAD
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PaymentController;
-=======
 use App\Http\Controllers\PatientLogsController;
 use App\Http\Controllers\AdminReportController;
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
+
 
 
 
@@ -62,22 +60,17 @@ Route::post('/register', [UserController::class, 'store']);
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
-<<<<<<< HEAD
+
 Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
 Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
 Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
-=======
+
 
 Route::get('/patient-assignment', [PatientController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
 Route::get('/search-patient', [PatientController::class, 'searchPatientById']);
 Route::post('/patient-assignment', [PatientController::class, 'storePatientAssignment']);
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
-
 Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
 
-
-
-<<<<<<< HEAD
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
@@ -100,7 +93,7 @@ Route::post('/appointment', [AppointmentController::class, 'store'])->name('appo
 Route::get('/payment', [PaymentController::class, 'paymentPage']); // To calculate total due dynamically
 Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store'); 
 Route::post('/payments/pay', [PaymentController::class, 'pay'])->name('payments.pay');
-=======
+
 Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
 Route::post('/employees', [EmployeesController::class, 'store']);
 
@@ -112,4 +105,6 @@ Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.li
 
 Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
 Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
+
+Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
+Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
