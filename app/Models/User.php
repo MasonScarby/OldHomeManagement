@@ -47,8 +47,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
-<<<<<<< HEAD
-=======
     
     public function superviser()
     {
@@ -90,5 +88,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(PatientLog::class, 'caregiver_id');
     }
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
 }
