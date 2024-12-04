@@ -6,8 +6,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    position: fixed;
-    bottom: 0;
 }
 
 .footer-logo img {

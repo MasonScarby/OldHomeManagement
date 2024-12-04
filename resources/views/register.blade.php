@@ -47,12 +47,12 @@
 
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" maxlength="30" required>
+            <input type="email" name="email" id="email" maxlength="254" required>
         </div>
 
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" maxlength="30" required>
+            <input type="password" name="password" id="password" maxlength="255" required>
         </div>
 
         <div>
