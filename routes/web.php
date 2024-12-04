@@ -12,6 +12,8 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PatientLogsController;
 use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\PrescriptionController;
+
 
 
 Route::get('/', function () {
@@ -95,4 +97,8 @@ Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedA
 
 Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
 Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
+Route::get('/patientOfDoctor', [PrescriptionController::class, 'patientOfDoctor']);
+Route::post('/patientOfDoctor', [PrescriptionController::class, 'storeInfo']);
+
+
 

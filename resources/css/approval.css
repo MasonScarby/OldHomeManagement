@@ -1,0 +1,91 @@
+body.approval {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke; 
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+.alert.alert-success {
+    background-color: #E4C297; 
+    color: #303030;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #D3A374;
+}
+
+
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #E4C297; 
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+table.table thead {
+    background-color: #303030; 
+    color: whitesmoke;
+}
+
+table.table th, table.table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid whitesmoke;
+}
+
+table.table tbody tr:nth-child(even) {
+    background-color: #D3A374; 
+}
+
+table.table tbody tr:hover {
+    background-color: #C5A27B; 
+}
+
+
+form {
+    text-align: center;
+}
+
+form .btn {
+    background-color: #303030; 
+    color: whitesmoke;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form .btn:hover {
+    background-color: #E4C297; 
+    color: #303030;
+}
+
+
+.approval-checkbox {
+    margin-right: 5px;
+}
+
+/* Footer styling */
+footer {
+    background-color: #303030; 
+    color: whitesmoke;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid whitesmoke;
+}

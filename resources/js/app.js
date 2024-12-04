@@ -27,3 +27,4 @@ else if (document.body.classList.contains("approval")) {
 else if (document.body.classList.contains("login")) {
     import('../css/login.css');
 }
+
