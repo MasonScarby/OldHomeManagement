@@ -1,5 +1,77 @@
-* {
+body.patient_assignment {
+    font-family: Arial, sans-serif;
+    background-color: #303030; 
+    color: whitesmoke;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    line-height: 1.6;
+}
+
+
+h1 {
+    text-align: center;
+    color: #E4C297; 
+    margin-top: 20px;
+}
+
+.form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #E4C297; 
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #303030; 
+}
+
+.form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #303030; 
+}
+
+.form input[type="text"], form input[type="number"], form input[type="date"] {
+    background-color: whitesmoke;
+}
+
+.form select {
+    background-color: whitesmoke;
+}
+
+.form button {
+    background-color: #303030; 
+    color: whitesmoke;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.form button:hover {
+    background-color: #E4C297; 
+    color: #303030;
+    transform: scale(1.05);
+}
+
+
+#patient_id_error, ul {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+div[style*="color: green;"] {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
