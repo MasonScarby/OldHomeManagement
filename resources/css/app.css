@@ -6,3 +6,15 @@
     box-sizing: border-box;
     font-family: 'Cabin', sans-serif;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.page-container {
+    flex: 1;
+}

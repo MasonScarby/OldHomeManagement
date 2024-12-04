@@ -24,4 +24,6 @@ else if (document.body.classList.contains("caregiverHome")) {
 else if (document.body.classList.contains("approval")) {
     import('../css/approval.css');
 }
-
+else if (document.body.classList.contains("login")) {
+    import('../css/login.css');
+}

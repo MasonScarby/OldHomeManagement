@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->string('first_name', 20);
             $table->string('last_name', 20);
-            $table->string('email', 30)->unique();
+            $table->string('email', 254)->unique();
             $table->string('password', 255);
             $table->string('phone', 15);
             $table->date('date_of_birth');

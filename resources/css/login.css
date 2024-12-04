@@ -1,0 +1,88 @@
+body {
+    background-color: rgb(237, 237, 237);
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
+}
+
+p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.a {
+    color: black;
+}
+
+.a:hover {
+    color: #E4C297;
+}
+
+.loginBox {
+    background-color: whitesmoke;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form--box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.form--box label {
+    flex: 0.5;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form--box input {
+    width: 45%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.submit {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #E4C297;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: #dcab6c;
+}
+
+.ul {
+    list-style: none;
+    padding: 10px;
+    color: red;
+}

@@ -1,12 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f8f8f8;
-}
+
 .container {
     width: 60%;
     max-width: 800px;
