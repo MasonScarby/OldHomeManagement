@@ -67,7 +67,6 @@ Route::get('/patient', [PatientController::class, 'patientsPage']);
 
 Route::get('/employees', [EmployeesController::class, 'index']);
 Route::post('/employees', [EmployeesController::class, 'store']);
-
 Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
 
 
