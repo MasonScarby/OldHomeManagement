@@ -8,9 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite(['resources/js/app.js'])
 </head>
-<body class="patient_assignment">
+<body class="patientAssignment">
     @include('navbar')
-
+    <div class='page-container'>
     <h1>Additional Information of Patient</h1>
 
     @if ($errors->any())
@@ -30,7 +30,7 @@
     <div id="patient_id_error" style="color: red; display: none;"></div>
 
 
-    <form action="{{ url('/patient-assignment') }}" method="POST">
+    <form action="{{ url('/patient-assignment') }}" method="POST" class='form'>
         @csrf
 
         <label for="patient_id">Patient ID</label>
@@ -100,7 +100,7 @@
             document.getElementById('admission_date').setAttribute('min', formattedDate); // Set the min attribute
         });
     </script>
-
+</div> 
     @include('footer')
 </body>
 </html>
