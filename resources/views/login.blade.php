@@ -7,6 +7,8 @@
     @vite(['resources/js/app.js'])
 </head>
 <body>
+    @include('navbar')
+    
     <h1>Login</h1>
 
     @if ($errors->any())
@@ -31,5 +33,7 @@
     </form>
 
     <a href="{{ route('register') }}">Create an account</a>
+
+    @include('footer')
 </body>
 </html>

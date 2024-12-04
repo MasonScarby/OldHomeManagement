@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\User;
+use App\Models\Appointment;
+
 use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
@@ -64,9 +66,6 @@ class PatientController extends Controller
 
         return view('patientList', compact('patients'));
     }
-
-<<<<<<< HEAD
-=======
 
 
     public function showPatientAssignmentForm(Request $request)
@@ -145,5 +144,60 @@ class PatientController extends Controller
         return redirect()->back()->with('status', 'Patient information updated successfully!');
     }
 
->>>>>>> 563e630463dddbbb43d52ef8c6eade0a97247e85
+
+
+
+    //doctor home
+
+   // In the PatientController
+    public function doctorList(Request $request)
+    {
+        // Start with the query to get patients, eager load the 'user' relationship
+        $query = Patient::with('user')
+            ->whereHas('user', function ($query) {
+                $query->where('is_approved', true); // Only include approved users
+            });
+
+        // Check if a search is performed
+        if ($request->has('search') && $request->has('search_by')) {
+            $search = $request->input('search');
+            $searchBy = $request->input('search_by');
+
+            // Apply filter based on the selected search field
+            if ($searchBy == 'patient_id') {
+                $query->where('id', 'like', "%$search%");
+            } elseif ($searchBy == 'name') {
+                $query->whereHas('user', function ($query) use ($search) {
+                    $query->where('first_name', 'like', "%$search%")
+                        ->orWhere('last_name', 'like', "%$search%");
+                });
+            } elseif ($searchBy == 'emergency_contact') {
+                $query->where('emergency_contact', 'like', "%$search%");
+            } elseif ($searchBy == 'contact_relationship') {
+                $query->where('contact_relationship', 'like', "%$search%");
+            } elseif ($searchBy == 'admission_date') {
+                $query->whereDate('admission_date', 'like', "%$search%");
+            } elseif ($searchBy == 'age') {
+                // Filter by age: assuming the search input is the age
+                $age = (int) $search;
+                $query->whereHas('user', function ($query) use ($age) {
+                    $query->whereRaw('TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) = ?', [$age]);
+                });
+            }
+        }
+
+        // Execute the query and get the filtered results
+        $patients = $query->get();
+
+        // Fetch the upcoming appointments
+        $appointments = Appointment::with('patient.user')  
+            ->where('date', '>', now()) 
+            ->orderBy('date')
+            ->get();
+
+        return view('doctorHome', compact('patients', 'appointments'));
+    }
+
+   
 }
+

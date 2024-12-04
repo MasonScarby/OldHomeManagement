@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    @vite(['resources/js/app.js'])
 </head>
 <body>
+    @include('navbar')
+
     <h1>Register</h1>
 
     @if($errors->any())
@@ -104,5 +107,7 @@
             }
         });
     </script>
+
+    @include('footer')
 </body>
 </html>

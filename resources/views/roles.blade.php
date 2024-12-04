@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Role Creator</title>
+    <title>Roles</title>
     @vite(['resources/js/app.js'])
 </head>
 <body class="roles">
@@ -41,5 +41,7 @@
         <button type="submit">Cancel</button>
        </form>
     </div>
+
+    @include('footer')
 </body>
 </html>

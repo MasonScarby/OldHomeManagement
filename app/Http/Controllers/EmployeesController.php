@@ -33,6 +33,7 @@ class EmployeesController extends Controller
         $employee->save();
     
         return redirect()->back()->with('success', 'Salary updated successfully.');
+
     }
     /**
      * Display the specified resource.

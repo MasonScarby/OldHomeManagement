@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>Shire Homes</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     @include('navbar')
@@ -67,51 +68,53 @@
 
     <script>
         document.getElementById('logForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const date = document.getElementById('date').value;
-    const familyCode = document.getElementById('familyCode').value;
-    const patientId = document.getElementById('patientId').value;
+        const date = document.getElementById('date').value;
+        const familyCode = document.getElementById('familyCode').value;
+        const patientId = document.getElementById('patientId').value;
 
-    fetch(`/family-member/logs?date=${date}&familyCode=${familyCode}&patientId=${patientId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            const errorMessage = document.getElementById('errorMessage');
-            const logTable = document.getElementById('logTable');
-
-            if (data.error) {
-                // Show error message from the backend
-                errorMessage.innerText = data.error;
-                logTable.style.display = 'none';
-            } else if (data.message) {
-                // Show message if no log exists
-                errorMessage.innerText = data.message; // E.g., "No log data available for the selected date."
-                logTable.style.display = 'none';
-            } else if (data.log) {
-                // Display the log data in the table
-                errorMessage.innerText = '';
-                logTable.style.display = '';
-                document.getElementById('doctorName').innerText = data.log.doctor_name;
-                document.getElementById('caregiverName').innerText = data.log.caregiver_name;
-                document.getElementById('morningMedicine').checked = data.log.morning_med_status;
-                document.getElementById('afternoonMedicine').checked = data.log.afternoon_med_status;
-                document.getElementById('nightMedicine').checked = data.log.night_med_status;
-                document.getElementById('breakfast').checked = data.log.breakfast_status;
-                document.getElementById('lunch').checked = data.log.lunch_status;
-                document.getElementById('dinner').checked = data.log.dinner_status;
-            }
+        fetch(`/family-member/logs?date=${date}&familyCode=${familyCode}&patientId=${patientId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
         })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('errorMessage').innerText = 'Invalid patient ID or family code.';
-        });
-});
+            .then(response => response.json())
+            .then(data => {
+                const errorMessage = document.getElementById('errorMessage');
+                const logTable = document.getElementById('logTable');
+
+                if (data.error) {
+                    // Show error message from the backend
+                    errorMessage.innerText = data.error;
+                    logTable.style.display = 'none';
+                } else if (data.message) {
+                    // Show message if no log exists
+                    errorMessage.innerText = data.message; // E.g., "No log data available for the selected date."
+                    logTable.style.display = 'none';
+                } else if (data.log) {
+                    // Display the log data in the table
+                    errorMessage.innerText = '';
+                    logTable.style.display = '';
+                    document.getElementById('doctorName').innerText = data.log.doctor_name;
+                    document.getElementById('caregiverName').innerText = data.log.caregiver_name;
+                    document.getElementById('morningMedicine').checked = data.log.morning_med_status;
+                    document.getElementById('afternoonMedicine').checked = data.log.afternoon_med_status;
+                    document.getElementById('nightMedicine').checked = data.log.night_med_status;
+                    document.getElementById('breakfast').checked = data.log.breakfast_status;
+                    document.getElementById('lunch').checked = data.log.lunch_status;
+                    document.getElementById('dinner').checked = data.log.dinner_status;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').innerText = 'Invalid patient ID or family code.';
+            });
+    });
     </script>
+
+    @include('footer')
 </body>
 </html>
