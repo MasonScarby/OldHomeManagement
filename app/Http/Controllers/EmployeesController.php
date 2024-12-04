@@ -18,21 +18,22 @@ class EmployeesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validateData = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_name' => 'required|exists:roles,id',
-            'salary' => 'required|numeric|min:0'
-        ]);
-        $employee = employees::create([
-            'user_id' => $validatedData['user_id'],
-            'role_name' => $validatedData['role_name'],
-            'salary' => $validatedData['salary']
-        ]);
-        
-    }
+ 
 
+
+    public function updateSalary(Request $request)
+    {
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id', 
+            'new_salary' => 'required|numeric|min:0',
+        ]);
+    
+        $employee = Employee::findOrFail($validated['employee_id']);
+        $employee->salary = $validated['new_salary'];
+        $employee->save();
+    
+        return redirect()->back()->with('success', 'Salary updated successfully.');
+    }
     /**
      * Display the specified resource.
      */
