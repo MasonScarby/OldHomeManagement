@@ -9,7 +9,7 @@
 </head>
 <body class="approval">
     @include('navbar')
-
+    <div class='page-container'>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -62,7 +62,7 @@
             });
         });
     </script>
-
+</div>
     @include('footer')
 </body>
 </html>
