@@ -9,10 +9,10 @@
 <body class="employees">
     @include('navbar')
     <div class='page-container'>
-        <h2>Employees</h2>
+        <h1>Employees</h1>
 
         <!-- Search Form -->
-        <form action="{{ route('employees.index') }}" method="GET">
+        <form action="{{ route('employees.index') }}" method="GET" class="searchForm">
             <label for="search_by">Search By:</label>
             <select name="search_by" id="search_by">
                 <option value="employee_id" {{ request()->input('search_by') == 'employee_id' ? 'selected' : '' }}>Emp ID</option>
@@ -44,10 +44,18 @@
             @endforeach
         </table>
 
+        <div class="message-container">
+            @if(session('success'))
+                <p class="success-message">{{ session('success') }}</p>
+            @elseif(session('error'))
+                <p class="error-message">{{ session('error') }}</p>
+            @endif
+        </div>
+
         <!-- Salary Update Form -->
         @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 1)
             <div class="controls">
-                <form action="{{ route('employees.updateSalary') }}" method="POST">
+                <form action="{{ route('employees.updateSalary') }}" method="POST" class="salaryForm">
                     @csrf
                     @method('PUT')
 
@@ -57,7 +65,7 @@
 
                     <div>
                         <label for="employee_id" class="label">Emp ID</label>
-                        <input type="number" name="employee_id" id="employee_id" placeholder="Enter ID" required>
+                        <input type="number" name="employee_id" id="employee_id" placeholder="Enter ID" min="1" required>
                     </div>
                     <div>
                         <label for="new_salary" class="label">New Salary</label>
