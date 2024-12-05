@@ -10,17 +10,17 @@ body.patient_assignment {
 
 h1 {
     text-align: center;
-    color: #E4C297; 
-    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 40px;
 }
 
 .form {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #E4C297; 
+    background-color: #ffffff; 
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form label {
@@ -30,7 +30,7 @@ h1 {
     color: #303030; 
 }
 
-.form input, form select, form button {
+.form input, .form select, .form button {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -40,7 +40,7 @@ h1 {
     color: #303030; 
 }
 
-.form input[type="text"], form input[type="number"], form input[type="date"] {
+.form input[type="text"], .form input[type="number"], .form input[type="date"] {
     background-color: whitesmoke;
 }
 
@@ -68,10 +68,19 @@ h1 {
     color: red;
     font-weight: bold;
     margin-bottom: 15px;
+    text-align: center;
 }
 
-div[style*="color: green;"] {
-    color: green;
-    font-weight: bold;
-    margin-bottom: 15px;
+.ul {
+    text-align: center;
 }
+
+.success {
+    margin: 0 auto;
+    text-align: center;
+    width: 25%;
+    padding: 5px;
+    border: 1px solid green;
+}
+
+
