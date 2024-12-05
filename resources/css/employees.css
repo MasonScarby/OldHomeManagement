@@ -1,53 +1,160 @@
-body {
+body.employees {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: whitesmoke; 
+    color: whitesmoke;
     margin: 0;
-    background-color: #f8f8f8;
+    padding: 0;
 }
-.container {
-    width: 60%;
-    max-width: 800px;
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
 }
+
+
 h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+    text-align: center;
+    color: #E4C297; 
+    margin-bottom: 20px;
 }
+
+
+form {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+form label {
+    color: #E4C297; 
+    font-weight: bold;
+}
+
+form select,
+form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #E4C297; 
+    background-color: #303030; 
+    color: whitesmoke;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 8px 12px;
+    background-color: #E4C297; 
+    color: #303030; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: whitesmoke;
+    color: #303030;
+}
+
+form .btn-reset {
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: whitesmoke;
+    color: #303030;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+form .btn-reset:hover {
+    background-color: #E4C297;
+    color: #303030;
+}
+
+/* Employee Table */
 .employee-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 20px;
+}
+
+.employee-table th,
+.employee-table td {
+    border: 1px solid #E4C297; 
     text-align: left;
+    padding: 10px;
 }
-.employee-table th, .employee-table td {
-    padding: 15px;
-    background-color: #d3d3d3;
-}
+
 .employee-table th {
+    background-color: #E4C297; 
+    color: #303030; 
     font-weight: bold;
 }
+
+.employee-table tr:nth-child(even) {
+    background-color: #383838; 
+}
+
+.employee-table tr:nth-child(odd) {
+    background-color: #303030; 
+}
+
+.employee-table td {
+    color: whitesmoke;
+}
+
+
 .controls {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    justify-content: flex-end;
+    margin-top: 30px;
+    background-color: #383838; 
+    padding: 20px;
+    border-radius: 8px;
 }
-.controls button {
-    padding: 10px 15px;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
+
+.controls form {
+    display: grid;
+    gap: 15px;
 }
+
+.controls label {
+    font-weight: bold;
+    color: #E4C297; 
+
 .controls input {
-    padding: 10px;
-    width: 120px;
-    font-size: 1em;
+    padding: 8px;
+    border: 1px solid #E4C297; 
+    background-color: #303030; 
+    color: whitesmoke;
+    border-radius: 4px;
 }
 
+.controls button.ok-btn {
+    background-color: #E4C297; 
+    color: #303030; 
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
+.controls button.ok-btn:hover {
+    background-color: whitesmoke;
+    color: #303030;
+}
+
+.controls button.cancel-btn {
+    background-color: whitesmoke;
+    color: #303030; 
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.controls button.cancel-btn:hover {
+    background-color: #E4C297;
+    color: #303030;
+}
+
+}
