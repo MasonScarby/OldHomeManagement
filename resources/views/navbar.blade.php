@@ -12,7 +12,9 @@
             <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
             <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
             <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+            <li><a href="{{ route('employees.index') }}">Employees</a></li>
         @endif
+
         <!-- Supervisor navbar -->
         @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 2)
             <li><a href="{{ route('approval') }}">Approval</a></li>
@@ -20,6 +22,7 @@
             <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
             <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
             <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+            <li><a href="{{ route('employees.index') }}">Employees</a></li>
         @endif
     
         <!-- Doctor Navbar -->
@@ -64,7 +67,7 @@
 
          <!-- Links for users on login or register page -->
          @guest
-         @if (Request::is('login'))
+         @if (Request::is('login') || Request::is('/'))
              <li><a href="{{ route('register') }}">Register</a></li>
          @elseif (Request::is('register'))
              <li><a href="{{ route('login') }}">Login</a></li>
