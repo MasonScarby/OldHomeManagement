@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -14,20 +15,6 @@ use App\Http\Controllers\PatientLogsController;
 use App\Http\Controllers\AdminReportController;
 
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('login');
 });
@@ -39,7 +26,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
     Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
-    Route::get('/doctorHome', [DashboardController::class, 'doctorHome'])->name('doctorHome');
+    Route::get('/doctorList', [DoctorController::class, 'doctorList'])->name('doctorList');
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
@@ -84,7 +71,7 @@ Route::post('/roster', [RosterController::class, 'store']);
 // Route::post('/rosterList', [RosterController::class, 'populateRosterListForm']);
 Route::get('/rosterList', [RosterController::class, 'showRosterListForm'])->name('rosterList');
 
-Route::get('/appointment', [AppointmentController::class, 'appointmentForm'])->name(name: 'appointment.appointmentForm');
+Route::get('/appointment', action: [AppointmentController::class, 'appointmentForm'])->name(name: 'appointment.appointmentForm');
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 
 // Route::get('/payment', [PaymentController::class, 'paymentPage'])->name('payments.paymentPage'); // List all payments
@@ -106,5 +93,7 @@ Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.li
 Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
 Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
 
-Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
-Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
+Route::get('/patient-of-doctor/{patientId}/{appointmentId}', [DoctorController::class, 'patientOfDoctor'])->name('patientOfDoctor');
+
+Route::get('doctor/prescription/create/{appointmentId}', [DoctorController::class, 'create'])->name('prescription.create');
+Route::post('doctor/prescription/store', [DoctorController::class, 'store'])->name('prescription.store');

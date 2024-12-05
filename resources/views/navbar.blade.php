@@ -7,6 +7,8 @@
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
         <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
         <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+        <li><a href="{{ route('appointment.appointmentForm') }}">Create Appointment</a></li>
+
     @endif
     <!-- Supervisor navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 2)
@@ -15,11 +17,14 @@
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
         <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
         <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+        <li><a href="{{ route('appointment.appointmentForm') }}">Create Appointment</a></li>
+
+
     @endif
 
     <!-- Doctor Navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 3)
-        <li><a href="{{ route('doctorHome') }}">Doctor Home</a></li>
+        <li><a href="{{ route('doctorList') }}">Doctor Home</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li> 
     @endif
 

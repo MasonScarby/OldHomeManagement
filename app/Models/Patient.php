@@ -22,21 +22,24 @@ class Patient extends Model
         'admission_date' => 'datetime',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Define the relationship with the Appointment model
+
+    // Additional relationships for appointments
     public function appointments()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
 
-public function logs()
+    public function logs()
     {
         return $this->hasMany(PatientLog::class, 'patient_id');
     }
+ 
 }
 
 

@@ -9,6 +9,8 @@ use App\Models\Patient;
 use App\Models\Roster;
 use App\Models\appointment;
 use App\Models\PatientLog;
+use App\Models\Prescription;
+
 
 class DashboardController extends Controller
 {
@@ -53,22 +55,48 @@ public function approveUsers(Request $request)
         return view('approval');
     }
 
-    public function doctorHome()
+    public function doctorList(Request $request)
     {
-        $query = Patient::with('user')
-        ->whereHas('user', function ($query) {
-            $query->where('is_approved', true); // Only include approved users
-        });
+        $doctorId = auth()->user()->id;
 
-        $patients = $query->get();
-
-        // Fetch the upcoming appointments
-        $appointments = Appointment::with('patient.user')  
-            ->where('date', '>', now()) 
-            ->orderBy('date')
+        // Fetching completed appointments with patients and their user info
+        $completedAppointments = Appointment::with('patient.user')
+            ->where('doctor_id', $doctorId)
+            ->where('date', '<', today())  // Completed appointments (past dates)
             ->get();
 
-        return view('doctorHome', compact('patients', 'appointments'));
+        // Fetching upcoming appointments (future appointments) and sorting them by date ascending
+        $upcomingAppointments = Appointment::with('patient.user')
+            ->where('doctor_id', $doctorId)
+            ->where('date', '>=', today())  // Future appointments (including today)
+            ->orderBy('date', 'asc')  // Sorting appointments by date ascending
+            ->get();
+
+        // Fetch prescriptions for both completed and upcoming appointments
+        $prescriptions = Prescription::where('doctor_id', $doctorId)
+            ->whereIn('appointment_id', $completedAppointments->pluck('id')
+                ->merge($upcomingAppointments->pluck('id'))  // Merge completed and upcoming appointment IDs
+            )
+            ->get();
+
+        // Remove upcoming appointments that already have a prescription and move them to completed appointments
+        $upcomingAppointments = $upcomingAppointments->filter(function ($appointment) use ($doctorId, &$completedAppointments) {
+            // Check if there's a prescription for this upcoming appointment
+            $prescription = Prescription::where('doctor_id', $doctorId)
+                ->where('appointment_id', $appointment->id)
+                ->first();
+
+            if ($prescription) {
+                // Move this appointment to completed appointments
+                $completedAppointments->push($appointment);
+                return false; // Don't show this in the upcoming appointments
+            }
+
+            return true; // Keep this in the upcoming appointments
+        });
+
+        // Return the view with necessary data
+        return view('doctorHome', compact('completedAppointments', 'upcomingAppointments', 'prescriptions'));
     }
 
 

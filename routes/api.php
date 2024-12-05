@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\DoctorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeesController;
@@ -55,3 +56,6 @@ Route::post('/appointment', [AppointmentController::class, 'store'])->name('appo
 Route::get('/payments/calculateTotalDue', [PaymentController::class, 'calculateTotalDue']); // To calculate total due dynamically
 Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store'); 
 Route::post('/payments/pay', [PaymentController::class, 'pay'])->name('payments.pay');
+
+
+Route::post('/prescriptions', [DoctorController::class, 'store'])->name('api.prescription.store');
