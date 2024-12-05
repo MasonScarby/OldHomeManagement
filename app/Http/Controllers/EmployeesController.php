@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EmployeesController extends Controller
 {
@@ -56,12 +57,15 @@ class EmployeesController extends Controller
             'new_salary' => 'required|numeric|min:0',
         ]);
     
-        $employee = Employee::findOrFail($validated['employee_id']);
+        $employee = Employee::find($validated['employee_id']);
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Employee ID does not exist.');
+        }
+
         $employee->salary = $validated['new_salary'];
         $employee->save();
-    
-        return redirect()->back()->with('success', 'Salary updated successfully.');
 
+        return redirect()->back()->with('success', 'Salary updated successfully.');
     }
     /**
      * Display the specified resource.

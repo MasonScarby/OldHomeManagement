@@ -4,7 +4,6 @@ h1 {
     text-align: center;
 }
 
-/* Form Styles */
 .form {
     margin: 20px auto;
     text-align: center;
@@ -54,7 +53,6 @@ h1 {
     background-color: #dcab6c;
 }
 
-/* Table Styles */
 .table {
     width: 90%;
     margin: 30px auto;
@@ -65,7 +63,7 @@ h1 {
 }
 
 .table thead {
-    background-color: #bfbfbf; /* Nice shade of grey */
+    background-color: #bfbfbf;
     text-align: left;
 }
 
@@ -82,7 +80,7 @@ h1 {
     text-align: center;
     font-size: 16px;
     font-weight: bold;
-    color: #666; /* Subtle grey */
+    color: #666;
     margin-top: 20px;
     padding: 10px;
     background-color: #f9f9f9;
