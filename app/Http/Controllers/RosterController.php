@@ -44,34 +44,6 @@ class RosterController extends Controller
 }
 
 
-    /**
-     * Display a listing of all roster entries.
-     */
-    // public function index()
-    // {
-    //     // Fetch approved supervisors
-    //     $supervisors = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'supervisor');
-    //     })->where('is_approved', true)->get();
-
-
-    //     return response()->json([
-    //         'rosters' => $rosters
-    //     ], 201); 
-
-    //     // Fetch approved doctors
-    //     $doctors = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'doctor');
-    //     })->where('is_approved', true)->get();
-
-    //     // Fetch approved caregivers
-    //     $caregivers = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'caregiver');
-    //     })->where('is_approved', true)->get();
-
-    //     // Pass data to the view
-    //     return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
-    // }
     public function index()
     {
         // Fetch approved supervisors
