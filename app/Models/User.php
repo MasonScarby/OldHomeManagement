@@ -21,6 +21,13 @@ class User extends Authenticatable
     ];
 
 //apointments page
+
+
+// In the User model (App\Models\User)
+    public function patient()
+    {
+        return $this->hasOne(Patient::class); // Adjust according to your actual relationship
+    }
     public function appointmentsAsPatient()
     {
         return $this->hasMany(Appointment::class, 'patient_id');
