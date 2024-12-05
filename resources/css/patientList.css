@@ -1,17 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 50px;
+    font-size: 40px;
 }
 
 .table {
     margin: 0 auto;
     width: 90%;
-    border-collapse: collapse; /* Ensures borders don't double */
+    border-collapse: collapse;
 }
 
 th {
@@ -22,6 +24,49 @@ th {
 td {
     padding: 8px;
     border: 1px solid #ddd;
+}
+
+.form {
+    margin: 0 auto;
+    font-size: 18px;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.form select {
+    width: 30%;
+    height: 30px;
+    padding: 5px;
+}
+
+.form input {
+    padding: 5px;
+    width: 30%;
+}
+
+.form button {
+    width: 15%;
+    padding: 5px;
+    background-color: #E4C297;
+    border: 1px solid gray;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.form button:hover {
+    cursor: pointer;
+    background-color: #dcab6c;
+}
+
+.form a {
+    width: 15%;
+    color: black;
+    font-size: 15px;
+}
+
+.form a:hover {
+    color: #E4C297;
 }
 
 

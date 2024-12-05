@@ -55,6 +55,11 @@ h1 {
     border-radius: 8px;
 }
 
+#patientFields .form--box-ec {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
 .submit {
     width: 30%;
     margin: 0 auto;
