@@ -15,7 +15,7 @@
 
             @if($errors->any())
                 <div style="color: red;">
-                    <ul>
+                    <ul class="ul">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -57,7 +57,7 @@
                 </div>
         
                 <div class="form--box">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Phone Number</label>
                     <input type="text" name="phone" id="phone" maxlength="15" required>
                 </div>
         
@@ -72,8 +72,8 @@
                         <input type="text" name="family_code" id="family_code" maxlength="5">
                     </div>
 
-                    <div class="form--box">
-                        <label for="emergency_contact">Emergency Contact</label>
+                    <div class="form--box form--box-ec">
+                        <label for="emergency_contact">Emergency Contact Number</label>
                         <input type="text" name="emergency_contact" id="emergency_contact" maxlength="15">
                     </div>
 
