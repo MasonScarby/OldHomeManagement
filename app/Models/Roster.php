@@ -19,13 +19,11 @@ class Roster extends Model
         'caregiver4'
     ];
 
-    // Define the relationship to Supervisor
     public function supervisor()
     {
         return $this->belongsTo(User::class, 'supervisor', 'id');
     }
 
-    // Define the relationship to Doctor
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor', 'id');
