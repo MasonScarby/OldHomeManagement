@@ -33,4 +33,7 @@ else if (document.body.classList.contains("register")) {
 else if (document.body.classList.contains("newRoster")) {
     import('../css/newRoster.css');
 }
+else if (document.body.classList.contains("rosterList")) {
+    import('../css/rosterList.css');
+}
 
