@@ -95,3 +95,4 @@ Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedA
 
 Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
 Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
+

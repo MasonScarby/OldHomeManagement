@@ -39,9 +39,4 @@ class Patient extends Model
     {
         return $this->hasMany(PatientLog::class, 'patient_id');
     }
- 
 }
-
-
-
-
