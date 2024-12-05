@@ -6,30 +6,42 @@
     <title>Login</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
-    <h1>Login</h1>
+<body class="login">
+    @include('navbar')
+    <div class="page-container">
+        <div class="loginBox">
+            <h1>Login</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="ul">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ url('login') }}" method="POST" class="form">
+                @csrf
+                <div class="form--box">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" maxlength="254" required>
+                </div>
+                
+                <div class="form--box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" maxlength="255" required>
+                </div>
+                
+
+                <input type="Submit" value="Login" class="submit">
+            </form>
+
         </div>
-    @endif
+        <p>New to Shire Homes? <a href="{{ route('register') }}" class="a">Create an account</a></p>
 
-    <form action="{{ url('login') }}" method="POST">
-        @csrf
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" maxlength="30" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" maxlength="30" required>
-
-        <input type="Submit" value="Login">
-    </form>
-
-    <a href="{{ route('register') }}">Create an account</a>
+    </div>
+    @include('footer')
 </body>
 </html>

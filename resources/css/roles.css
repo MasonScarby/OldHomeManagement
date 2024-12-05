@@ -1,11 +1,24 @@
-body {
-    font-family: Arial, sans-serif;
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .container {
     width: 80%;
+    background-color: white;
+    padding: 40px;
     margin: 0 auto;
     text-align: center;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
 }
 
 .table {
@@ -17,69 +30,69 @@ body {
 .table th, .table td {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
 }
 
 .table th {
     background-color: #f2f2f2;
-    text-align: center;
 }
 
-.input-group {
-    margin: 20px 0;
+.table th, .table td {
+    width: 50%;
 }
 
-.input-group label {
-    margin-right: 10px;
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.form--box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width:400px;
+}
+
+.form--box label {
+    flex-shrink: 0;
+    width: 120px;
+    text-align: left;
+    font-size: 18px;
     font-weight: bold;
 }
 
-.input-field {
-    padding: 10px;
-    margin: 5px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
+.form--box input {
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 8px;
 }
 
-.input-field:focus {
-    border-color: blue;
-    outline: none;
+.roleNameInput {
+    width: 75%;
 }
 
-.action-buttons {
-    margin: 20px 0;
+.accessLevelInput {
+    width: 20%;
 }
 
-.btn {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    color: white;
-    border-radius: 4px;
+.createBtn {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #E4C297;
+    border: 1px solid gray;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.createBtn:hover {
     cursor: pointer;
-    transition: opacity 0.3s;
-}
-
-.btn.create {
-    background-color: green;
-}
-
-.btn.cancel {
-    background-color: red;
-}
-
-.btn:hover {
-    opacity: 0.8;
-}
-
-.message {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-}
-
-.role {
-    display: inline-block;
+    background-color: #dcab6c;
 }

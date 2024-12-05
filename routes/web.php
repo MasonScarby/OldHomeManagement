@@ -12,6 +12,8 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PatientLogsController;
 use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\PrescriptionController;
+
 
 
 Route::get('/', function () {
@@ -51,11 +53,6 @@ Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
-Route::get('/patient-assignment', [DashboardController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
-Route::get('/search-patient', [DashboardController::class, 'searchPatientById']);
-Route::post('/patient-assignment', [DashboardController::class, 'storePatientAssignment']);
-
-
 
 Route::get('/patient-assignment', [PatientController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
 Route::get('/search-patient', [PatientController::class, 'searchPatientById']);
@@ -65,9 +62,8 @@ Route::get('/patientList', [PatientController::class, 'patientList'])->name('pat
 Route::post('/patient', [PatientController::class, 'store']);
 Route::get('/patient', [PatientController::class, 'patientsPage']);
 
-Route::get('/employees', [EmployeesController::class, 'index']);
+Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
 Route::post('/employees', [EmployeesController::class, 'store']);
-
 Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
 
 
@@ -87,10 +83,6 @@ Route::post('/payments/store', [PaymentController::class, 'store'])->name('payme
 Route::post('/payments/pay', [PaymentController::class, 'pay'])->name('payments.pay');
 
 
-Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
-Route::post('/employees', [EmployeesController::class, 'store']);
-
-
 
 Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
 Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
@@ -101,6 +93,12 @@ Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.li
 Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
 Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
 
+
+
 Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
 Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
+Route::get('/patientOfDoctor', [PrescriptionController::class, 'patientOfDoctor']);
+Route::post('/patientOfDoctor', [PrescriptionController::class, 'storeInfo']);
+
+
 

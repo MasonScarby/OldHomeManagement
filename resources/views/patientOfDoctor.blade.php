@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shire Homes</title>
-    @vite(['resources/js/app.js'])
+    <title>Doctor Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,7 +35,20 @@
             gap: 10px;
             margin-bottom: 20px;
         }
-    
+        input, select, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .btn-reset {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        .btn-reset:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -48,21 +60,23 @@
         </div>
     @endif
 
-    <h1>Doctor's Home</h1>
+    <h1>Doctor's Dashboard</h1>
 
     <div class="container">
-        <!-- Search Form -->
-        <form action="{{ route('doctorList') }}" method="GET">
+        <form action="{{ route('patientList') }}" method="GET">
             <label for="search_by">Search By:</label>
             <select name="search_by" id="search_by">
+                <option value="patient_id" {{ request()->input('search_by') == 'patient_id' ? 'selected' : '' }}>Patient ID</option>
                 <option value="name" {{ request()->input('search_by') == 'name' ? 'selected' : '' }}>Name</option>
+                <option value="emergency_contact" {{ request()->input('search_by') == 'emergency_contact' ? 'selected' : '' }}>Emergency Contact</option>
+                <option value="contact_relationship" {{ request()->input('search_by') == 'contact_relationship' ? 'selected' : '' }}>Contact Relationship</option>
                 <option value="admission_date" {{ request()->input('search_by') == 'admission_date' ? 'selected' : '' }}>Admission Date</option>
-                <option value="comment" {{ request()->input('search_by') == 'comment' ? 'selected' : '' }}>Comment</option>
                 <option value="age" {{ request()->input('search_by') == 'age' ? 'selected' : '' }}>Age</option>
             </select>
+        
             <input type="text" name="search" placeholder="Search..." value="{{ request()->input('search') }}">
             <button type="submit">Search</button>
-            <a href="{{ route('doctorList') }}" class="btn-reset">Reset</a>
+            <a href="{{ route('patientList') }}" class="btn-reset">Reset</a>
         </form>
 
         <!-- Patient Table -->
@@ -70,7 +84,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Admission Date</th>
+                    <th>Date</th>
                     <th>Comment</th>
                     <th>Morning Med</th>
                     <th>Afternoon Med</th>
@@ -81,7 +95,7 @@
                 @foreach($patients as $patient)
                     <tr>
                         <td>{{ $patient->user->first_name }} {{ $patient->user->last_name }}</td>
-                        <td>{{ $patient->admission_date->format('m-d-Y') }}</td>
+                        <td>{{ $patient->admission_date->format('Y-m-d') }}</td>
                         <td>{{ $patient->comments }}</td>
                         <td>{{ $patient->morning_med }}</td>
                         <td>{{ $patient->afternoon_med }}</td>
@@ -90,9 +104,13 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+</body>
+</html>
 
-        <!-- Appointment Form -->
-        <form action="{{ route('appointments.store') }}" method="POST">
+
+
+<form action="{{ route('appointments.store') }}" method="POST">
             @csrf
             <label for="patient">Patient:</label>
             <select name="patient" id="patient">
@@ -100,31 +118,9 @@
                     <option value="{{ $patient->id }}">{{ $patient->user->first_name }} {{ $patient->user->last_name }}</option>
                 @endforeach
             </select>
+
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
+
             <button type="submit" style="background-color: green; color: white;">Submit</button>
         </form>
-
-        <!-- upcoming  -->
-        <h1>Upcoming Appointments</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Appointment Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($appointments as $appointment)
-                    <tr>
-                        <td>{{ $appointment->patient->user->first_name }} {{ $appointment->patient->user->last_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($appointment->date)->format('m-d-Y') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    
-    @include('footer')
-</body>
-</html>

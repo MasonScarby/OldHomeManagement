@@ -11,11 +11,11 @@
 
     @include('navbar')
     
-    <div class="container">
+    <div class="page-container">
         <h1>Patient List</h1>
 
 
-        <form action="{{ route('patientList') }}" method="GET">
+        <form action="{{ route('patientList') }}" method="GET" class="form">
             <label for="search_by">Search By:</label>
             <select name="search_by" id="search_by">
                 <option value="patient_id" {{ request()->input('search_by') == 'patient_id' ? 'selected' : '' }}>Patient ID</option>
@@ -57,5 +57,7 @@
             </tbody>
         </table>
     </div>
+
+    @include('footer')
 </body>
 </html>

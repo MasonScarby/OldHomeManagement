@@ -29,5 +29,6 @@
         <input type="submit" value="Create Appointment">
     </form>
 
+    @include('footer')
 </body>
 </html>

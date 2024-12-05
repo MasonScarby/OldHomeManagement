@@ -1,0 +1,85 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
+}
+
+.registerBox {
+    background-color: rgb(255, 255, 255);
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form--box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+} 
+
+.form--box label {
+    flex: 0.5;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form--box input {
+    width: 45%;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+.form--box select {
+    width: 45%;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+
+#patientFields .form--box-ec {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.submit {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #E4C297;
+    border: 1px solid gray;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: #dcab6c;
+}
+
+.ul {
+    list-style: none;
+    padding: 10px;
+    color: red;
+}

@@ -3,36 +3,70 @@
 namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $employees = Employee::with('user','role')->get();
-        return view('employees', compact('employees')); 
+    public function index(Request $request)
+{
+   
+    $query = Employee::with('user', 'role');
+
+    
+    if ($request->has('search') && $request->has('search_by')) {
+        $search = $request->input('search');
+        $searchBy = $request->input('search_by');
+
+      
+        if ($searchBy === 'employee_id') {
+            $query->where('id', 'like', "%$search%");
+        } elseif ($searchBy === 'name') {
+            $query->whereHas('user', function ($query) use ($search) {
+                $query->where('first_name', 'like', "%$search%")
+                      ->orWhere('last_name', 'like', "%$search%");
+            });
+        } elseif ($searchBy === 'role') {
+            $query->whereHas('role', function ($query) use ($search) {
+                $query->where('role_name', 'like', "%$search%");
+            });
+        } elseif ($searchBy === 'salary') {
+            $query->where('salary', 'like', "%$search%");
+        }
     }
+
+    
+    $employees = $query->get();
+
+    return view('employees', compact('employees'));
+}
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validateData = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_name' => 'required|exists:roles,id',
-            'salary' => 'required|numeric|min:0'
-        ]);
-        $employee = employees::create([
-            'user_id' => $validatedData['user_id'],
-            'role_name' => $validatedData['role_name'],
-            'salary' => $validatedData['salary']
-        ]);
-        
-    }
+ 
 
+
+    public function updateSalary(Request $request)
+    {
+        $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id', 
+            'new_salary' => 'required|numeric|min:0',
+        ]);
+    
+        $employee = Employee::find($validated['employee_id']);
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Employee ID does not exist.');
+        }
+
+        $employee->salary = $validated['new_salary'];
+        $employee->save();
+
+        return redirect()->back()->with('success', 'Salary updated successfully.');
+    }
     /**
      * Display the specified resource.
      */

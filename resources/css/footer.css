@@ -1,0 +1,14 @@
+.footer {
+    background-color: #303030;
+    margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.footer-logo img {
+    height: 50px;
+    width: auto;
+}
