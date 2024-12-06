@@ -11,14 +11,17 @@ class AppointmentController extends Controller
 {
     public function appointmentForm()
     {
-        $patients = User::join('roles', 'users.role_id', '=', 'roles.id') 
-            ->where('roles.role_name', 'Patient')
-            ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-            ->get();
-
-        $doctors = User::whereHas('role', function($query) {
+        $patients = User::join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.role_name', 'Patient')
+        ->where('users.is_approved', true) // Only include approved users
+        ->select('users.id', DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+        ->get();
+    
+        $doctors = User::whereHas('role', function ($query) {
             $query->where('role_name', 'Doctor');
-        })->get(['id', 'first_name', 'last_name']);
+        })
+        ->where('is_approved', true) // Only include approved users
+        ->get(['id', 'first_name', 'last_name']);
         
         return view('appointment', compact('patients', 'doctors'));
     }
