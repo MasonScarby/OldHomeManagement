@@ -21,8 +21,6 @@ class Patient extends Model
     protected $casts = [
         'admission_date' => 'datetime',
     ];
-
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -38,5 +36,10 @@ class Patient extends Model
     public function logs()
     {
         return $this->hasMany(PatientLog::class, 'patient_id');
+    }
+
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
     }
 }

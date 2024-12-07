@@ -13,78 +13,137 @@ use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
-        public function doctorList(Request $request)
-    {
-        $doctorId = auth()->user()->id;
-
-        // Fetching completed appointments with patients and their user info
-        $completedAppointments = Appointment::with('patient.user')
-            ->where('doctor_id', $doctorId)
-            ->where('date', '<', today())  // Completed appointments (past dates)
-            ->get();
-
-        // Fetching upcoming appointments (future appointments) and sorting them by date ascending
-        $upcomingAppointments = Appointment::with('patient.user')
-            ->where('doctor_id', $doctorId)
-            ->where('date', '>=', today())  // Future appointments (including today)
-            ->orderBy('date', 'asc')  // Sorting appointments by date ascending
-            ->get();
-
-        // Fetch prescriptions for both completed and upcoming appointments
-        $prescriptions = Prescription::where('doctor_id', $doctorId)
-            ->whereIn('appointment_id', $completedAppointments->pluck('id')
-                ->merge($upcomingAppointments->pluck('id'))  // Merge completed and upcoming appointment IDs
-            )
-            ->get();
-
-        // Remove upcoming appointments that already have a prescription and move them to completed appointments
-        $upcomingAppointments = $upcomingAppointments->filter(function ($appointment) use ($doctorId, &$completedAppointments) {
-            // Check if there's a prescription for this upcoming appointment
-            $prescription = Prescription::where('doctor_id', $doctorId)
-                ->where('appointment_id', $appointment->id)
-                ->first();
-
-            if ($prescription) {
-                // Move this appointment to completed appointments
-                $completedAppointments->push($appointment);
-                return false; // Don't show this in the upcoming appointments
-            }
-
-            return true; // Keep this in the upcoming appointments
-        });
-
-        // Return the view with necessary data
-        return view('doctorHome', compact('completedAppointments', 'upcomingAppointments', 'prescriptions'));
-    }
-
-
-    public function patientOfDoctor($patientId, $appointmentId)
+    public function doctorList(Request $request)
 {
     $doctorId = auth()->user()->id;
-    
-    // Ensure the patient has a relationship with the user
-    $patient = Patient::with('user')->findOrFail($patientId);
-    
-    // Fetch prescriptions for the patient
-    $prescriptions = Prescription::where('patient_id', $patientId)
-        ->orderBy('created_at', 'desc')
-        ->get();
-    
-    // Fetch the specific appointment by patient_id and appointment_id
-    $appointment = Appointment::with('patient.user')
+
+    // Get search and filter inputs
+    $filterBy = $request->input('filter_by');
+    $filterValue = $request->input('filter');
+
+    // Get IDs of appointments with prescriptions
+    $prescribedAppointmentIds = Prescription::where('doctor_id', $doctorId)->pluck('appointment_id')->toArray();
+
+    // Fetching completed appointments (appointments with prescriptions)
+    $completedAppointmentsQuery = Appointment::with('patient.user')
         ->where('doctor_id', $doctorId)
-        ->where('patient_id', $patientId)
-        ->where('id', $appointmentId)
-        ->first();  // Fetch only the selected appointment
-    
-    // If no appointment is found, you can return an error or handle it gracefully
-    if (!$appointment) {
-        return redirect()->route('doctorList')->with('error', 'Appointment not found.');
+        ->whereIn('id', $prescribedAppointmentIds);
+
+    // Fetching upcoming appointments (appointments without prescriptions)
+    $upcomingAppointmentsQuery = Appointment::with('patient.user')
+        ->where('doctor_id', $doctorId)
+        ->whereNotIn('id', $prescribedAppointmentIds) // Exclude completed appointments
+        ->where('date', '>=', today()) // Include only future appointments
+        ->orderBy('date', 'asc');
+
+    // Apply filters if specified
+    if ($filterBy && $filterValue) {
+        switch ($filterBy) {
+            case 'name':
+                $completedAppointmentsQuery->whereHas('patient.user', function ($query) use ($filterValue) {
+                    $query->where('first_name', 'like', "%$filterValue%")
+                          ->orWhere('last_name', 'like', "%$filterValue%");
+                });
+
+                $upcomingAppointmentsQuery->whereHas('patient.user', function ($query) use ($filterValue) {
+                    $query->where('first_name', 'like', "%$filterValue%")
+                          ->orWhere('last_name', 'like', "%$filterValue%");
+                });
+                break;
+
+            case 'date':
+                $completedAppointmentsQuery->where('date', 'like', "%$filterValue%");
+                $upcomingAppointmentsQuery->where('date', 'like', "%$filterValue%");
+                break;
+
+                case 'comment':
+                    $completedAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('comment', 'like', "%$filterValue%");
+                    });
+                
+                    $upcomingAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('comment', 'like', "%$filterValue%");
+                    });
+                    break;
+                
+                case 'morning_med':
+                    $completedAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('morning_med', 'like', "%$filterValue%");
+                    });
+                
+                    $upcomingAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('morning_med', 'like', "%$filterValue%");
+                    });
+                    break;
+                
+                case 'afternoon_med':
+                    $completedAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('afternoon_med', 'like', "%$filterValue%");
+                    });
+                
+                    $upcomingAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('afternoon_med', 'like', "%$filterValue%");
+                    });
+                    break;
+                
+                case 'night_med':
+                    $completedAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('night_med', 'like', "%$filterValue%");
+                    });
+                
+                    $upcomingAppointmentsQuery->whereHas('prescriptions', function ($query) use ($filterValue) {
+                        $query->where('night_med', 'like', "%$filterValue%");
+                    });
+                    break;
+
+            default:
+                break;
+        }
     }
-    
-    // Return the view with necessary data, including the selected appointment
-    return view('patientOfDoctor', compact('patient', 'prescriptions', 'appointment'));
+
+    $completedAppointments = $completedAppointmentsQuery->get();
+    $upcomingAppointments = $upcomingAppointmentsQuery->get();
+
+    // Fetch prescriptions for all appointments
+    $prescriptions = Prescription::where('doctor_id', $doctorId)
+        ->whereIn('appointment_id', $completedAppointments->pluck('id')->merge($upcomingAppointments->pluck('id')))
+        ->get();
+
+    // Return the view with necessary data
+    return view('doctorHome', compact('completedAppointments', 'upcomingAppointments', 'prescriptions'));
 }
+
+    
+    
+
+
+        public function patientOfDoctor($patientId, $appointmentId)
+        {
+            $doctorId = auth()->user()->id;
+            
+            // Ensure the patient has a relationship with the user
+            $patient = Patient::with('user')->findOrFail($patientId);
+            
+            // Fetch prescriptions for the patient
+            $prescriptions = Prescription::where('patient_id', $patientId)
+                ->orderBy('created_at', 'desc')
+                ->get();
+            
+            // Fetch the specific appointment by patient_id and appointment_id
+            $appointment = Appointment::with('patient.user')
+                ->where('doctor_id', $doctorId)
+                ->where('patient_id', $patientId)
+                ->where('id', $appointmentId)
+                ->first();  // Fetch only the selected appointment
+            
+            // If no appointment is found, you can return an error or handle it gracefully
+            if (!$appointment) {
+                return redirect()->route('doctorList')->with('error', 'Appointment not found.');
+            }
+            
+            // Return the view with necessary data, including the selected appointment
+            return view('patientOfDoctor', compact('patient', 'prescriptions', 'appointment'));
+        }
 
     
 

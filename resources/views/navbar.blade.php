@@ -4,18 +4,19 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo">
         </div>
 
-        <!-- Admin navbar -->
-        @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 1)
-            <li><a href="{{ route('approval') }}">Approval</a></li>
-            <li><a href="{{ route('roles.index') }}">Manage Roles</a></li>
-            <li><a href="{{ route('patientList') }}">Patient List</a></li>
-            <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
-            <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
-            <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
-            <li><a href="{{ route('employees.index') }}">Employees</a></li>
-            <li><a href="{{ route('appointment.appointmentForm') }}">Create Appointment</a></li>
-
+    <!-- Admin navbar -->
+    @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 1)
+        <li><a href="{{ route('approval') }}">Approval</a></li>
+        <li><a href="{{ route('roles.index') }}">Manage Roles</a></li>
+        <li><a href="{{ route('patientList') }}">Patient List</a></li>
+        <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
+        <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
+        <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+        <li><a href="{{ route('employees.index') }}">Employees</a></li>
+        <li><a href="{{ route('appointment.appointmentForm') }}">Create Appointment</a></li>
+        <li><a href="{{ route('payment.payment') }}">Payment</a></li>
     @endif
+
     <!-- Supervisor navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 2)
         <li><a href="{{ route('approval') }}">Approval</a></li>
@@ -23,11 +24,12 @@
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>
         <li><a href="{{ route('newRoster.create') }}">New Roster</a></li>
         <li><a href="{{ route('admin-report.index') }}">Admin Report</a></li>
+        <li><a href="{{ route('appointment.appointmentForm') }}">Create Appointment</a></li>
     @endif
 
     <!-- Doctor Navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 3)
-        <li><a href="{{ route('doctorHome') }}">Doctor Home</a></li>
+        <li><a href="{{ route(name: 'doctorList') }}">Doctor Home</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li> 
     @endif
 

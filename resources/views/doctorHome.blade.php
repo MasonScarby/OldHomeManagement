@@ -55,6 +55,9 @@
                 <option value="name" {{ request()->input('filter_by') == 'name' ? 'selected' : '' }}>Patient Name</option>
                 <option value="date" {{ request()->input('filter_by') == 'date' ? 'selected' : '' }}>Date</option>
                 <option value="comment" {{ request()->input('filter_by') == 'comment' ? 'selected' : '' }}>Comment</option>
+                <option value="morning_med" {{ request()->input('filter_by') == 'morning_med' ? 'selected' : '' }}>Morning Medication</option>
+                <option value="afternoon_med" {{ request()->input('filter_by') == 'afternoon_med' ? 'selected' : '' }}>Afternoon Medication</option>
+                <option value="night_med" {{ request()->input('filter_by') == 'night_med' ? 'selected' : '' }}>Night Medication</option>
             </select>
             <input type="text" name="filter" placeholder="Search..." value="{{ request()->input('filter') }}">
             <button type="submit">Filter</button>

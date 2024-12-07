@@ -111,7 +111,48 @@ class PatientController extends Controller
             'last_name' => $patient->user->last_name,
         ]);
     }
-    
+    //for payment page
+    public function getAdmissionDate($id)
+    {
+        $patient = Patient::find($id);
+
+        if (!$patient) {
+            return response()->json(['error' => 'Patient not found'], 404);
+        }
+
+        return response()->json(['admission_date' => $patient->admission_date]);
+    }
+    public function storePatientAssignment(Request $request)
+    {
+        // Validate form inputs
+        $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'patient_name' => 'required',
+            'group' => 'required|in:A,B,C,D',            
+            'admission_date' => 'required|date',
+        ]);
+
+        // Check if the patient exists
+        $patient = Patient::with('user')->find($request->input('patient_id'));
+
+        if (!$patient) {
+            return redirect()->back()->withErrors(['patient_id' => 'Patient ID does not exist.']);
+        }
+
+        if (!$patient->user->is_approved) {
+            // If the patient exists but is not approved
+            return redirect()->back()->withErrors(['patient_id' => 'Only approved patients can be assigned a group.']);
+        }
+
+        // Update the patient record
+        $patient->update([
+            'group' => $request->input('group'),
+            'admission_date' => $request->input('admission_date'),
+        ]);
+
+        // Redirect with a success message
+        return redirect()->back()->with('status', 'Patient information updated successfully!');
+    }
 }
 
 

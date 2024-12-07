@@ -21,8 +21,6 @@ Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
     Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
@@ -32,20 +30,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
 });
 
-
-
 Route::post('/patient-logs', [PatientLogsController::class, 'storeOrUpdate'])->name('patientLogs.storeOrUpdate'); // Store or Update log
 Route::get('/patient/logs/{patientId}/{date}', [PatientLogsController::class, 'getLogByDate'])->name('patient.logs');
 Route::get('/patient/home', [PatientLogsController::class, 'index'])->name('patient.home'); // Display patient log home page
 Route::get('/family-member/logs', [PatientLogsController::class, 'getLogForFamily'])->name('familyMember.logs');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
 Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [UserController::class, 'store']);
-
-
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
@@ -75,13 +67,6 @@ Route::get('/appointment', action: [AppointmentController::class, 'appointmentFo
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 
 
-
-Route::get('/payment', [PaymentController::class, 'paymentPage']); // To calculate total due dynamically
-Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store'); 
-Route::post('/payments/pay', [PaymentController::class, 'pay'])->name('payments.pay');
-
-
-
 Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
 Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
 Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.list');
@@ -93,6 +78,25 @@ Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedA
 
 
 
-Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
 Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/doctor/list', [DoctorController::class, 'doctorList'])->name('doctorList');
+
+    Route::get('/doctor/{patientId}/{appointmentId}', [DoctorController::class, 'patientOfDoctor'])
+        ->name('patientOfDoctor');
+
+    Route::get('/doctor/prescription/create/{appointmentId}', [DoctorController::class, 'create'])
+        ->name('prescription.create');
+
+    Route::post('/doctor/prescription/store', [DoctorController::class, 'store'])
+        ->name('prescription.store');
+});
+
+
+Route::get('/payment', [PaymentController::class, 'paymentPage'])->name('payment.payment');
+Route::post('/fetch-payment', [PaymentController::class, 'fetchOrInsertPayment']);
+Route::post('/process-payment', [PaymentController::class, 'processPayment']);
+
 
