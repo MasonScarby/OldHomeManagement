@@ -42,7 +42,7 @@ class AuthController extends Controller
             case 2:
                 return redirect()->route('approval'); // Supervisor access
             case 3:
-                return redirect()->route('doctorHome');
+                return redirect()->route('doctorList');
             case 4:
                 return redirect()->route('caregiverHome');
             case 5:
