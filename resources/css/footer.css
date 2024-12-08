@@ -1,13 +1,11 @@
 .footer {
     background-color: #303030;
-    margin-top: 20px;
+    margin-top: 50px;
     padding: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    position: fixed;
-    bottom: 0;
 }
 
 .footer-logo img {
