@@ -8,9 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class=family_memberHome>
     @include('navbar')
-
+    <div class='page-container'>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -21,7 +21,7 @@
 
     <h1>Family Member's Home</h1>
     
-    <form id="logForm">
+    <form id="logForm" class=form>
         @csrf
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required><br><br>
@@ -114,7 +114,7 @@
             });
     });
     </script>
-
+</div>
     @include('footer')
 </body>
 </html>
