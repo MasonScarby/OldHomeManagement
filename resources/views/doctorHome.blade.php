@@ -36,7 +36,6 @@
             gap: 10px;
             margin-bottom: 20px;
         }
-    
     </style>
 </head>
 <body>
@@ -48,81 +47,85 @@
         </div>
     @endif
 
-    <h1>Doctor's Home</h1>
-
     <div class="container">
-        <!-- Search Form -->
+        <h1>Completed Appointments</h1>
         <form action="{{ route('doctorList') }}" method="GET">
-            <label for="search_by">Search By:</label>
-            <select name="search_by" id="search_by">
-                <option value="name" {{ request()->input('search_by') == 'name' ? 'selected' : '' }}>Name</option>
-                <option value="admission_date" {{ request()->input('search_by') == 'admission_date' ? 'selected' : '' }}>Admission Date</option>
-                <option value="comment" {{ request()->input('search_by') == 'comment' ? 'selected' : '' }}>Comment</option>
-                <option value="age" {{ request()->input('search_by') == 'age' ? 'selected' : '' }}>Age</option>
+            <label for="filter_by">Filter By:</label>
+            <select name="filter_by" id="filter_by">
+                <option value="name" {{ request()->input('filter_by') == 'name' ? 'selected' : '' }}>Patient Name</option>
+                <option value="date" {{ request()->input('filter_by') == 'date' ? 'selected' : '' }}>Date</option>
+                <option value="comment" {{ request()->input('filter_by') == 'comment' ? 'selected' : '' }}>Comment</option>
+                <option value="morning_med" {{ request()->input('filter_by') == 'morning_med' ? 'selected' : '' }}>Morning Medication</option>
+                <option value="afternoon_med" {{ request()->input('filter_by') == 'afternoon_med' ? 'selected' : '' }}>Afternoon Medication</option>
+                <option value="night_med" {{ request()->input('filter_by') == 'night_med' ? 'selected' : '' }}>Night Medication</option>
             </select>
-            <input type="text" name="search" placeholder="Search..." value="{{ request()->input('search') }}">
-            <button type="submit">Search</button>
+            <input type="text" name="filter" placeholder="Search..." value="{{ request()->input('filter') }}">
+            <button type="submit">Filter</button>
             <a href="{{ route('doctorList') }}" class="btn-reset">Reset</a>
         </form>
 
-        <!-- Patient Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Admission Date</th>
-                    <th>Comment</th>
-                    <th>Morning Med</th>
-                    <th>Afternoon Med</th>
-                    <th>Night Med</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($patients as $patient)
+        @if($completedAppointments->isEmpty())
+            <div class="no-appointments">No completed appointments found.</div>
+        @else
+            <h3>Completed Appointments and Prescriptions</h3>
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $patient->user->first_name }} {{ $patient->user->last_name }}</td>
-                        <td>{{ $patient->admission_date->format('m-d-Y') }}</td>
-                        <td>{{ $patient->comments }}</td>
-                        <td>{{ $patient->morning_med }}</td>
-                        <td>{{ $patient->afternoon_med }}</td>
-                        <td>{{ $patient->night_med }}</td>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Morning Med</th>
+                        <th>Afternoon Med</th>
+                        <th>Night Med</th>
+                        <th>Comment</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($completedAppointments as $appointment)
+                        @php
+                            // Fetch prescription for the current appointment
+                            $prescription = $prescriptions->firstWhere('appointment_id', $appointment->id);
+                        @endphp
+                        <tr>
+                            <td>{{ $appointment->patient->user->first_name }} {{ $appointment->patient->user->last_name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($appointment->date)->format('m-d-Y') }}</td>
+                            <td>{{ $prescription->morning_med ?? 'N/A' }}</td>
+                            <td>{{ $prescription->afternoon_med ?? 'N/A' }}</td>
+                            <td>{{ $prescription->night_med ?? 'N/A' }}</td>
+                            <td>{{ $prescription->comment ?? $appointment->comment ?? 'No comment' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
 
-        <!-- Appointment Form -->
-        <form action="{{ route('appointments.store') }}" method="POST">
-            @csrf
-            <label for="patient">Patient:</label>
-            <select name="patient" id="patient">
-                @foreach($patients as $patient)
-                    <option value="{{ $patient->id }}">{{ $patient->user->first_name }} {{ $patient->user->last_name }}</option>
-                @endforeach
-            </select>
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-            <button type="submit" style="background-color: green; color: white;">Submit</button>
-        </form>
-
-        <!-- upcoming  -->
         <h1>Upcoming Appointments</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Appointment Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($appointments as $appointment)
+        @if($upcomingAppointments->isEmpty())
+            <div class="no-appointments">No upcoming appointments found.</div>
+        @else
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $appointment->patient->user->first_name }} {{ $appointment->patient->user->last_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($appointment->date)->format('m-d-Y') }}</td>
+                        <th>Patient Name</th>
+                        <th>Appointment Date</th>
+                        <th></th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($upcomingAppointments as $appointment)
+                        <tr>
+                            <td>{{ $appointment->patient->user->first_name }} {{ $appointment->patient->user->last_name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($appointment->date)->format('m-d-Y') }}</td>
+                            <td>
+                                <!-- Pass both patient_id and appointment_id -->
+                                <a href="{{ route('patientOfDoctor', ['patientId' => $appointment->patient_id, 'appointmentId' => $appointment->id]) }}">
+                                    <button>View</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
     
     @include('footer')

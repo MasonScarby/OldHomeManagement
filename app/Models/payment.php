@@ -9,7 +9,13 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'last_payment_date', 'total_due'];
+    protected $fillable = ['patient_id', 'amount', 'payment_date'];
 
-
+    /**
+     * Get the patient associated with the payment.
+     */
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }

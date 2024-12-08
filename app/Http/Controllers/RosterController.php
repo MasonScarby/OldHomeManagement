@@ -44,34 +44,6 @@ class RosterController extends Controller
 }
 
 
-    /**
-     * Display a listing of all roster entries.
-     */
-    // public function index()
-    // {
-    //     // Fetch approved supervisors
-    //     $supervisors = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'supervisor');
-    //     })->where('is_approved', true)->get();
-
-
-    //     return response()->json([
-    //         'rosters' => $rosters
-    //     ], 201); 
-
-    //     // Fetch approved doctors
-    //     $doctors = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'doctor');
-    //     })->where('is_approved', true)->get();
-
-    //     // Fetch approved caregivers
-    //     $caregivers = User::whereHas('role', function ($query) {
-    //         $query->where('role_name', 'caregiver');
-    //     })->where('is_approved', true)->get();
-
-    //     // Pass data to the view
-    //     return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
-    // }
     public function index()
     {
         // Fetch approved supervisors
@@ -93,6 +65,14 @@ class RosterController extends Controller
         return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
     }
 
+    //     // Fetch approved caregivers
+    //     $caregivers = User::whereHas('role', function ($query) {
+    //         $query->where('role_name', 'caregiver');
+    //     })->where('is_approved', true)->get();
+
+    //     // Pass data to the view
+    //     return view('newRoster', compact('supervisors', 'doctors', 'caregivers'));
+    // }
     
 
    
@@ -100,7 +80,6 @@ class RosterController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'supervisor' => 'required|exists:users,id',
             'doctor' => 'required|exists:users,id',
             'caregiver1' => 'nullable|exists:users,id',
             'caregiver2' => 'nullable|exists:users,id',
@@ -124,37 +103,10 @@ class RosterController extends Controller
     {
         $date = $request->input('date');
 
-        if (!$date) {
-            return view('rosterList', ['rosters' => null, 'date' => null]);
-        }
-
-        // Fetch the roster for the given date
-        $roster = Roster::where('date', $date)->first();
-
-        if (!$roster) {
-            return view('rosterList', ['rosters' => null, 'date' => $date]);
-        }
-
-        // Fetch related user details for each role
-        $supervisor = $roster->supervisor ? User::find($roster->supervisor) : null;
-        $doctor = $roster->doctor ? User::find($roster->doctor) : null;
-        $caregiver1 = $roster->caregiver1 ? User::find($roster->caregiver1) : null;
-        $caregiver2 = $roster->caregiver2 ? User::find($roster->caregiver2) : null;
-        $caregiver3 = $roster->caregiver3 ? User::find($roster->caregiver3) : null;
-        $caregiver4 = $roster->caregiver4 ? User::find($roster->caregiver4) : null;
-
-        // Prepare data for the view
-        $rosters = [
-            [
-                'date' => $roster->date,
-                'supervisor' => $supervisor ? $supervisor->first_name . ' ' . $supervisor->last_name : 'No supervisor assigned',
-                'doctor' => $doctor ? $doctor->first_name . ' ' . $doctor->last_name : 'No doctor assigned',
-                'caregiver1' => $caregiver1 ? $caregiver1->first_name . ' ' . $caregiver1->last_name : 'No caregiver assigned',
-                'caregiver2' => $caregiver2 ? $caregiver2->first_name . ' ' . $caregiver2->last_name : 'No caregiver assigned',
-                'caregiver3' => $caregiver3 ? $caregiver3->first_name . ' ' . $caregiver3->last_name : 'No caregiver assigned',
-                'caregiver4' => $caregiver4 ? $caregiver4->first_name . ' ' . $caregiver4->last_name : 'No caregiver assigned',
-            ],
-        ];
+        // Fetch rosters for the selected date
+        $rosters = Roster::with(['supervisor', 'doctor', 'caregiver1', 'caregiver2', 'caregiver3', 'caregiver4'])
+            ->whereDate('date', $date)
+            ->get();
 
         return view('rosterList', ['rosters' => $rosters, 'date' => $date]);
     }
@@ -196,4 +148,3 @@ class RosterController extends Controller
     }
 
 }
-

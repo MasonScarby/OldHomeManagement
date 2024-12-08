@@ -6,7 +6,7 @@
     <title>New Roster</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="newRoster">
     @include('navbar')
 
     <h1>New Roster</h1>
@@ -16,9 +16,8 @@
         {{ print_r($caregivers) }}
     </pre> -->
 
-
-    <form action="{{ route('newRoster.store') }}" method="POST">
-        @csrf
+        <form action="{{ route('newRoster.store') }}" method="POST" class="form">
+            @csrf
 
         <div>
             <label for="date">Date</label>
@@ -48,7 +47,6 @@
                 @endforeach
             </select>
         </div>
-
         @for ($i = 1; $i <= 4; $i++)
             <div>
                 <label for="caregiver{{ $i }}">Caregiver {{ $i }}:</label>

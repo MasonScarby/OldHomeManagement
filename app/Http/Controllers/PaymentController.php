@@ -3,135 +3,112 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use App\Models\Appointment;
+use App\Models\Patient;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
-
-     public function paymentPage()
-     {
-        //  $payments = payment::all();
-         return view('payment');
-     }
- 
-     
-    public function index()
+    
+    public function paymentPage()
     {
-        $payments = payment::all();
-        return response()->json($payments);
+        return view('payment');
     }
 
-    public function store(Request $request)
+    public function fetchOrInsertPayment(Request $request)
     {
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
-        ]);
-
-        if ($validator->fails()) {
+        $patientId = $request->patient_id;
+    
+        // Check if patient exists in patients table
+        $patient = Patient::find($patientId);
+    
+        if (!$patient) {
+            return response()->json(['error' => 'Patient not found'], 404);
+        }
+    
+        // Check if payment exists for the patient
+        $payment = Payment::where('patient_id', $patientId)->first();
+    
+        if ($payment) {
+            // Return the updated total due (payment amount after adjustments)
             return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors(),
-            ], 400);
-        }
-
-        $userId = $request->user_id;
-        $lastPaymentDate = Carbon::parse($request->last_payment_date);
-        $currentDate = Carbon::now();
-
-        $daysSinceLastPayment = $currentDate->diffInDays($lastPaymentDate);
-        $totalDue = $daysSinceLastPayment * 10;
-
-        // Count the number of appointments from the current date to the last payment date
-        $appointmentCount = Appointment::where('patient_id', $userId)
-            ->whereDate('appointment_date', '>=', $lastPaymentDate)
-            ->whereDate('appointment_date', '<=', $currentDate)
-            ->count();
-
-        // Add appointment cost to the total due (assuming $10 per appointment, adjust as necessary)
-        $totalDue += $appointmentCount * 50;
-
-        // Create the payment record
-        $payment = Payment::create([
-            'user_id' => $userId,
-            'last_payment_date' => $request->last_payment_date,
-            'total_due' => $totalDue,
-        ]);
-
-        return response()->json([
-            'message' => 'Payment record created successfully!',
-            'payment' => $payment,
-        ], 201);
-    }
-
-    public function pay(Request $request)
-    {
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
-            'new_payment' => 'required|numeric|min:0',
-        ]);
-
-        if ($validator->fails()) {
+                'admission_date' => $patient->admission_date,  // Return formatted admission date
+                'total_due' => $payment->amount,  // Return updated total due from payment record
+            ]);
+        } else {
+            // Calculate the initial total due based on the admission date
+            $admissionDateCarbon = Carbon::parse($patient->admission_date);
+            $currentDate = Carbon::now();
+            $daysSinceAdmission = $admissionDateCarbon->diffInDays($currentDate);
+    
+            // Calculate total amount due ($10 per day, can be adjusted)
+            $totalDue = $daysSinceAdmission * 10;
+    
+            // Get the count of prescriptions after the admission date (if needed)
+            $prescriptionsCount = $patient->prescriptions()->count();
+            $totalDue += $prescriptionsCount * 50;  // Adjust $50 per prescription
+    
+            // Insert a new record into the payments table
+            Payment::create([
+                'patient_id' => $patientId,
+                'admission_date' => $patient->admission_date,
+                'amount' => $totalDue,  // Set the calculated total due
+                'payment_date' => Carbon::now(),
+            ]);
+    
             return response()->json([
-                'error' => 'Validation failed',
-                'messages' => $validator->errors(),
-            ], 400);
+                'admission_date' => $patient->admission_date,  // Return admission date
+                'total_due' => $totalDue,  // Initial total due
+            ]);
         }
-
-        $userId = $request->user_id;
-        $newPayment = $request->new_payment;
-
-        // Retrieve the latest payment for the user
-        $payment = Payment::where('user_id', $userId)->latest()->first();
-
-        if (!$payment) {
-            return response()->json([
-                'error' => 'No payment record found for the user.',
-            ], 404);
-        }
-
-        $newTotalDue = $payment->total_due - $newPayment;
-
-        $payment->update([
-            'total_due' => $newTotalDue,
-            'last_payment_date' => Carbon::now(),
-        ]);
-
-        return response()->json([
-            'message' => 'Payment processed successfully!',
-            'payment' => $payment,
-        ], 200);
     }
-    public function calculateTotalDue(Request $request)
+            
+
+    public function processPayment(Request $request)
     {
-        $userId = $request->input('user_id');
+        $patientId = $request->patient_id;
+        $paymentAmount = $request->payment_amount;
     
-        $lastPayment = Payment::where('user_id', $userId)->latest()->first();
-    
-        if (!$lastPayment) {
-            return response()->json(['error' => 'No payment record found for this user.'], 404);
+        // Validate payment amount
+        if (!is_numeric($paymentAmount) || $paymentAmount <= 0) {
+            return response()->json(['error' => 'Invalid payment amount'], 400);
         }
     
-        $lastPaymentDate = Carbon::parse($lastPayment->last_payment_date);
-        $currentDate = Carbon::now();
+        // Check if patient exists
+        $patient = Patient::find($patientId);
     
-        $daysSinceLastPayment = $currentDate->diffInDays($lastPaymentDate);
+        if (!$patient) {
+            return response()->json(['error' => 'Patient not found'], 404);
+        }
     
-        $totalDue = $daysSinceLastPayment * 5;
+        // Find the payment record for the patient
+        $payment = Payment::where('patient_id', $patientId)->first();
     
-        // Count the number of appointments from the current date to the last payment date
-        $appointmentCount = Appointment::where('patient_id', $userId)
-            ->whereDate('appointment_date', '>=', $lastPaymentDate)
-            ->whereDate('appointment_date', '<=', $currentDate)
-            ->count();
+        if ($payment) {
+            // Calculate the remaining amount after the payment
+            $remainingAmount = $payment->amount - $paymentAmount;
     
-        $totalDue += $appointmentCount * 10;
+            // Ensure the remaining amount is not negative
+            if ($remainingAmount < 0) {
+                $remainingAmount = 0;
+            }
     
-        return response()->json(['total_due' => $totalDue]);
+            // Update the payment record with the remaining amount
+            $payment->update([
+                'amount' => $remainingAmount,
+                'payment_date' => Carbon::now(),  // Update payment date to current date
+            ]);
+    
+            // Return the remaining amount as total due (since it's updated in the table)
+            return response()->json([
+                'remaining_amount' => $remainingAmount,  // Return the remaining amount
+                'total_due' => $remainingAmount,  // Return the updated total due
+            ]);
+        }
+    
+        return response()->json(['error' => 'Payment record not found'], 404);
     }
     
+        
+
 }

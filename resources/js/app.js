@@ -33,6 +33,12 @@ else if (document.body.classList.contains("login")) {
 else if (document.body.classList.contains("register")) {
     import('../css/register.css');
 }
+else if (document.body.classList.contains("newRoster")) {
+    import('../css/newRoster.css');
+}
+else if (document.body.classList.contains("rosterList")) {
+    import('../css/rosterList.css');
+}
 
 else if (document.body.classList.contains("family_memberHome")) {
     import('../css/family_memberHome.css');
