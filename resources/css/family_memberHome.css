@@ -1,0 +1,161 @@
+/* General body styles */
+body {
+    background-color: whitesmoke; /* Page background */
+    color: #303030; /* Text color */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page title */
+h1 {
+    text-align: center;
+    color: #303030; /* Dark Gray */
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Alerts */
+.alert {
+    background-color: #E4C297; /* Light Brown */
+    color: #303030; /* Dark Gray */
+    border: 1px solid #d2a67b; /* Slightly darker brown */
+    border-radius: 5px;
+    padding: 10px;
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+    font-weight: bold;
+    display: none; /* Default is hidden */
+}
+
+/* Form container */
+.form {
+    background-color: #ffffff; /* White form background */
+    border-radius: 8px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form labels */
+.form label {
+    font-weight: bold;
+    color: #303030; /* Dark Gray */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Form inputs */
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: whitesmoke;
+    color: #303030;
+}
+
+/* Submit button */
+.form button {
+    background-color: #E4C297; /* Light Brown */
+    color: #303030; /* Dark Gray */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.form button:hover {
+    background-color: #d2a67b; /* Darker light brown */
+    color: whitesmoke;
+}
+
+/* Error message */
+#errorMessage {
+    color: red;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+    margin: 10px auto;
+    width: 90%;
+}
+
+/* Table styles */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff; /* White table background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Initially hidden */
+}
+
+/* Table header */
+thead {
+    background-color: #E4C297; /* Light Brown */
+    color: #303030; /* Dark Gray */
+    text-align: center;
+}
+
+thead th {
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Table body rows */
+tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Light gray rows */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff; /* White rows */
+}
+
+/* Table data cells */
+tbody td {
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    color: #303030; /* Dark Gray */
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: not-allowed; /* Indicates these are disabled */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    form,
+    table {
+        width: 95%;
+    }
+
+    form button {
+        font-size: 0.9rem;
+    }
+}

@@ -7,9 +7,9 @@
     <title>Shire Homes</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class=patientHome>
     @include('navbar')
-
+    <div class='page-container'>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -122,7 +122,7 @@
                 .catch(error => console.error('Error fetching log:', error));
         });
     </script>
-    
+    </div>
     @include('footer')
 </body>
 </html>

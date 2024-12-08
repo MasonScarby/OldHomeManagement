@@ -25,4 +25,10 @@ else if (document.body.classList.contains("approval")) {
     import('../css/approval.css');
 }
 
+else if (document.body.classList.contains("patientHome")) {
+    import('../css/patientHome.css');
+}
 
+else if (document.body.classList.contains("family_memberHome")) {
+    import('../css/family_memberHome.css');
+}

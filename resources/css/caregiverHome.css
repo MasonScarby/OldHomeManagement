@@ -1,13 +1,90 @@
-* {
+body.caregiverHome {
+    background-color: whitesmoke; 
+    color: #303030; 
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: black; 
+    margin-top: 20px;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #f9f9f9; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+    background-color: #E4C297; 
+    color: #303030; 
+    text-align: left;
+}
+
+thead th {
+    padding: 12px;
+    font-weight: bold;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+button.save-log-btn {
+    background-color: #E4C297; 
+    color: #303030;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button.save-log-btn:hover {
+    background-color: #d2a67b; 
+    color: whitesmoke;
 }
 
 .alert {
-    display: none;
-    margin-bottom: 20px;
+    width: 90%;
+    margin: 20px auto;
     padding: 10px;
-    border: 1px solid green;
-    color: green;
+    background-color: #E4C297; 
+    color: #303030; 
+    border: 1px solid #d2a67b;
+    border-radius: 5px;
+    display: none; 
+    text-align: center;
+}
+
+.alert-success {
+    font-weight: bold;
 }
