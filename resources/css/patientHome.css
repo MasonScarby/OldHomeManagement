@@ -98,10 +98,10 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
     background-color: #ffffff; 
 }
-/* patientHome Styles */
+
 body {
-    background-color: whitesmoke; /* Background remains whitesmoke */
-    color: #303030; /* Dark Gray */
+    background-color: whitesmoke; 
+    color: #303030; 
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -109,7 +109,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #303030; /* Dark Gray */
+    color: #303030; 
     margin-top: 20px;
     font-size: 2rem;
     font-weight: bold;
@@ -119,13 +119,13 @@ h1 {
     width: 90%;
     margin: 20px auto;
     padding: 10px;
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray */
-    border: 1px solid #d2a67b; /* Slightly darker light brown */
+    background-color: #E4C297; 
+    color: #303030; 
+    border: 1px solid #d2a67b; 
     border-radius: 5px;
     text-align: center;
     font-weight: bold;
-    display: none; /* Hidden by default */
+    display: none; 
 }
 
 div {
@@ -136,7 +136,7 @@ div {
 
 label {
     font-weight: bold;
-    color: #303030; /* Dark Gray */
+    color: #303030; 
     display: block;
     margin-bottom: 5px;
 }
@@ -147,8 +147,8 @@ input[type="text"], input[type="date"] {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: whitesmoke; /* Background matches the page */
-    color: #303030; /* Dark Gray Text */
+    background-color: whitesmoke; 
+    color: #303030; 
     font-size: 1rem;
 }
 
@@ -156,12 +156,12 @@ input[type="checkbox"] {
     width: 20px;
     height: 20px;
     margin: 5px;
-    cursor: not-allowed; /* Indicates these are read-only */
+    cursor: not-allowed; 
 }
 
 button#search-date-btn {
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray Text */
+    background-color: #E4C297; 
+    color: #303030; 
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -172,7 +172,7 @@ button#search-date-btn {
 }
 
 button#search-date-btn:hover {
-    background-color: #d2a67b; /* Slightly darker brown */
+    background-color: #d2a67b; 
     color: whitesmoke;
 }
 
@@ -180,15 +180,15 @@ table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: #ffffff; /* White table background */
+    background-color: #ffffff; 
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 thead {
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray */
+    background-color: #E4C297; 
+    color: #303030; 
     text-align: center;
 }
 
@@ -202,11 +202,11 @@ tbody tr {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9; /* Light gray rows */
+    background-color: #f9f9f9; 
 }
 
 tbody tr:nth-child(even) {
-    background-color: #ffffff; /* White rows */
+    background-color: #ffffff; 
 }
 
 tbody td {
@@ -216,7 +216,7 @@ tbody td {
 
 tbody td[colspan="9"] {
     text-align: center;
-    color: #d9534f; /* Red for "No log found" */
+    color: #d9534f; 
     font-weight: bold;
 }
 
