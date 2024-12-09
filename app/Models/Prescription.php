@@ -20,4 +20,9 @@ class Prescription extends Model
         'date',
     ];
 
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
 }

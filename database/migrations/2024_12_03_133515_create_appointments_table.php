@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('doctor_id');
             $table->date('date');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         
             // Foreign keys

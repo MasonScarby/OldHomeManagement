@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Prescription;
 use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
@@ -48,11 +49,53 @@ class AppointmentController extends Controller
             'date' => $validated['date'],
         ]);
     
-        return response()->json([
-            'success' => true,
-            'message' => 'Appointment created successfully',
-            'data' => $appointment,
-        ], 201);
+        return redirect()->back()->with('success', 'Appointment created successfully!');
+
     }
 
+    public function filter(Request $request)
+{
+    // Build query to fetch appointments
+    $query = Appointment::query();
+
+    // Apply filters if available
+    if ($request->has('filter') && $request->has('filter_by')) {
+        $filter = $request->input('filter');
+        $filterBy = $request->input('filter_by');
+
+        // Patient name filter
+        if ($filterBy == 'name') {
+            $query->whereHas('patient.user', function ($query) use ($filter) {
+                $query->where('first_name', 'like', "%$filter%")
+                    ->orWhere('last_name', 'like', "%$filter%");
+            });
+        }
+        // Date filter
+        elseif ($filterBy == 'date') {
+            $query->whereDate('date', 'like', "%$filter%");
+        }
+        // Comment filter
+        elseif ($filterBy == 'comment') {
+            $query->whereHas('prescription', function ($query) use ($filter) {
+                $query->where('comment', 'like', "%$filter%");
+            });
+        }
+        // Meds filters
+        elseif (in_array($filterBy, ['morning_med', 'afternoon_med', 'night_med'])) {
+            $query->whereHas('prescription', function ($query) use ($filter, $filterBy) {
+                $query->where($filterBy, 'like', "%$filter%");
+            });
+        }
+    }
+
+    // Fetch the filtered appointments
+    $completedAppointments = $query->where('completed', true)->get();
+    $upcomingAppointments = Appointment::where('completed', false)->get();
+
+    // Fetch associated prescriptions
+    $prescriptions = Prescription::whereIn('appointment_id', $completedAppointments->pluck('id'))->get();
+
+    // Return filtered data to the view
+    return view('appointments.completedAppointments', compact('completedAppointments', 'upcomingAppointments', 'prescriptions'));
+}
 }

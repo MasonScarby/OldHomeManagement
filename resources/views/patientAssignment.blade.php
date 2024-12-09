@@ -35,7 +35,7 @@
             <div id="patient_id_error" style="color: red; display: none;"></div>
 
 
-            <label for="patient_id">Patient ID</label>
+            <label for="patient_id">Patient ID</label> 
             <input type="number" id="patient_id" name="patient_id" placeholder="Enter ID" min="1" required>
 
             <button type="button" id="searchButton">Search</button>

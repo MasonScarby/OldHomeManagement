@@ -10,11 +10,27 @@
 <body>
     @include('navbar')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if(session('status'))
+            <div style="color: green;" class="success">
+                {{ session('status') }}
+            </div>
+    @endif
+    
     <form action="{{ route('appointment.store') }}" method="post">
         @csrf
         <table>
             <tr>
-                <td><label for="date">Date</label></td>
+                <td><label for="date">Date</label></td> 
                 <td><input type="date" id="date" name="date" value="{{ old('date') }}" required></td>
             </tr>
 
@@ -29,7 +45,9 @@
 
             <tr>
                 <td><label for="patient_name">Patient Name</label></td>
-                <td><input type="text" id="patient_name" name="patient_name" readonly></td>
+                <td>
+                    <input type="text" id="patient_name" name="patient_name" readonly required>
+                </td>
             </tr>
 
             <tr>

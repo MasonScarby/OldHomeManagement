@@ -30,4 +30,9 @@ class PatientLog extends Model
     {
         return $this->belongsTo(User::class, 'caregiver_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

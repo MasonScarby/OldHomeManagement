@@ -13,6 +13,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PatientLogsController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\DoctorController;
+
 
 
 
@@ -94,11 +96,25 @@ Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admi
 Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
 
 
-
-Route::get('/doctorList', [PatientController::class, 'doctorList'])->name('doctorList');
 Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
-Route::get('/patientOfDoctor', [PrescriptionController::class, 'patientOfDoctor']);
-Route::post('/patientOfDoctor', [PrescriptionController::class, 'storeInfo']);
+Route::get('/appointments/filter', [AppointmentController::class, 'filter'])->name('appointment.filter');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/doctor/list', [DoctorController::class, 'doctorList'])->name('doctorList');
+
+    Route::get('/doctor/{patientId}/{appointmentId}', [DoctorController::class, 'patientOfDoctor'])
+        ->name('patientOfDoctor');
+
+    Route::get('/doctor/prescription/create/{appointmentId}', [DoctorController::class, 'create'])
+        ->name('prescription.create');
+
+    Route::post('/doctor/prescription/store', [DoctorController::class, 'store'])
+        ->name('prescription.store');
+});
+
+Route::get('/payment', [PaymentController::class, 'paymentPage']);
+Route::post('/fetch-payment', [PaymentController::class, 'fetchOrInsertPayment']);
+Route::post('/process-payment', [PaymentController::class, 'processPayment']);
 
 
 
