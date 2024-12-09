@@ -27,6 +27,7 @@ else if (document.body.classList.contains("approval")) {
 
 else if (document.body.classList.contains("patientHome")) {
     import('../css/patientHome.css');
+}
 else if (document.body.classList.contains("login")) {
     import('../css/login.css');
 }
@@ -42,4 +43,16 @@ else if (document.body.classList.contains("rosterList")) {
 
 else if (document.body.classList.contains("family_memberHome")) {
     import('../css/family_memberHome.css');
+}
+
+else if (document.body.classList.contains("adminReport")) {
+    import('../css/adminReport.css');
+}
+
+else if (document.body.classList.contains("doctorHome")) {
+    import('../css/doctorHome.css');
+}
+
+else if (document.body.classList.contains("payment")) {
+    import('../css/payment.css');
 }
