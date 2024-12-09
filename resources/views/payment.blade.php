@@ -9,47 +9,109 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
-        .form-container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+        /* General Page Styling */
+body {
+    background-color: whitesmoke;
+    font-family: Arial, sans-serif;
+    color: #303030;
+    margin: 0;
+    padding: 0;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+.form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+h3 {
+    color: #303030;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #E4C297;
+    padding-bottom: 10px;
+}
 
-        input[type="text"] {
-            width: 70%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
 
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+form {
+    margin-bottom: 20px;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+form .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+form label {
+    font-weight: bold;
+    color: #303030;
+    flex: 1;
+    text-align: right;
+}
+
+form input[type="text"] {
+    flex: 2;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #E4C297;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    color: #303030;
+}
+
+form input[type="text"]:read-only {
+    background-color: #f9f9f9;
+}
+
+form button {
+    padding: 8px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #E4C297;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #d1a679;
+}
+
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #E4C297;
+    border-radius: 4px;
+    background-color: #E4C297;
+    color: whitesmoke;
+    text-align: center;
+}
+
+
+@media (max-width: 600px) {
+    form .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    form label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    form input[type="text"], form button {
+        width: 100%;
+    }
+}
     </style>
 </head>
 <body>
