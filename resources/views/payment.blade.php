@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
-        /* General Page Styling */
 body {
     background-color: whitesmoke;
     font-family: Arial, sans-serif;
