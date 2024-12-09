@@ -21,6 +21,9 @@ Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [UserController::class, 'store']);
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', [DashboardController::class, 'approval'])->name('approval');
     Route::post('/approve-users', [DashboardController::class, 'approveUsers'])->name('approveUsers');
@@ -28,75 +31,41 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/caregiverHome', [DashboardController::class, 'caregiverHome'])->name('caregiverHome');
     Route::get('/patientHome', [DashboardController::class, 'patientHome'])->name('patientHome');
     Route::get('/family_memberHome', [DashboardController::class, 'familyMemberHome'])->name('family_memberHome');
-});
-
-Route::post('/patient-logs', [PatientLogsController::class, 'storeOrUpdate'])->name('patientLogs.storeOrUpdate'); // Store or Update log
-Route::get('/patient/logs/{patientId}/{date}', [PatientLogsController::class, 'getLogByDate'])->name('patient.logs');
-Route::get('/patient/home', [PatientLogsController::class, 'index'])->name('patient.home'); // Display patient log home page
-Route::get('/family-member/logs', [PatientLogsController::class, 'getLogForFamily'])->name('familyMember.logs');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [UserController::class, 'store']);
-
-Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
-
-
-
-Route::get('/patient-assignment', [PatientController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
-Route::get('/search-patient', [PatientController::class, 'searchPatientById']);
-Route::post('/patient-assignment', [PatientController::class, 'storePatientAssignment']);
-Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
-
-Route::post('/patient', [PatientController::class, 'store']);
-Route::get('/patient', [PatientController::class, 'patientsPage']);
-
-Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
-Route::post('/employees', [EmployeesController::class, 'store']);
-Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
-
-
-Route::get('/roster', [RosterController::class, 'showRosterForm']);
-Route::post('/roster', [RosterController::class, 'store']);
-Route::get('/rosterList', [RosterController::class, 'showRosterListForm'])->name('rosterList');
-
-
-
-Route::get('/appointment', action: [AppointmentController::class, 'appointmentForm'])->name(name: 'appointment.appointmentForm');
-Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
-
-
-Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
-Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
-Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.list');
-
-
-
-Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
-Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
-
-
-
-Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
-
-
-Route::middleware('auth')->group(function () {
+    Route::post('/patient-logs', [PatientLogsController::class, 'storeOrUpdate'])->name('patientLogs.storeOrUpdate');
+    Route::get('/patient/logs/{patientId}/{date}', [PatientLogsController::class, 'getLogByDate'])->name('patient.logs');
+    Route::get('/patient/home', [PatientLogsController::class, 'index'])->name('patient.home');
+    Route::get('/family-member/logs', [PatientLogsController::class, 'getLogForFamily'])->name('familyMember.logs');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/patient-assignment', [PatientController::class, 'showPatientAssignmentForm'])->name('patient.assignment');
+    Route::get('/search-patient', [PatientController::class, 'searchPatientById']);
+    Route::post('/patient-assignment', [PatientController::class, 'storePatientAssignment']);
+    Route::get('/patientList', [PatientController::class, 'patientList'])->name('patientList');
+    Route::post('/patient', [PatientController::class, 'store']);
+    Route::get('/patient', [PatientController::class, 'patientsPage']);
+    Route::get('/employees', [EmployeesController::class, 'index'])->name('employees.index');
+    Route::post('/employees', [EmployeesController::class, 'store']);
+    Route::put('/employees/update-salary', [EmployeesController::class, 'updateSalary'])->name('employees.updateSalary');
+    Route::get('/roster', [RosterController::class, 'showRosterForm']);
+    Route::post('/roster', [RosterController::class, 'store']);
+    Route::get('/rosterList', [RosterController::class, 'showRosterListForm'])->name('rosterList');
+    Route::get('/appointment', action: [AppointmentController::class, 'appointmentForm'])->name(name: 'appointment.appointmentForm');
+    Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+    Route::get('/rosters/create', [RosterController::class, 'index'])->name('newRoster.create');
+    Route::post('/rosters/store', [RosterController::class, 'store'])->name('newRoster.store');
+    Route::get('/rosters/list', [RosterController::class, 'show'])->name('rosters.list');
+    Route::get('/admin-report', [AdminReportController::class, 'index'])->name('admin-report.index');
+    Route::get('/admin-report/search', [AdminReportController::class, 'searchMissedActivity'])->name('admin-report.search');
+    Route::post('/appointments/store', [AppointmentController::class, 'storeAppointment'])->name('appointments.store');
     Route::get('/doctor/list', [DoctorController::class, 'doctorList'])->name('doctorList');
-
     Route::get('/doctor/{patientId}/{appointmentId}', [DoctorController::class, 'patientOfDoctor'])
         ->name('patientOfDoctor');
-
     Route::get('/doctor/prescription/create/{appointmentId}', [DoctorController::class, 'create'])
         ->name('prescription.create');
-
     Route::post('/doctor/prescription/store', [DoctorController::class, 'store'])
         ->name('prescription.store');
+    Route::get('/payment', [PaymentController::class, 'paymentPage'])->name('payment.payment');
+    Route::post('/fetch-payment', [PaymentController::class, 'fetchOrInsertPayment']);
+    Route::post('/process-payment', [PaymentController::class, 'processPayment']);
 });
-
-
-Route::get('/payment', [PaymentController::class, 'paymentPage'])->name('payment.payment');
-Route::post('/fetch-payment', [PaymentController::class, 'fetchOrInsertPayment']);
-Route::post('/process-payment', [PaymentController::class, 'processPayment']);
-
-

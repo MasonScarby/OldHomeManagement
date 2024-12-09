@@ -9,6 +9,7 @@
 </head>
 <body class=patientHome>
     @include('navbar')
+
     <div class='page-container'>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -16,7 +17,7 @@
         </div>
     @endif
 
-    <h1>{{ __('You are logged in as patient!') }}</h1>
+    <h1>{{ __('Dashboard') }}</h1>
 
     <div>
         <label for="patient-id">Patient ID</label>

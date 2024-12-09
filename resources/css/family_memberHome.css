@@ -1,38 +1,32 @@
-/* General body styles */
-body {
-    background-color: whitesmoke; /* Page background */
-    color: #303030; /* Text color */
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
 }
 
-/* Page title */
 h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
     text-align: center;
-    color: #303030; /* Dark Gray */
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 20px 0;
 }
 
-/* Alerts */
 .alert {
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray */
-    border: 1px solid #d2a67b; /* Slightly darker brown */
+    background-color: #E4C297;
+    color: #303030;
+    border: 1px solid #d2a67b;
     border-radius: 5px;
     padding: 10px;
     width: 90%;
     margin: 20px auto;
     text-align: center;
     font-weight: bold;
-    display: none; /* Default is hidden */
+    display: none;
 }
 
-/* Form container */
 .form {
-    background-color: #ffffff; /* White form background */
+    background-color: #ffffff;
     border-radius: 8px;
     width: 90%;
     margin: 20px auto;
@@ -40,15 +34,13 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Form labels */
 .form label {
     font-weight: bold;
-    color: #303030; /* Dark Gray */
+    color: #303030;
     display: block;
     margin-bottom: 5px;
 }
 
-/* Form inputs */
 .form input[type="text"],
 .form input[type="date"],
 .form input[type="number"] {
@@ -62,10 +54,9 @@ h1 {
     color: #303030;
 }
 
-/* Submit button */
 .form button {
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray */
+    background-color: #E4C297;
+    color: #303030;
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -74,14 +65,14 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .form button:hover {
-    background-color: #d2a67b; /* Darker light brown */
+    background-color: #d2a67b;
     color: whitesmoke;
 }
 
-/* Error message */
 #errorMessage {
     color: red;
     font-size: 1rem;
@@ -91,22 +82,20 @@ h1 {
     width: 90%;
 }
 
-/* Table styles */
 table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: #ffffff; /* White table background */
+    background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none; /* Initially hidden */
+    display: none;
 }
 
-/* Table header */
 thead {
-    background-color: #E4C297; /* Light Brown */
-    color: #303030; /* Dark Gray */
+    background-color: #E4C297;
+    color: #303030;
     text-align: center;
 }
 
@@ -116,35 +105,31 @@ thead th {
     font-size: 1rem;
 }
 
-/* Table body rows */
 tbody tr {
     border-bottom: 1px solid #ccc;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9; /* Light gray rows */
+    background-color: #f9f9f9;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #ffffff; /* White rows */
+    background-color: #ffffff;
 }
 
-/* Table data cells */
 tbody td {
     padding: 10px;
     text-align: center;
     font-size: 1rem;
-    color: #303030; /* Dark Gray */
+    color: #303030;
 }
 
-/* Checkboxes */
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    cursor: not-allowed; /* Indicates these are disabled */
+    cursor: not-allowed;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     h1 {
         font-size: 1.5rem;

@@ -1,16 +1,15 @@
-body {
-    background-color: whitesmoke; 
-    color: #303030; 
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
+    margin-bottom: 20px;
+    font-size: 40px;
     text-align: center;
-    color: #303030; 
-    margin-top: 20px;
-    font-size: 1.8rem;
 }
 
 .alert {
@@ -46,6 +45,7 @@ input[type="checkbox"] {
     height: 20px;
     margin: 5px;
     cursor: not-allowed; 
+}
 
 button#search-date-btn {
     background-color: #E4C297; 
@@ -98,14 +98,6 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
     background-color: #ffffff; 
 }
-/* patientHome Styles */
-body {
-    background-color: whitesmoke; /* Background remains whitesmoke */
-    color: #303030; /* Dark Gray */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
 h1 {
     text-align: center;
@@ -128,11 +120,6 @@ h1 {
     display: none; /* Hidden by default */
 }
 
-div {
-    width: 90%;
-    margin: 20px auto;
-    padding: 10px 0;
-}
 
 label {
     font-weight: bold;
@@ -224,5 +211,4 @@ tbody tr td[colspan="9"] {
     text-align: center;
     color: #d9534f; 
     font-weight: bold;
-}
 }

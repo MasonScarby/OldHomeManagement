@@ -1,41 +1,26 @@
-/* General body styling */
-body {
-    background-color: whitesmoke; /* Light background for the entire page */
-    color: whitesmoke; /* Dark gray text for overall readability */
-    font-family: 'Arial', sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
 }
 
-/* Page container styling */
-.page-container {
-    max-width: 90%;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #ffffff; /* White background for the content area */
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-/* Page title */
 h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
     text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: whitesmoke; 
-    margin-bottom: 20px;
 }
 
-/* Subheader styling */
+
 h3 {
     text-align: center;
     font-size: 1.5rem;
-    color: #E4C297; /* Light Brown for emphasis */
     margin-bottom: 20px;
 }
 
-/* Form styling */
-form {
+
+.form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,31 +29,30 @@ form {
     flex-wrap: wrap;
 }
 
-form label {
+.form label {
     font-weight: bold;
     font-size: 1rem;
-    color: #ffffff; /* White text for the form labels */
+    color: #303030; 
 }
 
-form input {
+.form input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: whitesmoke; 
-    color: #ffffff; /* White text for input fields */
+    color: #303030; 
     font-size: 1rem;
     width: 100%;
     max-width: 250px;
     box-sizing: border-box;
 }
 
-form input::placeholder {
-    color: #cccccc; /* Light gray for placeholders */
+.form input::placeholder {
+    color: #cccccc; 
 }
 
-form button {
-    background-color: #E4C297; /* Light Brown */
-    color: #ffffff; /* White text for contrast */
+.form button {
+    background-color: #E4C297; 
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -78,33 +62,34 @@ form button {
     transition: background-color 0.3s ease;
 }
 
-form button:hover {
-    background-color: #d2a67b; /* Darker Light Brown */
+.form button:hover {
+    background-color: #d2a67b; 
 }
 
 /* Error message styling */
 #errorMessage {
     text-align: center;
-    color: #d9534f; /* Soft red for error message */
+    color: #d9534f; 
     font-size: 1rem;
     margin-top: 15px;
 }
 
 /* Table styling */
 table {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #ffffff; /* White table background */
+    background-color: #ffffff; 
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the table */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
     overflow: hidden;
     text-align: left;
 }
 
 thead {
     background-color: whitesmoke; 
-    color: #ffffff; /* White text */
+    color: #303030; 
 }
 
 thead th {
@@ -118,11 +103,11 @@ tbody tr {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9; /* Light gray */
+    background-color: #f9f9f9; 
 }
 
 tbody tr:nth-child(even) {
-    background-color: #ffffff; /* White rows */
+    background-color: #ffffff; 
 }
 
 tbody td {
@@ -133,11 +118,11 @@ tbody td {
 
 tbody td[colspan] {
     font-style: italic;
-    color: #d9534f; /* Soft red for "no results" */
+    color: #d9534f; 
     text-align: center;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     h1 {
         font-size: 1.5rem;
@@ -155,4 +140,16 @@ tbody td[colspan] {
     table {
         font-size: 0.9rem;
     }
+}
+
+/* Completed status (green) */
+.completed {
+    color: green;
+    font-weight: bold;
+}
+
+/* Missed status (red) */
+.missed {
+    color: red;
+    font-weight: bold;
 }

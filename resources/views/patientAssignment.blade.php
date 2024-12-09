@@ -56,6 +56,7 @@
             <input type="date" id="admission_date" name="admission_date" required>
 
             <button type="submit" id="okButton">Ok</button>
+            <button type="reset" onclick="resetForm()">Cancel</button>
         </form>
 
 
@@ -101,6 +102,17 @@
                 const formattedDate = today.toISOString().split('T')[0]; // Format it as yyyy-mm-dd
                 document.getElementById('admission_date').setAttribute('min', formattedDate); // Set the min attribute
             });
+
+            function resetForm() {
+        // Reset all form fields
+        $('form')[0].reset();
+
+        // Clear the patient name field (since it’s readonly, but we can still clear its value)
+        $('#patient_name').val('');
+
+        // Clear any error messages
+        $('#patient_id_error').text('').hide();
+    }
         </script>
     </div> 
     @include('footer')
