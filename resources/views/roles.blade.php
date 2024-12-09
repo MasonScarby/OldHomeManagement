@@ -44,10 +44,19 @@
                     <input type="number" id="access_level" name="access_level" class="accessLevelInput" min="1" max="99999" required>
                 </div class="action-buttons">
 
-                <button type="submit" class="createBtn">Create</button>
+                <button type="submit" class="createBtn formBtn">Create</button>
+                <button type="reset" onclick="resetForm()" class="cancelBtn formBtn">Cancel</button>
            </form>
         </div>
     </div>
+
+    <script>
+        function resetForm() {
+            const form = document.querySelector('.form');
+    
+            form.reset();
+        }
+    </script>
     
     @include('footer')
 </body>

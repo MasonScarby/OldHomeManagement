@@ -1,35 +1,29 @@
-
-body {
-    background-color: whitesmoke; 
-    color: #303030; 
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
 }
-
 
 h1 {
+    margin-bottom: 50px;
+    font-size: 40px;
     text-align: center;
-    color: #303030; 
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 20px 0;
 }
 
-
 .alert {
-    background-color: #E4C297; 
+    background-color: #E4C297;
     color: #303030;
-    border: 1px solid #d2a67b; 
+    border: 1px solid #d2a67b;
     border-radius: 5px;
     padding: 10px;
     width: 90%;
     margin: 20px auto;
     text-align: center;
     font-weight: bold;
-    display: none; 
+    display: none;
 }
-
 
 .form {
     background-color: #ffffff;
@@ -40,15 +34,13 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 .form label {
     font-weight: bold;
-    color: #303030; 
+    color: #303030;
     display: block;
     margin-bottom: 5px;
 }
 
-/* Form inputs */
 .form input[type="text"],
 .form input[type="date"],
 .form input[type="number"] {
@@ -62,10 +54,9 @@ h1 {
     color: #303030;
 }
 
-
 .form button {
-    background-color: #E4C297; 
-    color: #303030; 
+    background-color: #E4C297;
+    color: #303030;
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -74,13 +65,13 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .form button:hover {
-    background-color: #d2a67b; 
+    background-color: #d2a67b;
     color: whitesmoke;
 }
-
 
 #errorMessage {
     color: red;
@@ -91,22 +82,20 @@ h1 {
     width: 90%;
 }
 
-
 table {
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: #ffffff; 
+    background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none; 
+    display: none;
 }
 
-
 thead {
-    background-color: #E4C297; 
-    color: #303030; 
+    background-color: #E4C297;
+    color: #303030;
     text-align: center;
 }
 
@@ -116,32 +105,29 @@ thead th {
     font-size: 1rem;
 }
 
-
 tbody tr {
     border-bottom: 1px solid #ccc;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9; 
+    background-color: #f9f9f9;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #ffffff; 
+    background-color: #ffffff;
 }
-
 
 tbody td {
     padding: 10px;
     text-align: center;
     font-size: 1rem;
-    color: #303030; 
+    color: #303030;
 }
-
 
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    cursor: not-allowed; 
+    cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

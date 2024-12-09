@@ -1,3 +1,16 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.register {
+    background-size: cover;
+    background-position: center center;
+    transition: background-image 1s ease-in-out;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;

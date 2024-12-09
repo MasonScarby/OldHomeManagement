@@ -10,21 +10,22 @@
     @include('navbar')
 
     <h1>New Roster</h1>
-    <!-- <pre>
-        {{ print_r($supervisors) }}
-        {{ print_r(value: $doctors) }}
-        {{ print_r($caregivers) }}
-    </pre> -->
 
-        <form action="{{ route('newRoster.store') }}" method="POST" class="form">
-            @csrf
+    @if (session('success'))
+        <div class="success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        <div>
+    <form action="{{ route('newRoster.store') }}" method="POST" class="form">
+        @csrf
+
+        <div class="form--box">
             <label for="date">Date</label>
             <input type="date" name="date" id="date" min="{{ date('Y-m-d') }}" required>
         </div>
 
-        <div>
+        <div class="form--box">
             <label for="supervisor">Supervisor:</label>
             <select name="supervisor" id="supervisor" required>
                 <option value="">Select Supervisor</option>
@@ -36,7 +37,7 @@
             </select>
         </div>
 
-        <div>
+        <div class="form--box">
             <label for="doctor">Doctor:</label>
             <select name="doctor" id="doctor" required>
                 <option value="">Select Doctor</option>
@@ -47,8 +48,9 @@
                 @endforeach
             </select>
         </div>
+    
         @for ($i = 1; $i <= 4; $i++)
-            <div>
+            <div class="form--box">
                 <label for="caregiver{{ $i }}">Caregiver {{ $i }}:</label>
                 <select name="caregiver{{ $i }}" id="caregiver{{ $i }}">
                     <option value="">Select Caregiver</option>
@@ -61,7 +63,9 @@
             </div>
         @endfor
 
-        <button type="submit">Create Roster</button>
+        <button type="submit" class="submit">Create Roster</button>
+        <button type="reset" onclick="resetForm()" class="cancel">Cancel</button>
+
     </form>
 
 <script>
@@ -70,6 +74,14 @@
         const dateInput = document.getElementById('date');
         dateInput.setAttribute('min', today); // Set the min attribute to today's date
     });
+
+    function resetForm() {
+        // Reset all form fields
+        $('form')[0].reset();
+
+        // Clear any error messages or additional field modifications
+        $('.success').text('').hide();
+    }
 </script>
 
     @include('footer')
