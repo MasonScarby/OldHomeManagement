@@ -7,16 +7,17 @@
     <title>Shire Homes</title>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class=patientHome>
     @include('navbar')
 
+    <div class='page-container'>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
         </div>
     @endif
 
-    <h1>{{ __('You are logged in as patient!') }}</h1>
+    <h1>{{ __('Dashboard') }}</h1>
 
     <div>
         <label for="patient-id">Patient ID</label>
@@ -122,7 +123,7 @@
                 .catch(error => console.error('Error fetching log:', error));
         });
     </script>
-    
+    </div>
     @include('footer')
 </body>
 </html>

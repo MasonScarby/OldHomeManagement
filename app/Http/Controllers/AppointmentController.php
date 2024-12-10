@@ -41,6 +41,7 @@ class AppointmentController extends Controller
     {
         $validated = $request->validate([
             'patient_id' => 'required|exists:users,id',
+            'patient_name' => 'required',
             'doctor_id' => 'required|exists:users,id', 
             'date' => 'required|date',
         ]);
@@ -50,12 +51,7 @@ class AppointmentController extends Controller
             'doctor_id' => $validated['doctor_id'],
             'date' => $validated['date'],
         ]);
-    
-        return response()->json([
-            'success' => true,
-            'message' => 'Appointment created successfully',
-            'data' => $appointment,
-        ], 201);
-    }
 
+        return redirect()->back()->with('success', 'Appointment created successfully!');
+    }
 }

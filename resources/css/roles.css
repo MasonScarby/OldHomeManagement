@@ -1,3 +1,11 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -80,10 +88,10 @@ h1 {
     width: 20%;
 }
 
-.createBtn {
+.createBtn, .formBtn {
     width: 30%;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 5px;
     background-color: #E4C297;
     border: 1px solid gray;
@@ -92,7 +100,9 @@ h1 {
     font-weight: bold;
 }
 
-.createBtn:hover {
+.createBtn:hover, .formBtn:hover {
     cursor: pointer;
     background-color: #dcab6c;
 }
+
+

@@ -7,50 +7,71 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="appointment">
     @include('navbar')
+    
+    <div class="page-container">
+        <h1>Create Appointment</h1>
 
-    <form action="{{ route('appointment.store') }}" method="post">
-        @csrf
-        <table>
-            <tr>
-                <td><label for="date">Date</label></td>
-                <td><input type="date" id="date" name="date" value="{{ old('date') }}" required></td>
-            </tr>
-
-            <tr>
-                <td><label for="patient_id">Patient ID</label></td>
-                <td>
-                    <input type="text" id="patient_id" name="patient_id" value="{{ old('patient_id') }}" required>
-                    <button type="button" id="searchButton">Search</button>
-                    <div id="patient_id_error" class="error"></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td><label for="patient_name">Patient Name</label></td>
-                <td><input type="text" id="patient_name" name="patient_name" readonly></td>
-            </tr>
-
-            <tr>
-                <td><label for="doctor_id">Doctor</label></td>
-                <td>
-                    <select name="doctor_id" id="doctor_id" class="form-control" required>
-                        <option value="">Select Doctor</option>
-                        @foreach($doctors as $doctor)
-                            <option value="{{ $doctor->id }}">{{ $doctor->full_name }}</option>
+        @if (session('success'))
+            <div class="success">
+                {{ session('success') }}
+            </div>
+        @endif
+    
+        <form action="{{ route('appointment.store') }}" method="post" class="form">
+            @csrf
+    
+            @if ($errors->any())
+                <div class="errors">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
                         @endforeach
-                    </select>
-                </td>
-            </tr>
-        </table>
-
-        <div >
-            <button type="submit">Ok</button>
-            <button type="reset">Cancel</button>
-        </div>
-    </form>
-
+                    </ul>
+                </div>
+            @endif
+    
+            <table>
+                <tr>
+                    <td><label for="date">Date</label></td>
+                    <td><input type="date" id="date" name="date" value="{{ old('date') }}" min="{{ date('Y-m-d') }}" required></td>
+                </tr>
+    
+                <tr>
+                    <td><label for="patient_id">Patient ID</label></td>
+                    <td>
+                        <input type="text" id="patient_id" name="patient_id" value="{{ old('patient_id') }}" required>
+                        <button type="button" id="searchButton" class="search">Search</button>
+                        <div id="patient_id_error" class="error"></div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td><label for="patient_name">Patient Name</label></td>
+                    <td><input type="text" id="patient_name" name="patient_name" readonly></td>
+                </tr>
+    
+                <tr>
+                    <td><label for="doctor_id">Doctor</label></td>
+                    <td>
+                        <select name="doctor_id" id="doctor_id" class="form-control" required>
+                            <option value="">Select Doctor</option>
+                            @foreach($doctors as $doctor)
+                                <option value="{{ $doctor->id }}">{{ $doctor->full_name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </table>
+    
+            <div >
+                <button type="submit">Ok</button>
+                <button type="reset" onclick="resetForm()">Cancel</button>
+            </div>
+        </form>    
+    </div>
+    
     <script>
         $(document).ready(function() {
             $('#searchButton').click(function() {
@@ -83,6 +104,17 @@
                 }
             });
         });
+
+        function resetForm() {
+            // Reset the form fields
+            $('form')[0].reset();
+
+            // Clear the patient name field (it’s readonly but can still be cleared)
+            $('#patient_name').val('');
+
+            // Clear the error message display
+            $('#patient_id_error').text('').hide();
+        }
     </script>
 
     @include('footer')
