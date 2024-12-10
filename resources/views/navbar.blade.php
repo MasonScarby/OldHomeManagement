@@ -6,7 +6,7 @@
 
     <!-- Admin navbar -->
     @if(Auth::check() && Auth::user()->role && Auth::user()->role->access_level === 1)
-        <li><a href="{{ route('approval') }}">Approval</a></li>
+        <li><a href="{{ route('approval') }}"><p>Approval</p></a></li>
         <li><a href="{{ route('roles.index') }}">Manage Roles</a></li>
         <li><a href="{{ route('patientList') }}">Patient List</a></li>
         <li><a href="{{ route('patient.assignment') }}">Patient Assignment</a></li>

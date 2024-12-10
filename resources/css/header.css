@@ -25,6 +25,7 @@ nav li {
     
 }
 
+
 nav a {
     color: whitesmoke;
     font-size: 20px;
@@ -50,3 +51,4 @@ nav a:hover {
     cursor: pointer;
     color: #E4C297;
 }
+
