@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role_id' => 1,
-            'first_name' => 'Donald',
-            'last_name' => 'Trump',
+            'first_name' => 'Bilbo',
+            'last_name' => 'Baggins',
             'email' => 'example1@gmail.com',
             'password' => Hash::make('12345678'),
             'phone' => '111-111-1111',

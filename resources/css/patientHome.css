@@ -1,0 +1,214 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.alert {
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #E4C297; 
+    color: #303030; 
+    border: 1px solid #d2a67b; 
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    color: #303030; 
+}
+
+input[type="text"], input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: whitesmoke; 
+    color: #303030; 
+    font-size: 1rem;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: not-allowed; 
+}
+
+button#search-date-btn {
+    background-color: #E4C297; 
+    color: #303030; 
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button#search-date-btn:hover {
+    background-color: #d2a67b; 
+    color: whitesmoke;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+    background-color: #E4C297; 
+    color: #303030; 
+    text-align: left;
+}
+
+thead th {
+    padding: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+h1 {
+    text-align: center;
+    color: #303030; 
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.alert {
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #E4C297; 
+    color: #303030; 
+    border: 1px solid #d2a67b; 
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    display: none; 
+}
+
+
+label {
+    font-weight: bold;
+    color: #303030; 
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: whitesmoke; 
+    color: #303030; 
+    font-size: 1rem;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: not-allowed; 
+}
+
+button#search-date-btn {
+    background-color: #E4C297; 
+    color: #303030; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button#search-date-btn:hover {
+    background-color: #d2a67b; 
+    color: whitesmoke;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+    background-color: #E4C297; 
+    color: #303030; 
+    text-align: center;
+}
+
+thead th {
+    padding: 12px;
+    font-weight: bold;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+}
+
+tbody td[colspan="9"] {
+    text-align: center;
+    color: #d9534f; 
+    font-weight: bold;
+}
+
+tbody tr td[colspan="9"] {
+    text-align: center;
+    color: #d9534f; 
+    font-weight: bold;
+}

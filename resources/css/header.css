@@ -26,16 +26,20 @@ nav li {
 }
 
 
-nav a {
+nav p {
     color: whitesmoke;
     font-size: 20px;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-nav a:hover {
+nav p:hover {
     cursor: pointer;
     color: #E4C297;
+}
+
+nav a{
+    text-decoration: none;
 }
 
 .logout {
@@ -52,3 +56,27 @@ nav a:hover {
     color: #E4C297;
 }
 
+
+.p {
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.p::after {
+    content: '';
+    position: absolute;
+    height: 5px;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background: #E4C297;
+    transition: width .2s;
+    bottom: -10px;
+
+}
+
+.p:hover::after {
+    width: 100%;
+}

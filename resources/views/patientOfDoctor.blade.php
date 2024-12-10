@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Details</title>
+    @vite(['resources/js/app.js'])
 </head>
-<body>
+<body class="patientOfDoctor">
     @include('navbar')
 
     <h1>Patient Details</h1>
-    <p><strong>First Name:</strong> {{ $patient->user->first_name }}</p>
-    <p><strong>Last Name:</strong> {{ $patient->user->last_name }}</p>
+    <p class="ptag"><strong>First Name:</strong> {{ $patient->user->first_name }}</p>
+    <p class="ptag"><strong>Last Name:</strong> {{ $patient->user->last_name }}</p>
 
     <h2>Previous Prescriptions</h2>
     @if($prescriptions->isEmpty())
-        <p>No previous prescriptions found for this patient.</p>
+        <p class="ptag">No previous prescriptions found for this patient.</p>
     @else
         <table border="1" cellpadding="10" cellspacing="0">
             <thead>
@@ -42,7 +43,7 @@
 
 
     <h2>Create Prescription</h2>
-    <form action="{{ route('prescription.store') }}" method="POST">
+    <form action="{{ route('prescription.store') }}" method="POST" class="form">
         @csrf
         <input type="hidden" name="appointment_id" value="{{ $appointment->id ?? '' }}" readonly>
         <input type="hidden" name="doctor_id" value="{{ auth()->user()->id }}" readonly>
@@ -78,6 +79,8 @@
     </form>
 
 
-    <a href="{{ route('doctorList') }}">Back to Dashboard</a>
+    <a href="{{ route('doctorList') }}" class="a">Back to Dashboard</a>
+
+    @include('footer')
 </body>
 </html>

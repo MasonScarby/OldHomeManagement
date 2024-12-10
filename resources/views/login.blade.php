@@ -41,7 +41,32 @@
         </div>
         <p>New to Shire Homes? <a href="{{ route('register') }}" class="a">Create an account</a></p>
 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
     </div>
     @include('footer')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
+                'url("{{ asset('images/image1.png') }}")',
+                'url("{{ asset('images/image2.png') }}")',
+                'url("{{ asset('images/image3.png') }}")'
+            ];
+
+            let currentImageIndex = 0;
+
+            document.body.style.backgroundImage = images[currentImageIndex];
+
+            setInterval(function() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                document.body.style.backgroundImage = images[currentImageIndex];
+            }, 6000);
+        });
+    </script>
 </body>
 </html>

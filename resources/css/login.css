@@ -1,3 +1,16 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.login {
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+    height: 100%;
+    background-attachment: fixed;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -12,10 +25,13 @@ h1 {
 p {
     text-align: center;
     margin-top: 15px;
+    color: white;
+    font-weight: bold;
 }
 
 .a {
-    color: black;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
 }
 
 .a:hover {

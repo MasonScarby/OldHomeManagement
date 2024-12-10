@@ -6,39 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shire Homes</title>
     @vite(['resources/js/app.js'])
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
-<body>
+<body class="doctorHome">
     @include('navbar')
 
     @if (session('status'))
@@ -48,8 +17,7 @@
     @endif
 
     <div class="container">
-        <h1>Completed Appointments</h1>
-        <form action="{{ route('doctorList') }}" method="GET">
+        <form action="{{ route('doctorList') }}" method="GET" class='form'>
             <label for="filter_by">Filter By:</label>
             <select name="filter_by" id="filter_by">
                 <option value="name" {{ request()->input('filter_by') == 'name' ? 'selected' : '' }}>Patient Name</option>
@@ -63,12 +31,13 @@
             <button type="submit">Filter</button>
             <a href="{{ route('doctorList') }}" class="btn-reset">Reset</a>
         </form>
+        <h1>Completed Appointments</h1>
 
         @if($completedAppointments->isEmpty())
             <div class="no-appointments">No completed appointments found.</div>
         @else
             <h3>Completed Appointments and Prescriptions</h3>
-            <table>
+            <table class="completedTable table">
                 <thead>
                     <tr>
                         <th>Patient Name</th>
@@ -102,7 +71,7 @@
         @if($upcomingAppointments->isEmpty())
             <div class="no-appointments">No upcoming appointments found.</div>
         @else
-            <table>
+            <table class="upcomingTable table">
                 <thead>
                     <tr>
                         <th>Patient Name</th>

@@ -32,7 +32,7 @@ class PaymentController extends Controller
         if ($payment) {
             // Return the updated total due (payment amount after adjustments)
             return response()->json([
-                'admission_date' => $patient->admission_date,  // Return formatted admission date
+                // 'admission_date' => $patient->admission_date,  // Return formatted admission date
                 'total_due' => $payment->amount,  // Return updated total due from payment record
             ]);
         } else {
@@ -57,11 +57,11 @@ class PaymentController extends Controller
             ]);
     
             return response()->json([
-                'admission_date' => $patient->admission_date,  // Return admission date
+                // 'admission_date' => $patient->admission_date,  // Return admission date
                 'total_due' => $totalDue,  // Initial total due
             ]);
         }
-    }
+    } 
             
 
     public function processPayment(Request $request)
